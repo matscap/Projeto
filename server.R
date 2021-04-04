@@ -1,3 +1,5 @@
+library(dplyr)
+library(ggplot2)
 shinyServer(
   
   function(input,output,session){
@@ -9,50 +11,39 @@ shinyServer(
       
       dadosapenasportugal <- data %>%
         filter(ReportingCountry == "PT")
-      View(dadosapenasportugal)
       #Dados por região:
       if(regiao=="ALENTEJO"){
-        ALENTEJO <- dadosapenasportugal %>%
+        escolha <- dadosapenasportugal %>%
           filter(Region == "PTCSR01")
-        
-        weight=unlist(ALENTEJO["YearWeekISO"])
-        
-        set.seed(1234)
-        df <- data.frame(
-          sex=as.numeric(unlist(ALENTEJO["FirstDose"])),
-          weight
-        )
-        ggplot(df, aes(x=weight)) + geom_bar()
-        print("OLA");
-        #hist(ALENTEJO['FirstDose']);
       }else if(regiao == "ALGARVE"){
-        ALGARVE <- dadosapenasportugal %>%
+        escolha <- dadosapenasportugal %>%
           filter(Region == "PTCSR02")
-        print("ALGARVE")
       }else if(regiao == "AZORES"){
-        AZORES <- dadosapenasportugal %>%
+        escolha <- dadosapenasportugal %>%
           filter(Region == "PTCSR03")
         print("AZORES")
       }else if(regiao == "CENTRO"){
-        CENTRO <- dadosapenasportugal %>%
+        escolha <- dadosapenasportugal %>%
           filter(Region == "PTCSR04")
         print("CENTRO")
       }else if(regiao == "LISBOA"){
-        AREALISBOA <- dadosapenasportugal %>%
+        escolha <- dadosapenasportugal %>%
           filter(Region == "PTCSR05")
         print("LISBOA")
       }else if(regiao == "MADEIRA"){
-        MADEIRA <- dadosapenasportugal %>%
+        escolha <- dadosapenasportugal %>%
           filter(Region == "PTCSR06")
         print("MADEIRA")
       }else if(regiao == "NORTE"){
-        NORTE <- dadosapenasportugal %>%
+        escolha <- dadosapenasportugal %>%
           filter(Region == "PTCSR07")
         print("NORTE")
       }else{
-        PT <- dadosapenasportugal %>%
+        escolha <- dadosapenasportugal %>%
           filter(Region == "PT")
       }
+      
+      
       
       #Dados por GRUPOS ETÁRIOS:
       Age18_24 <- dadosapenasportugal %>%
@@ -68,15 +59,19 @@ shinyServer(
       Age80 <- dadosapenasportugal %>%
         filter(TargetGroup == "Age80+")
       
+      ##########################################################################
+      #histogram de doses por região:
       
-      #novo <- transform(dadosapenasportugal,dateRep = as.Date(dateRep,format = "%d/%m/%y"))
-      #novo <- transform(novo,cases = as.numeric(cases))
-      #str(novo)
-      # plot(novo['dateRep'],novo['cases'],type="b")
-      #View(novo['cases'])
+      anosemana = unlist(escolha["YearWeekISO"])
+      primeiradose=unlist(escolha["FirstDose"])
       
-      #hist(novo["cases"])
+      df <- data.frame(
+        anosemana,
+        primeiradose
+      )
+      ggplot(df, aes(x=anosemana, y= primeiradose)) + geom_bar(stat='identity')
       
+      ##########################################################################
       
     })
     
