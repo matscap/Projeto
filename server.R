@@ -12,7 +12,7 @@ shinyServer(
       dadosapenasportugal <- data %>%
         filter(ReportingCountry == "PT")
       #Dados por região:
-      if(regiao=="ALENTEJO"){
+      if(input$Regiao=="ALENTEJO"){
         escolha <- dadosapenasportugal %>%
           filter(Region == "PTCSR01")
       }else if(regiao == "ALGARVE"){
@@ -21,23 +21,18 @@ shinyServer(
       }else if(regiao == "AZORES"){
         escolha <- dadosapenasportugal %>%
           filter(Region == "PTCSR03")
-        print("AZORES")
       }else if(regiao == "CENTRO"){
         escolha <- dadosapenasportugal %>%
           filter(Region == "PTCSR04")
-        print("CENTRO")
       }else if(regiao == "LISBOA"){
         escolha <- dadosapenasportugal %>%
           filter(Region == "PTCSR05")
-        print("LISBOA")
       }else if(regiao == "MADEIRA"){
         escolha <- dadosapenasportugal %>%
           filter(Region == "PTCSR06")
-        print("MADEIRA")
       }else if(regiao == "NORTE"){
         escolha <- dadosapenasportugal %>%
           filter(Region == "PTCSR07")
-        print("NORTE")
       }else{
         escolha <- dadosapenasportugal %>%
           filter(Region == "PT")
@@ -62,14 +57,17 @@ shinyServer(
       ##########################################################################
       #histogram de doses por região:
       
-      anosemana = unlist(escolha["YearWeekISO"])
-      primeiradose=unlist(escolha["FirstDose"])
+      Data = unlist(escolha["YearWeekISO"])
+      Doses=unlist(escolha["FirstDose"])
       
       df <- data.frame(
-        anosemana,
-        primeiradose
+        Data,
+        Doses
       )
-      ggplot(df, aes(x=anosemana, y= primeiradose)) + geom_bar(stat='identity')
+      if(input$CHECKBOX)
+        ggplot(df, aes(x=Data, y= Doses)) + geom_bar(stat='identity')
+      else
+        ggplot(df, aes(x=Data, y=cumsum(Doses))) + geom_line() + geom_point()
       
       ##########################################################################
       
