@@ -4,16 +4,25 @@
 \usepackage[utf8]{inputenc} % Unicode
 \usepackage{graphicx} 
 \usepackage{url} 
+\usepackage{amsmath}
 \usepackage{textcomp} 
 \usepackage{multirow} 
 \usepackage[pdftex,hidelinks]{hyperref}
 \usepackage{listings}
 \usepackage{natbib}
 \usepackage{graphicx}
-\lstset{language=Java,breaklines=true,basicstyle=\scriptsize\ttfamily,frame=single,showstringspaces=false}
+\usepackage{hyperref}
+\usepackage{verbatim}
+\usepackage{acronym}
+\usepackage{ textcomp }
 
-\title{Development of a Shiny application to visualize SARS-CoV-2 vaccination data of Portugal}
+\def\R{{\textsl{R }}}
+\def\Shiny{\textsl{Shiny }}
+\def\sar{\textsl{SARS-CoV-2 }}
 
+
+
+\title{Development of a \Shiny application to visualize SARS-CoV-2 vaccination data of Portugal}
 
 \author{
   Bruna Araújo\\
@@ -57,31 +66,38 @@
 \listoftables
 \newpage
 
+{\huge\textbf{Acronym List}}\\
+\input{acro_list}
+
 
 \chapter{Introduction}
-\section{R and Shiny}
-% Apagar daqui
-    ************* Poderiamos fazer uma descrição brévia (ou detalhada se quiserem) de o que é o R mas mais propriamente o que é o R+Shiny *************\\ \\
-%até aqui
+\section{\R and \Shiny}
+
+\input{RandShiny}
+
+% Apagar aqui
+\\
+\\
+\textbf{NÃO GOSTO DESTA ULTIMA FRASE. DESPOIS VER ESTA CENA.}
+
+%Até aqui
 
 \section{SARS-CoV-2}
 \subsection{Brief description}
-% Apagar daqui
-    ************* Poderiamos fazer uma descrição brévia do Covid-19. Tipo o que é e como é transmitido. Na minha opinião acho que não é preciso alongar muito esta parte dado que a nossa cena é a vacinação.   *************\\ \\
-%até aqui
+
+\input{Sars-CoV-2}
+
 \subsection{Vaccination}
-% Apagar daqui
-    ************* Descrição da vacinação   *************\\ \\
-%até aqui
+\input{Vaccination}
 
 
 \section{Portugal}
+
 \subsection{Brief description}
+\input{Portugal}
 
 \subsection{Regions}
-% Apagar daqui
-    ************* Se calhar uma breve descrição das regiões. Pode ser interessante em termos estatisticos. Cenas tipo, densidade demográfica, média de idades, tipos de trabalhos etc...   *************\\ \\
-%até aqui
+\input{RegionsPT}
 
 \section{SARS-CoV-2 in Portugal}
 \subsection{Brief description}
@@ -105,11 +121,38 @@
 \chapter{Conclusion}
 
 
-
-
-
-
-
 \bibliographystyle{plain}
-\bibliography{references}
+\begin{thebibliography}{10}
+
+\bibitem{R-project website} \textit{\href{https://www.r-project.org/about.html}{https://www.r-project.org/about.html}} , \textbf{About/R-Project website}
+
+\bibitem{shiny}\textit{\href{https://shiny.rstudio.com/l}{https://shiny.rstudio.com}} , \textbf{Shiny website
+}
+\bibitem{SARS-CoV-2}\textit{\href{https://apps.who.int/iris/bitstream/handle/10665/332197/WHO-2019-nCoV-FAQ-Virus_origin-2020.1-eng.pdf}{https://apps.who.int/.../origin-2020.1-eng.pdf}} ,\textbf{ Origin of SARS-CoV-2 - \ac{WHO}}
+
+\bibitem{EU}\textit{\href{https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/public-health/eu-vaccines-strategy_pt}{https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/public-health/eu-vaccines-strategy_pt}} , \textbf{EU vaccine strategy} 
+
+\bibitem{reuters}\textit{\href{https://graphics.reuters.com/world-coronavirus-tracker-and-maps/vaccination-rollout-and-access/}{https://graphics.reuters.com/world-coronavirus-tracker-and-maps/vaccination-rollout-and-access/}}, \textbf{Covid-19 vaccination tracker, Reuters} 
+
+
+\bibitem{pubINE}\textit{\href{https://www.ine.pt/xurl/pub/71882686}{https://www.ine.pt/xurl/pub/71882686}}, \textbf{Instituto Nacional de Estatística - Estatísticas Demográficas : 2019. Lisboa : INE, 2020.} 
+
+
+\bibitem{trab}\textit{\href{https://ec.europa.eu/eures/main.jsp?acro=lmi&lang=pt&countryId=PT&catId=57&parentId=0}{https://ec.europa.eu/eures/main.jsp?acro=lmi&lang=pt&countryId=PT&catId=57&parentId=0}}, \textbf{Labor Market Information - European Commission} 
+
+\end{thebibliography}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \end{document}
