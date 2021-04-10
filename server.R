@@ -3,14 +3,15 @@ library(ggplot2)
 shinyServer(
   
   function(input,output,session){
-    output$myPlot <- renderPlot({
+    
+    myReactiveDat <- reactive({
       regiao <- input$Regiao
       
       data <- read.csv("https://opendata.ecdc.europa.eu/covid19/vaccine_tracker/csv/data.csv", na.strings = "", fileEncoding = "UTF-8-BOM")
       #Dados para portugal apenas:
-      
       dadosapenasportugal <- data %>%
         filter(ReportingCountry == "PT")
+      
       #Dados por região:
       if(input$Regiao=="ALENTEJO"){
         escolha <- dadosapenasportugal %>%
@@ -64,10 +65,25 @@ shinyServer(
         Data,
         Doses
       )
-      if(input$CHECKBOX)
-        ggplot(df, aes(x=Data, y= Doses)) + geom_bar(stat='identity')
-      else
-        ggplot(df, aes(x=Data, y=cumsum(Doses))) + geom_line() + geom_point()
+    })
+    
+    output$myPlot <- renderPlot({
+      res <- myReactiveDat()
+      #if(input$CHECKBOX)
+        ggplot(res$df, aes(x=res$Data, y= res$Doses)) + geom_bar(stat='identity')
+      ##else
+      ##  ggplot(df, aes(x=Data, y=cumsum(Doses))) + geom_line() + geom_point()
+      
+      ##########################################################################
+      
+      })
+    output$myPlot2 <- renderPlot({
+      res <- myReactiveDat()
+      
+      #if(input$CHECKBOX)
+      ##ggplot(df, aes(x=Data, y= Doses)) + geom_bar(stat='identity')
+      ##else
+        ggplot(res$df, aes(x=res$Data, y=cumsum(res$Doses))) + geom_line() + geom_point()
       
       ##########################################################################
       
