@@ -1,7 +1,6 @@
 library(dplyr)
 library(ggplot2)
 shinyServer(
-  
   function(input,output,session){
     
     myReactiveDat <- reactive({
@@ -181,18 +180,41 @@ shinyServer(
     output$myPlot <- renderPlot({
       res <- myReactiveDat()
       if(input$grafico=="Vacinação semanal")
-        ggplot(res$df, aes(x=res$Data, y= res$Doses)) + theme_bw() + geom_bar(stat='identity') 
+        (ggplot(res$df, aes(x=res$Data, y= res$Doses)) + 
+           geom_bar(stat='identity')+ 
+           theme(axis.text.x = element_text(angle = 45, vjust = 0.5),
+                 axis.title = element_text(face="bold", size=18),
+                 title = element_text(size = 20)) + 
+           xlab('Week') +
+           ylab('Doses') 
+         )
       else if(input$grafico=="Acumulação de vacinas")
-        ggplot(res$df, aes(x=res$Data, y=cumsum(res$Doses))) + theme_bw() + geom_line() + geom_point()
-      
+        ( ggplot(res$df, aes(x=res$Data, y=cumsum(res$Doses))) 
+            + geom_line()  
+            + geom_point() 
+            + theme(axis.text.x = element_text(angle = 45, vjust = 0.5),
+                  axis.title = element_text(face="bold", size=18),
+                  title = element_text(size = 20))  
+            + xlab('Week') 
+            + ylab('Doses') 
+        )
       ##########################################################################
       
       })
     output$myPlot2 <- renderPlot({
       res <- myReactiveDat2()
      
-      ggplot(res$df, aes(x=res$Data, y= res$Doses)) + theme_bw() + geom_bar(stat='identity')
-      ##########################################################################
+      (ggplot(res$df, aes(x=res$Data, y=cumsum(res$Doses))) 
+        + geom_line() 
+        + geom_bar(stat='identity')
+        + theme(axis.text.x = element_text( vjust = 0.5),
+                axis.title = element_text(face="bold", size=15),
+                title = element_text(size = 20))
+        + xlab('Week') 
+        + ylab('Doses')
+        + labs(title = "Titulo- Depois podemos por um titulo", 
+               subtitle = "Podemos por tambem alguma cena se quisermos")
+      )##########################################################################
 
     })
    
