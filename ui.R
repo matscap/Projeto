@@ -1,10 +1,17 @@
-library(shinythemes)
+library(bslib)
+library(thematic)
+library(shinycssloaders)
+
+
+thematic::thematic_shiny()
+
 shinyServer(
-  fluidPage(theme = shinytheme("superhero"),
+  
+  fluidPage(theme = bs_theme(version = 4, bootswatch = "superhero"),
             tabsetPanel(
               tabPanel("Visão Geral", fluid = TRUE,
                        tags$div(class="row",checked=NA,
-                                tags$div(class="col",plotOutput("myPlot2")))),
+                                tags$div(class="col",plotOutput("myPlot2")%>% withSpinner(color="#cccccc")))),
               tabPanel("Map", fluid = TRUE,
                   tags$div(class="row",tags$div(class="col",style="text-align:center",tags$h1("Vacinação em Portugal"))),
                   
@@ -32,7 +39,7 @@ shinyServer(
                                         
                                         mainPanel(
                                           tags$div(style="row", id="yo",checked=NA,
-                                                   tags$div(style="col-12",id="graph1",checked=NA,plotOutput("myPlot"))
+                                                   tags$div(style="col-12", id="graph1",checked=NA,plotOutput("myPlot")%>% withSpinner(color="#cccccc"))
                                                    )
                                           #plotOutput("myPlot")
                                         )
