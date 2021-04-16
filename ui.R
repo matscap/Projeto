@@ -15,7 +15,7 @@ shinyServer(
               tabPanel("Map", fluid = TRUE,
                   tags$div(class="row",tags$div(class="col",style="text-align:center",tags$h1("Vacinação em Portugal"))),
                   
-                  tags$div(class="row;", id="yo",checked=NA,
+                  tags$div(class="row", id="yo",checked=NA,
                            tags$div(class="col-md-3 col",checked=NA,
                                     tags$h1(""),tags$div(class="col",checked=NA,img(src = "mapaportugal.png",style="width:80%;height:80%"))
                                     ),
