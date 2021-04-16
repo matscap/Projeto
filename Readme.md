@@ -3,6 +3,10 @@
 ### Descrição/dicas dos updates
 __________________________________________________________________________________________________
 
+#### Update-6 16/04/2021 - Matias
+
+Os dados do gráfico desenhado na Visão Geral não eram aqueles. Troquei para os que estavam antes.
+
 #### Update-5 16/04/2021 - Matias
 
 A disposição já está a funcionar bem, era apenas um ';' x).
