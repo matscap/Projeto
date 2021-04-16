@@ -204,7 +204,7 @@ shinyServer(
     output$myPlot2 <- renderPlot({
       res <- myReactiveDat2()
      
-      (ggplot(res$df, aes(x=res$Data, y=cumsum(res$Doses))) 
+      (ggplot(res$df, aes(x=res$Data, y=res$Doses)) 
         + geom_line() 
         + geom_bar(stat='identity')
         + theme(axis.text.x = element_text( vjust = 0.5),
@@ -212,8 +212,7 @@ shinyServer(
                 title = element_text(size = 20))
         + xlab('Week') 
         + ylab('Doses')
-        + labs(title = "Titulo- Depois podemos por um titulo", 
-               subtitle = "Podemos por tambem alguma cena se quisermos")
+        + labs(title = "Percentagem de pessoas por região que já levaram as duas doses")
       )##########################################################################
 
     })
