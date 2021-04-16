@@ -3,6 +3,10 @@
 ### Descrição/dicas dos updates
 __________________________________________________________________________________________________
 
+#### Update-5 16/04/2021 - Matias
+
+A disposição já está a funcionar bem, era apenas um ';' x).
+Depois temos de mudar o nome do label no gráfico da primeira tab e tentar resolver o problema do select.
 
 #### Update-4 15/04/2021 - Rafa
 
