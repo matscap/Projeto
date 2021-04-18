@@ -9,7 +9,7 @@ Adicionei 2 novos tabs:
    - Um em que Tentei implementar a função da mesma forma que a professora mas parece quevamos ter problemas devido ao formato da data.
    - Outro onde criei um histograma do número de primeiras doses administradas de cada vacina.
 
-####### NOTA: Limpar um bocado o código que estamos a repetir várias vezes algumas coisas que basta ter apenas uma vez num reactive. Não esquecer de tratar do select.
+##### NOTA: Limpar um bocado o código que estamos a repetir várias vezes algumas coisas que basta ter apenas uma vez num reactive. Não esquecer de tratar do select.
 
 #### Update-6 16/04/2021 - Matias
 
