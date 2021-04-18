@@ -216,7 +216,88 @@ shinyServer(
       )##########################################################################
 
     })
-   
+    output$myPlot3 <- renderPlot({
+      #res <- myReactiveDat3()
+      data <- read.csv("https://opendata.ecdc.europa.eu/covid19/vaccine_tracker/csv/data.csv", na.strings = "", fileEncoding = "UTF-8-BOM")
+      #Dados para portugal apenas:
+      
+      dadosapenasportugal <- data %>%
+        filter(ReportingCountry == "PT")
+      dadosapenasportugal2 <- dadosapenasportugal %>%
+        filter(Region != "PT")
+      
+      dadosapenasportugal2$Region[dadosapenasportugal2$Region=="PTCSR01"] <-"ALENTEJO"
+      dadosapenasportugal2$Region[dadosapenasportugal2$Region=="PTCSR02"] <-"ALGARVE"
+      dadosapenasportugal2$Region[dadosapenasportugal2$Region=="PTCSR03"] <-"AÇORES"
+      dadosapenasportugal2$Region[dadosapenasportugal2$Region=="PTCSR04"] <-"CENTRO"
+      dadosapenasportugal2$Region[dadosapenasportugal2$Region=="PTCSR05"] <-"LISBOA"
+      dadosapenasportugal2$Region[dadosapenasportugal2$Region=="PTCSR06"] <-"MADEIRA"
+      dadosapenasportugal2$Region[dadosapenasportugal2$Region=="PTCSR07"] <-"NORTE"
+      
+      ggplot(dadosapenasportugal2, 
+             aes(x = Region,
+                 y = FirstDose,
+                 label = '')) +
+        geom_point(stat = "identity", 
+                   size = 3) +
+        
+        geom_text(color = 'black',
+                  size = 3,
+                  nudge_x = 0.7) +
+        coord_flip() +
+        
+        theme(legend.position = "none",
+              axis.title = element_text(size = 20,
+                                        face = 'bold'),
+              plot.subtitle = element_text(size = 20,
+                                           face = "bold",
+                                           color = 'red'),
+              axis.text = element_text(size = 10,
+                                       face = "bold"),
+              axis.text.x = element_text(size = 12,
+                                         face = "bold")) +
+        labs(x = 'Regiões',
+             y = 'Doses administradas',
+             title ='Evolução das doses administradas'
+        )
+      #  transition_time(YearWeekISO) +
+      #  ease_aes('cubic-in-out')
+      
+      #animate(p,
+      #        fps = 3, 
+      #        renderer = gifski_renderer(loop = F),
+      #        end_pause = 10,
+      #        width = 850,
+      #        height = 900)
+      
+      #anim_save("animations_perCapita_Top35CountriesCovid19ConfirmedTotal.gif")
+      
+      
+      ##########################################################################
+      
+    })
+    
+    output$myPlot4 <- renderPlot({
+      data <- read.csv("https://opendata.ecdc.europa.eu/covid19/vaccine_tracker/csv/data.csv", na.strings = "", fileEncoding = "UTF-8-BOM")
+      #Dados para portugal apenas:
+      
+      dadosapenasportugal <- data %>%
+        filter(ReportingCountry == "PT")
+      
+      res <- myReactiveDat2()
+      
+      (ggplot(dadosapenasportugal, aes(x=Vaccine, y= FirstDose)) + 
+          geom_bar(stat='identity')+ 
+          theme(axis.text.x = element_text(angle = 45, vjust = 0.5),
+                axis.title = element_text(face="bold", size=18),
+                title = element_text(size = 20)) + 
+          xlab('Week') +
+          ylab('Doses') 
+      )
+      
+      ##########################################################################
+      
+    })
     
   }
 )
