@@ -3,6 +3,14 @@
 ### Descrição/dicas dos updates
 __________________________________________________________________________________________________
 
+#### Update-8 20/04/2021 - Matias
+
+Alterei o visual da aplicação. 
+Reparei que quando selecionamos os dados por região, não temos a possibilidade de selecionar por faixa etária o que nos deixa limitados nos gráficos por região.
+Deixei com duas tabs: Uma para Portugal e outra para as regiões. Falta adicionar o gráfico que vimos com a professora e os gráficos das vacinas que tinha adicionado mas tirei para organizar tudo melhor.
+Faltar melhorar o aspeto do código. Penso que podemos tornar algumas coisas globais mas não sei como o possamos fazer.
+Não apaguem o último update que têm pois posso ter-me enganado em (ou esquecido de) algumas coisas.
+
 #### Update-7 18/04/2021 - Matias
 
 Adicionei 2 novos tabs:
