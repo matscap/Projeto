@@ -1,5 +1,7 @@
 library(dplyr)
 library(ggplot2)
+library(plotly)
+
 shinyServer(
   function(input,output,session){
     
@@ -33,6 +35,27 @@ shinyServer(
         filter(TargetGroup == "Age80+")
       
 
+      ### RAFA ###################################################################
+      #Ideia para ver o total de gente vacinada (corretamente)
+      #Temos de filtrar a df dadosapenasportugal para apenas uma linha de cada week com os dados de ALL
+      ## Region == "PT"
+      ## TargetGroup == "All"
+      totalPopulacao = 10295909
+      totalGenteVacinada <- dadosapenasportugal %>%
+                            filter(TargetGroup == "ALL") %>%
+                            filter(grepl("PT$",Region))
+      
+      #tpv -> total de pessoas vacinadas pela vacina _ ###
+      tpv_MOD <- totalGenteVacinada %>%
+                  filter(Vaccine == "MOD")
+      tpv_COM <- totalGenteVacinada %>%
+                  filter(Vaccine == "COM")
+      tpv_AZ <- totalGenteVacinada %>%
+                filter(Vaccine == "AZ")
+      
+      TotalVacinados = unlist(c(sum(tpv_MOD["SecondDose"])) + c(sum(tpv_COM["SecondDose"])) + c(sum(tpv_AZ["SecondDose"])))
+      Percentagem_tpv = (TotalVacinados/totalPopulacao)*100
+      
       ##########################################################################
       #histogram de doses por região:
       Data = unlist(c("Age18_24","Age25_49","Age50_59","Age60_69","Age70_79","Age80"))
@@ -44,18 +67,28 @@ shinyServer(
       )
     })
     
+    c5 = c("18-24","25-49","50-59","60-69","70-79", "80+")
     output$myPlotPais <- renderPlot({
-      
       res <- myReactiveDat2()
-      ggplot(res$df, aes(x=res$Data, y= res$Doses)) + 
-          geom_bar(stat='identity')+ 
-          theme(axis.text.x = element_text(angle = 45, vjust = 0.5),
+      ggplot(data = res$df, aes(y=as.factor(res$Data), x= as.factor(res$Doses), fill = c5)) + 
+          geom_bar(stat='identity', orientation = "y")+
+          scale_fill_manual(values = c("18-24"="#D8BFD8",
+                                       "25-49"="#B0E0E6",
+                                       "50-59"="#FFDAB9",
+                                       "60-69"="#FA8072",
+                                       "70-79"="#98FB98",
+                                       "80+"="#FFFACD")) +
+          theme(
+                legend.position = "none",
+                axis.text.x = element_text(angle = 45, vjust = 0.5),
                 axis.title = element_text(face="bold", size=18),
-                title = element_text(size = 20)) + 
-          xlab('Week') +
-          ylab('Doses') 
-
+                title = element_text(size = 20)
+                ) + 
+          labs(title = 'Por o titulo desta cena') +
+          xlab('Idade') +
+          ylab('Tenho de ver com o Matias xp') 
     })
+    
     
     myReactiveDat <- reactive({
       
@@ -297,3 +330,4 @@ shinyServer(
     
   }
 )
+
