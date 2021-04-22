@@ -3,6 +3,19 @@
 ### Descrição/dicas dos updates
 __________________________________________________________________________________________________
 
+#### Update-9 22/04/2021 - Rafa
+
+#### As alterações guardei nas minha branch caso alguem queira ver. Em termos de trabalho em si não é nada por aí fora, mas pode-nos ajudar no futuro.
+Ando a tentar trabalhar num mapa mas vou pôr em stand-by e continuo no fim-de-semana. 
+Tentei desenvolver umas variáveis que penso que nos podem dar jeito mais para a frente. Fui filtrando os datasets para conseguir variaveis como por exemplo:
+* Total de gente vacinada em portugal (tendo já em conta que está vacinada após a segunda vacina. Quando tivermos outra vacina que seja com um nº de aplicações diferentes, penso que desta forma conseguimos fazer filtros facilmente)
+* Total de pessoas vacinadas de cada vacina...
+
+Entretanto (esteticamente) estive também a ver como podemos alterar as cores dos bins dos graficos caso nos possa ser util no futuro.
+
+
+
+
 #### Update-8 20/04/2021 - Matias
 
 Alterei o visual da aplicação. 
