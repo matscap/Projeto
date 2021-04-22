@@ -3,6 +3,15 @@
 ### Descrição/dicas dos updates
 __________________________________________________________________________________________________
 
+#### Update-10 22/04/2021 - Matias
+
+Temos duas tabs:
+- Uma para o país que será uma visão geral.
+- Outra para as regiões: Nesta tab vão haver os separadores de cada região do país, onde vamos ter a opção de escolher o tipo de vacina que queremos ver, assim como escolher o tipo de vacina. NOTA: Rever o que se está a passar na tab de Lisboa e na tab dos Açores.
+
+Não tinha reparado que tinhas feito commit mas no fds vou dar uma vista de olhos para juntarmos tudo. 
+NOTA2: Não esquecer de adicionar o gráfico que a professora falou. (Ficou parcialmente feito)
+
 #### Update-9 22/04/2021 - Rafa
 
 #### As alterações guardei nas minha branch caso alguem queira ver. Em termos de trabalho em si não é nada por aí fora, mas pode-nos ajudar no futuro.
