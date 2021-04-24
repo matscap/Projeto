@@ -1,6 +1,7 @@
 library(bslib)
 library(thematic)
 library(shinycssloaders)
+library(plotly)
 
 
 thematic::thematic_shiny()
@@ -11,8 +12,12 @@ shinyServer(
             
             navbarPage("",
               tabPanel("Portugal", fluid = TRUE,
-                       plotOutput("myPlotPais")%>% withSpinner(color="#cccccc"))
-                           ,
+                       plotOutput("myPlotPais")%>% withSpinner(color="#cccccc"),
+                       plotOutput("myPie")%>% withSpinner(color="#cccccc")
+              ),
+              tabPanel("Testar cenas", fluid = TRUE,
+                       plotlyOutput("plot1824")%>% withSpinner(color="#cccccc")
+              ),
               tabPanel("Regiões", fluid = TRUE,
                        tabsetPanel(id="tabs",
                                    tabPanel("Alentejo",fluid = TRUE,
