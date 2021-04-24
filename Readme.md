@@ -3,6 +3,17 @@
 ### Descrição/dicas dos updates
 __________________________________________________________________________________________________
 
+#### Update-11 24/04/2021 - Rafa e Matias
+
+O Rafa fez um commit na branch dele em que adicionou um pie chart de teste que vai dar jeito e melhorou bastante o gráfico das idades para o país.
+De resto, estive a fazer merge dos dados e a corrigir erros que ficaram no o último commit.
+Em príncipio está tudo a funcionar corretamente. Falta só pensar em novos gráficos e melhorar o aspeto de aquilo que já temos.
+
+Gráficos a pensar:
+   - Estatísticas do tipo de vacina por região
+   - Percentagem de pessoas por região já vacinadas
+   - Melhoramento dos gráficos já existentes no separador das regiões para ficarem no formato que falei á professora (https://moderndive.com/4-tidy.html)
+
 #### Update-10 22/04/2021 - Matias
 
 Temos duas tabs:
