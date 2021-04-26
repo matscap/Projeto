@@ -3,6 +3,10 @@
 ### Descrição/dicas dos updates
 __________________________________________________________________________________________________
 
+#### Update-12 26/04/2021 - Rafa
+Acrescentei só um grafico que nos dá o nº de pessoas vacinadas por semana (de acordo com faixas etárias).
+Vou agora tentar abordar as cenas que o Matias enunciou no update anterior.
+
 #### Update-11 24/04/2021 - Rafa e Matias
 
 O Rafa fez um commit na branch dele em que adicionou um pie chart de teste que vai dar jeito e melhorou bastante o gráfico das idades para o país.
