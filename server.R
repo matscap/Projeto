@@ -98,7 +98,14 @@ shinyServer(
       TotalVacinados = unlist(c(sum(tpv_MOD["SecondDose"])) + c(sum(tpv_COM["SecondDose"])) + c(sum(tpv_AZ["SecondDose"])))
       Percentagem_tpv = (TotalVacinados/totalPopulacao)*100
       Percentagem_tpNv = ((totalPopulacao-TotalVacinados)/totalPopulacao)*100
-      ##########################################################################
+      
+      Nomenclatura = c("Vacinados","Nao Vacinados")
+      Percentagens = c(Percentagem_tpv, Percentagem_tpNv)
+      
+      dfPercentagens <-data.frame(
+        Nomenclatura,
+        Percentagens
+      )
       #histogram de doses por região:
       Idades = unlist(c("18-24","25-49","50-59","60-69","70-79", "80+"))
       Doses=unlist(c(sum(Age18_24['FirstDose']),sum(Age25_49['FirstDose']),sum(Age50_59['FirstDose']),sum(Age60_69['FirstDose']),sum(Age70_79['FirstDose']),sum(Age80['FirstDose'])))
@@ -107,6 +114,8 @@ shinyServer(
         Idades,
         Doses
       )
+
+      
     })
     c5 = c("18-24","25-49","50-59","60-69","70-79", "80+")
     output$myPlotPais <- renderPlot({
@@ -126,7 +135,7 @@ shinyServer(
             axis.title = element_text(face="bold", size=18),
             title = element_text(size = 20)
           ) + 
-          labs(title = 'Por o titulo desta cena') +
+          labs(title = 'Total de pessoas vacinadas por faixa etária') +
           xlab('Nº de pessoas Vacinadas') +
           ylab('') 
       
@@ -154,12 +163,16 @@ shinyServer(
     })
     
     output$myPie <- renderPlot({
-      
-      slices <- c(6,94)
-      #slices = c(Percentagem_tpv, Percentagem_tpNv)
-      nomenclatura <- c("Vacinados","Nao Vacinados")
-      #ggplot() + 
-      pie(slices, labels = nomenclatura, main="qq coisa")
+    
+      resPie <- myReactiveDataPais()
+    
+      ggplot(resPie$dfPercentagens, aes(x="", y=Percentagens, fill=Nomenclatura)) +
+        geom_bar(stat="identity", width=1, color="white") +
+        coord_polar("y", start=0)+
+        theme_void()+
+        labs(title = "Percentagem pessoas vacinadas/não vacinadas ",
+             subtitle = "Falta por percentagens nesta cena")
+    
     })
     
     myReactiveDat <- reactive({
@@ -492,6 +505,170 @@ shinyServer(
           + ylab('Doses') 
         )
       ##########################################################################
+      
+    })
+    
+    
+    ############################## QQ merda de mal foi o Rafa
+    
+    myReactiveData <- reactive({
+      
+      data <- read.csv("https://opendata.ecdc.europa.eu/covid19/vaccine_tracker/csv/data.csv", na.strings = "", fileEncoding = "UTF-8-BOM")
+      #Dados para portugal apenas:
+      dadosapenasportugal <- data %>%
+        filter(ReportingCountry == "PT")
+      
+      Age18_24 <- dadosapenasportugal %>%
+        filter(TargetGroup == "Age18_24")
+      
+      Age25_49 <- dadosapenasportugal %>%
+        filter(TargetGroup == "Age25_49")
+      
+      Age50_59 <- dadosapenasportugal %>%
+        filter(TargetGroup == "Age50_59")
+      
+      Age60_69 <- dadosapenasportugal %>%
+        filter(TargetGroup == "Age60_69")
+      
+      Age70_79 <- dadosapenasportugal %>%
+        filter(TargetGroup == "Age70_79")
+      
+      Age80 <- dadosapenasportugal %>%
+        filter(TargetGroup == "Age80+")
+      
+      #Por IDADES
+      
+      # Totalmente Vacinadas p/Semana
+      ## Dado que há vacinas com doses diferentes para vacinar temos
+      
+      # Filtrar os datasets. De acordo com a vacina escolher primeira ou segunda dose
+      MOD_18_24Vacinados<- Age18_24 %>% filter(Vaccine == "MOD") %>% select(YearWeekISO, SecondDose) 
+      COM_18_24Vacinados<- Age18_24 %>% filter(Vaccine == "COM") %>% select(YearWeekISO, SecondDose)
+      AZ_18_24Vacinados<- Age18_24 %>% filter(Vaccine == "AZ") %>% select(YearWeekISO, SecondDose)
+      
+      MOD_25_49Vacinados<- Age25_49 %>% filter(Vaccine == "MOD") %>% select(YearWeekISO, SecondDose) 
+      COM_25_49Vacinados<- Age25_49 %>% filter(Vaccine == "COM") %>% select(YearWeekISO, SecondDose)
+      AZ_25_49Vacinados<- Age25_49 %>% filter(Vaccine == "AZ") %>% select(YearWeekISO, SecondDose)
+      
+      MOD_50_59Vacinados<- Age50_59 %>% filter(Vaccine == "MOD") %>% select(YearWeekISO, SecondDose) 
+      COM_50_59Vacinados<- Age50_59 %>% filter(Vaccine == "COM") %>% select(YearWeekISO, SecondDose)
+      AZ_50_59Vacinados<- Age50_59 %>% filter(Vaccine == "AZ") %>% select(YearWeekISO, SecondDose)
+      
+      MOD_60_69Vacinados<- Age60_69 %>% filter(Vaccine == "MOD") %>% select(YearWeekISO, SecondDose) 
+      COM_60_69Vacinados<- Age60_69 %>% filter(Vaccine == "COM") %>% select(YearWeekISO, SecondDose)
+      AZ_60_69Vacinados<- Age60_69 %>% filter(Vaccine == "AZ") %>% select(YearWeekISO, SecondDose)
+      
+      MOD_70_79Vacinados<- Age70_79 %>% filter(Vaccine == "MOD") %>% select(YearWeekISO, SecondDose) 
+      COM_70_79Vacinados<- Age70_79 %>% filter(Vaccine == "COM") %>% select(YearWeekISO, SecondDose)
+      AZ_70_79Vacinados<- Age70_79 %>% filter(Vaccine == "AZ") %>% select(YearWeekISO, SecondDose)
+      
+      MOD_80Vacinados<- Age80 %>% filter(Vaccine == "MOD") %>% select(YearWeekISO, SecondDose) 
+      COM_80Vacinados<- Age80 %>% filter(Vaccine == "COM") %>% select(YearWeekISO, SecondDose)
+      AZ_80Vacinados<- Age80 %>% filter(Vaccine == "AZ") %>% select(YearWeekISO, SecondDose)
+      
+      
+      
+      #Juntar os datasets e retirrar os NA's
+      joinedDS_18_24 <- left_join(COM_18_24Vacinados, left_join(MOD_18_24Vacinados, AZ_18_24Vacinados, by="YearWeekISO"), by="YearWeekISO") %>% 
+        tidyr::replace_na(list(0,SecondDose=0,SecondDose.x = 0, SecondDose.y = 0))
+      
+      joinedDS_25_49 <- left_join(COM_25_49Vacinados, left_join(MOD_25_49Vacinados, AZ_25_49Vacinados, by="YearWeekISO"), by="YearWeekISO") %>% 
+        tidyr::replace_na(list(0,SecondDose=0,SecondDose.x = 0, SecondDose.y = 0))
+      
+      joinedDS_50_59 <- left_join(COM_50_59Vacinados, left_join(MOD_50_59Vacinados, AZ_50_59Vacinados, by="YearWeekISO"), by="YearWeekISO") %>% 
+        tidyr::replace_na(list(0,SecondDose=0,SecondDose.x = 0, SecondDose.y = 0))
+      
+      joinedDS_60_69 <- left_join(COM_60_69Vacinados, left_join(MOD_60_69Vacinados, AZ_60_69Vacinados, by="YearWeekISO"), by="YearWeekISO") %>% 
+        tidyr::replace_na(list(0,SecondDose=0,SecondDose.x = 0, SecondDose.y = 0))
+      
+      joinedDS_70_79 <- left_join(COM_70_79Vacinados, left_join(MOD_70_79Vacinados, AZ_70_79Vacinados, by="YearWeekISO"), by="YearWeekISO") %>% 
+        tidyr::replace_na(list(0,SecondDose=0,SecondDose.x = 0, SecondDose.y = 0))
+      
+      joinedDS_80 <- left_join(COM_80Vacinados, left_join(MOD_80Vacinados, AZ_80Vacinados, by="YearWeekISO"), by="YearWeekISO") %>% 
+        tidyr::replace_na(list(0,SecondDose=0,SecondDose.x = 0, SecondDose.y = 0))
+      
+      
+      
+      #Somar as colunas, retirara as que não necessitamos e temos o resultado
+      TVpS_18_24 <-joinedDS_18_24 %>% 
+        mutate( TotalVacinados = rowSums(.[2:4])) %>% 
+        select(YearWeekISO, TotalVacinados) 
+      
+      TVpS_25_49 <-joinedDS_25_49 %>% 
+        mutate( TotalVacinados = rowSums(.[2:4])) %>% 
+        select(YearWeekISO, TotalVacinados) 
+      
+      TVpS_50_59 <-joinedDS_50_59 %>% 
+        mutate( TotalVacinados = rowSums(.[2:4])) %>% 
+        select(YearWeekISO, TotalVacinados)
+      
+      TVpS_60_69 <-joinedDS_60_69 %>% 
+        mutate( TotalVacinados = rowSums(.[2:4])) %>% 
+        select(YearWeekISO, TotalVacinados)
+      
+      TVpS_70_79 <-joinedDS_70_79 %>% 
+        mutate( TotalVacinados = rowSums(.[2:4])) %>% 
+        select(YearWeekISO, TotalVacinados)
+      
+      TVpS_80 <-joinedDS_80 %>% 
+        mutate( TotalVacinados = rowSums(.[2:4])) %>% 
+        select(YearWeekISO, TotalVacinados)
+      #Bug no dataset não tem a semana 52
+      aux52 <- data.frame("2020-W52",0)
+      names(aux52) <- c("YearWeekISO", "TotalVacinados")
+      TVpS_80 <-rbind(aux52,TVpS_80)
+      
+      
+      Datas = unlist(TVpS_80["YearWeekISO"])
+      Vacinados18_24 = unlist(TVpS_18_24["TotalVacinados"])
+      Vacinados25_49 = unlist(TVpS_25_49["TotalVacinados"])
+      Vacinados50_59 = unlist(TVpS_50_59["TotalVacinados"])
+      Vacinados60_69 = unlist(TVpS_60_69["TotalVacinados"])
+      Vacinados70_79 = unlist(TVpS_70_79["TotalVacinados"])
+      Vacinados80    = unlist(TVpS_80["TotalVacinados"])
+      
+      TV <- data.frame(
+        Datas,
+        Vacinados18_24,
+        Vacinados25_49,
+        Vacinados50_59,
+        Vacinados60_69,
+        Vacinados70_79,
+        Vacinados80
+      )
+      
+    })
+    
+    output$plot1824 <- renderPlot({
+      
+      res <- myReactiveData()
+      ggplot(data = res$TV, aes(x = as.numeric(1:length(res$Datas)))) +
+        geom_point(aes(y = res$Vacinados18_24, colour="18-24", group = 1), size=3) +
+        geom_line(aes(y = res$Vacinados18_24, colour="18-24", group = 1))+
+        
+        geom_point(aes(y = res$Vacinados25_49, colour="25-49", group =2), size=3) +
+        geom_line(aes(y = res$Vacinados25_49, colour="25-49", group = 2))+
+        
+        geom_point(aes(y = res$Vacinados50_59, colour="50-59", group =3), size=3) +
+        geom_line(aes(y = res$Vacinados50_59, colour="50-59", group = 3))+
+        
+        geom_point(aes(y = res$Vacinados60_69, colour="60-69", group =4), size=3) +
+        geom_line(aes(y = res$Vacinados60_69, colour="60-69", group = 4))+
+        
+        geom_point(aes(y = res$Vacinados70_79, colour="70-79", group =5), size=3) +
+        geom_line(aes(y = res$Vacinados70_79, colour="70-79", group = 5))+
+        
+        geom_point(aes(y = res$Vacinados80, colour="80+", group =6), size=3) +
+        geom_line(aes(y = res$Vacinados80, colour="80+", group = 6))+
+        
+        theme(axis.text.x = element_text(angle = 45, vjust = 0.5),
+              axis.title = element_text(face="bold", size=18),
+              title = element_text(size = 20)) + 
+        labs(title = "Quantidade de pessoas vacinadas por faixas etárias, por semana", 
+             subtitle = "Uma pessoa vacinada é aquela que completou o plano de vacinação.",
+             x = "Semanas", 
+             y = "Pessoas Vacinadas") +
+        scale_x_continuous(breaks = c(as.numeric(1:length(res$Datas))) ,labels = res$Datas)
       
     })
     
