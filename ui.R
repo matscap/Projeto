@@ -3,6 +3,7 @@ library(thematic)
 library(shinycssloaders)
 
 
+
 thematic::thematic_shiny()
 
 shinyServer(
@@ -22,7 +23,8 @@ shinyServer(
                       mainPanel(
                         tags$div(style="row", id="yo",checked=NA,
                                  conditionalPanel(condition="input.dist == 'norm'",
-                                                  tags$div(style="col-12",checked=NA,plotOutput("myPlotPais")%>% withSpinner(color="#cccccc"))),
+                                                  tags$div(style="col-12",checked=NA,plotOutput("myPlotPais")%>% withSpinner(color="#cccccc")),
+                                                  tags$div(style="col-12",checked=NA,plotOutput("plot1824")%>% withSpinner(color="#cccccc"))),
                                  conditionalPanel(condition="input.dist == 'unif'",
                                                   tags$div(style="col-12",checked=NA,plotOutput("myPlotPais2")%>% withSpinner(color="#cccccc")),
                                                   tags$div(style="col-12",checked=NA,plotOutput("myPie")%>% withSpinner(color="#cccccc"))))
