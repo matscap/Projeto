@@ -46,7 +46,48 @@ shinyServer(
         Nomes
       )
     })
-    
+    myReactiveDataPais3 <- reactive({
+      
+      data <- read.csv("https://opendata.ecdc.europa.eu/covid19/vaccine_tracker/csv/data.csv", na.strings = "", fileEncoding = "UTF-8-BOM")
+      #Dados para portugal apenas:
+      dadosapenasportugal <- data %>%
+        filter(ReportingCountry == "PT")
+      
+      dadosapenasportugal <- dadosapenasportugal %>%
+        filter(Region == "PT")
+      
+      
+      ### RAFA ###################################################################
+      #Ideia para ver o total de gente vacinada (corretamente)
+      #Temos de filtrar a df dadosapenasportugal para apenas uma linha de cada week com os dados de ALL
+      ## Region == "PT"
+      ## TargetGroup == "All"
+      totalPopulacao = 10295909
+      totalGenteVacinada <- dadosapenasportugal %>%
+        filter(TargetGroup == "ALL") %>%
+        filter(grepl("PT$",Region))
+      
+      #tpv -> total de pessoas vacinadas pela vacina _ ###
+      tpv_MOD <- totalGenteVacinada %>%
+        filter(Vaccine == "MOD")
+      tpv_COM <- totalGenteVacinada %>%
+        filter(Vaccine == "COM")
+      tpv_AZ <- totalGenteVacinada %>%
+        filter(Vaccine == "AZ")
+      
+      TotalVacinados = unlist(c(sum(tpv_MOD["SecondDose"])) + c(sum(tpv_COM["SecondDose"])) + c(sum(tpv_AZ["SecondDose"])))
+      Percentagem_tpv = (TotalVacinados/totalPopulacao)*100
+      Percentagem_tpNv = ((totalPopulacao-TotalVacinados)/totalPopulacao)*100
+      
+      Nomenclatura = c("Vacinados","Nao Vacinados")
+      Percentagens = c(Percentagem_tpv, Percentagem_tpNv)
+      
+      dfPercentagens <-data.frame(
+        Nomenclatura,
+        Percentagens
+      )
+      
+    })
     
     myReactiveDataPais <- reactive({
       
@@ -164,9 +205,9 @@ shinyServer(
     
     output$myPie <- renderPlot({
     
-      resPie <- myReactiveDataPais()
+      resPie <- myReactiveDataPais3()
     
-      ggplot(resPie$dfPercentagens, aes(x="", y=Percentagens, fill=Nomenclatura)) +
+      ggplot(resPie$dfPercentagens, aes(x="", y=resPie$Percentagens, fill=resPie$Nomenclatura)) +
         geom_bar(stat="identity", width=1, color="white") +
         coord_polar("y", start=0)+
         theme_void()+
