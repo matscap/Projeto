@@ -5,20 +5,23 @@ shinyServer(
   function(input,output,session){
     
     loadedData <- reactiveVal()
+    loadedData2 <- reactiveVal()
+    
     
     observe({
       loadedData(read.csv("https://opendata.ecdc.europa.eu/covid19/vaccine_tracker/csv/data.csv", na.strings = "", fileEncoding = "UTF-8-BOM")) 
+      dadosapenasportugal <- loadedData() %>%
+        filter(ReportingCountry == "PT")
+      loadedData2(dadosapenasportugal)
     })
     
     Vacinas <- reactive({
       
       #Dados para portugal apenas:
-      dadosapenasportugal <- loadedData() %>%
-        filter(ReportingCountry == "PT")
       
-      dadosapenasportugal <- dadosapenasportugal %>%
+      dadosapenasportugal <- loadedData2() %>%
         filter(Region == "PT")
-      
+
       Todos <- dadosapenasportugal <- dadosapenasportugal %>%
         filter(TargetGroup == "ALL")
       
@@ -48,12 +51,9 @@ shinyServer(
     })
     myReactiveDataPais3 <- reactive({
       
-      data <- read.csv("https://opendata.ecdc.europa.eu/covid19/vaccine_tracker/csv/data.csv", na.strings = "", fileEncoding = "UTF-8-BOM")
       #Dados para portugal apenas:
-      dadosapenasportugal <- data %>%
-        filter(ReportingCountry == "PT")
       
-      dadosapenasportugal <- dadosapenasportugal %>%
+      dadosapenasportugal <- loadedData2() %>%
         filter(Region == "PT")
       
       
@@ -91,12 +91,9 @@ shinyServer(
     
     myReactiveDataPais <- reactive({
       
-      data <- read.csv("https://opendata.ecdc.europa.eu/covid19/vaccine_tracker/csv/data.csv", na.strings = "", fileEncoding = "UTF-8-BOM")
       #Dados para portugal apenas:
-      dadosapenasportugal <- data %>%
-        filter(ReportingCountry == "PT")
       
-      dadosapenasportugal <- dadosapenasportugal %>%
+      dadosapenasportugal <- loadedData2() %>%
         filter(Region == "PT")
       
       Age18_24 <- dadosapenasportugal %>%
@@ -160,6 +157,7 @@ shinyServer(
     })
     c5 = c("18-24","25-49","50-59","60-69","70-79", "80+")
     output$myPlotPais <- renderPlot({
+      
       res <- myReactiveDataPais()
       #vac <- Vacinas()
         ggplot(data = res$dfpais, aes(y=as.factor(res$Idades), x= as.factor(res$Doses), fill = c5)) + 
@@ -222,11 +220,10 @@ shinyServer(
       fetaria <- input$fetaria
       
       #Dados para portugal apenas:
-      dadosapenasportugal <- loadedData() %>%
-        filter(ReportingCountry == "PT")
+      
       tipo <- input$radiovac
       if(tab=="Alentejo"){
-        escolha <- dadosapenasportugal %>%
+        escolha <- loadedData2() %>%
           filter(Region == "PTCSR01")
         tipo <- input$radiovac1
         if(tipo=="mod"){
@@ -240,7 +237,7 @@ shinyServer(
             filter(Vaccine == "COM")
         }
       }else if(tab == "Algarve"){
-        escolha <- dadosapenasportugal %>%
+        escolha <- loadedData2() %>%
           filter(Region == "PTCSR02")
         tipo <- input$radiovac2
         if(tipo=="mod"){
@@ -254,7 +251,7 @@ shinyServer(
             filter(Vaccine == "COM")
         }
       }else if(tab == "Açores"){
-        escolha <- dadosapenasportugal %>%
+        escolha <- loadedData2() %>%
           filter(Region == "PTCSR03")
         tipo <- input$radiovac5
         if(tipo=="mod"){
@@ -268,7 +265,7 @@ shinyServer(
             filter(Vaccine == "COM")
         }
       }else if(tab == "Centro"){
-        escolha <- dadosapenasportugal %>%
+        escolha <- loadedData2() %>%
           filter(Region == "PTCSR04")
         tipo <- input$radiovac4
         if(tipo=="mod"){
@@ -282,7 +279,7 @@ shinyServer(
             filter(Vaccine == "COM")
         }
       }else if(tab == "Lisboa"){
-        escolha <- dadosapenasportugal %>%
+        escolha <- loadedData2() %>%
           filter(Region == "PTCSR05")
         tipo <- input$radiovac3
         
@@ -298,7 +295,7 @@ shinyServer(
         }
         
       }else if(tab == "Madeira"){
-        escolha <- dadosapenasportugal %>%
+        escolha <- loadedData2() %>%
           filter(Region == "PTCSR06")
         tipo <- input$radiovac6
         if(tipo=="mod"){
@@ -312,7 +309,7 @@ shinyServer(
             filter(Vaccine == "COM")
         }
       }else if(tab == "Norte"){
-        escolha <- dadosapenasportugal %>%
+        escolha <- loadedData2() %>%
           filter(Region == "PTCSR07")
         tipo <- input$radiovac7
         if(tipo=="mod"){
@@ -326,7 +323,7 @@ shinyServer(
             filter(Vaccine == "COM")
         }
       }else{
-        escolha <- dadosapenasportugal %>%
+        escolha <- loadedData2() %>%
           filter(Region == "PT")
       }
       
@@ -554,9 +551,8 @@ shinyServer(
     
     myReactiveData <- reactive({
       
-      data <- read.csv("https://opendata.ecdc.europa.eu/covid19/vaccine_tracker/csv/data.csv", na.strings = "", fileEncoding = "UTF-8-BOM")
       #Dados para portugal apenas:
-      dadosapenasportugal <- data %>%
+      dadosapenasportugal <- loadedData() %>%
         filter(ReportingCountry == "PT")
       
       Age18_24 <- dadosapenasportugal %>%
