@@ -15,18 +15,23 @@ shinyServer(
                       headerPanel(""),
                       
                       sidebarPanel(
-                        radioButtons("dist", "Gráfico:",
-                                     c("Por idades" = "norm",
-                                       "Por vacinas" = "unif"))
+                        checkboxInput('grafico11','Total de pessoas vacinadas por faixa etária',TRUE),
+                        checkboxInput('grafico22','Quantidade de pessoas vacinadas por faixas etárias, por semana',FALSE),
+                        checkboxInput('grafico33','Número de doses de cada tipo de vacina administradas',FALSE),
+                        checkboxInput('grafico44','Percentagem de pessoas vacinadas/não vacinadas',FALSE),
+                        
                       ),
                       
                       mainPanel(
                         tags$div(style="row", id="yo",checked=NA,
-                                 conditionalPanel(condition="input.dist == 'norm'",
-                                                  tags$div(style="col-12",checked=NA,plotOutput("myPlotPais")%>% withSpinner(color="#cccccc")),
+                                 conditionalPanel(condition="input.grafico11 == 1",
+                                                  tags$div(style="col-12",checked=NA,plotOutput("myPlotPais")%>% withSpinner(color="#cccccc"))),
+                                 conditionalPanel(condition="input.grafico22 == 1",
+                                                  actionButton("ajuda", "Ajuda",style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
                                                   tags$div(style="col-12",checked=NA,plotOutput("plot1824")%>% withSpinner(color="#cccccc"))),
-                                 conditionalPanel(condition="input.dist == 'unif'",
-                                                  tags$div(style="col-12",checked=NA,plotOutput("myPlotPais2")%>% withSpinner(color="#cccccc")),
+                                 conditionalPanel(condition="input.grafico33 == 1",
+                                                  tags$div(style="col-12",checked=NA,plotOutput("myPlotPais2")%>% withSpinner(color="#cccccc"))),
+                                 conditionalPanel(condition="input.grafico44 == 1",
                                                   tags$div(style="col-12",checked=NA,plotOutput("myPie")%>% withSpinner(color="#cccccc"))))
                         
                         )
