@@ -5,6 +5,7 @@ ________________________________________________________________________________
 
 #### Update-12 08/05/2021 - Matias
 Só criei mais um loadeddata2 para não estarmos a carregar sempre que mudamos de frame.
+Mudei o funcionamento da visualização dos gráficos para paineis condicionais. Desta forma a pessoa vai escolhendo conforme quer. Também adicionei um modal de ajuda.
 
 #### Update-12 26/04/2021 - Rafa
 Acrescentei só um grafico que nos dá o nº de pessoas vacinadas por semana (de acordo com faixas etárias).
