@@ -14,7 +14,13 @@ shinyServer(
         filter(ReportingCountry == "PT")
       loadedData2(dadosapenasportugal)
     })
-    
+    observeEvent(input$ajuda, {
+      showModal(modalDialog(
+        title = "Ajuda",
+        "Uma pessoa vacinada é aquela que completou o plano de vacinação",
+        easyClose = TRUE
+      ))
+    })
     Vacinas <- reactive({
       
       #Dados para portugal apenas:
@@ -702,7 +708,6 @@ shinyServer(
               axis.title = element_text(face="bold", size=18),
               title = element_text(size = 20)) + 
         labs(title = "Quantidade de pessoas vacinadas por faixas etárias, por semana", 
-             subtitle = "Uma pessoa vacinada é aquela que completou o plano de vacinação.",
              x = "Semanas", 
              y = "Pessoas Vacinadas") +
         scale_x_continuous(breaks = c(as.numeric(1:length(res$Datas))) ,labels = res$Datas)
