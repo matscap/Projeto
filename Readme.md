@@ -3,6 +3,9 @@
 ### Descrição/dicas dos updates
 __________________________________________________________________________________________________
 
+#### Update-12 08/05/2021 - Rafa
+Só criei mais um loadeddata2 para não estarmos a carregar sempre que mudamos de frame.
+
 #### Update-12 26/04/2021 - Rafa
 Acrescentei só um grafico que nos dá o nº de pessoas vacinadas por semana (de acordo com faixas etárias).
 Vou agora tentar abordar as cenas que o Matias enunciou no update anterior.
