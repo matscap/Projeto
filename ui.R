@@ -21,7 +21,7 @@ shinyServer(
                            checkboxInput('grafico33','Número de doses de cada tipo de vacina administradas',FALSE),
                            checkboxInput('grafico44','Percentagem de pessoas vacinadas/não vacinadas',FALSE),
                            checkboxInput('grafico55','Evolução do número de vacinas administradas por região',FALSE),
-                           checkboxInput('teste','teste',FALSE),
+                           checkboxInput('teste','Quantidade de pessoas totalmente vacinadas ,por semana, em cada Região',FALSE),
                            
                          ),
                          
