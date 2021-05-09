@@ -280,30 +280,126 @@ shinyServer(
       
       tipo <- input$radiovac
       if(tab=="Alentejo"){
+        popul = sum(465701,118506,168034,911794,152758)
         escolha <- loadedData2() %>%
           filter(Region == "PTCSR01")
       }else if(tab == "Algarve"){
+        popul = 434023
         escolha <- loadedData2() %>%
           filter(Region == "PTCSR02")
       }else if(tab == "Açores"){
+        popul = 246772
         escolha <- loadedData2() %>%
           filter(Region == "PTCSR03")
       }else if(tab == "Centro"){
+        popul = sum(714200,391215,168898,429714,196264,470895)
         escolha <- loadedData2() %>%
           filter(Region == "PTCSR04")
       }else if(tab == "Lisboa"){
+        popul = sum(2265832,911794)
         escolha <- loadedData2() %>%
           filter(Region == "PTCSR05")
       }else if(tab == "Madeira"){
+        popul = 258686
         escolha <- loadedData2() %>%
           filter(Region == "PTCSR06")
       }else if(tab == "Norte"){
+        popul = sum(240133,956185,213775,136252,1778146)
         escolha <- loadedData2() %>%
           filter(Region == "PTCSR07")
       }else{
         escolha <- loadedData2() %>%
           filter(Region == "PT")
       }
+      
+      
+      
+          datas = unique(escolha["YearWeekISO"])
+          
+          escolha$FirstDoseRefused <- NULL
+          escolha$UnknownDose <- NULL
+          escolha$NumberDosesReceived <- NULL
+          escolha$Population <- NULL
+          escolha$ReportingCountry <- NULL
+          escolha$TargetGroup <- NULL
+          escolha$Denominator <- NULL
+          escolha$Region <- NULL
+          aux=escolha[1,2]+escolha[1,3]
+          
+          dosestotais = c()
+          datas = c()
+          datas = c(datas,escolha[1,1])
+          for(i in 2:nrow(escolha)) {
+            # for-loop over rows
+            if(escolha[i,1]==escolha[i-1,1]){
+              aux = aux + escolha[i,2]+escolha[i,3]
+              
+              if(i==nrow(escolha)){
+                dosestotais <- c(dosestotais, aux)
+              }
+            }else{
+              datas = c(datas,escolha[i,1])
+              dosestotais <- c(dosestotais, aux)
+              aux = escolha[i,2]+escolha[i,3]
+              if(i==nrow(escolha)){
+                dosestotais <- c(dosestotais, aux)
+              }
+            }
+            
+          }
+          
+          Data = datas
+          Doses=dosestotais
+          
+          
+          df2 <- data.frame(
+            Data,
+            Doses
+          )
+    })
+    
+    myReactivePies <- reactive({
+      
+      tab <- input$tabs
+      fetaria <- input$fetaria
+      
+      #Dados para portugal apenas:
+      
+      tipo <- input$radiovac
+      if(tab=="Alentejo"){
+        popul = sum(465701,118506,168034,911794,152758)
+        escolha <- loadedData2() %>%
+          filter(Region == "PTCSR01")
+      }else if(tab == "Algarve"){
+        popul = 434023
+        escolha <- loadedData2() %>%
+          filter(Region == "PTCSR02")
+      }else if(tab == "Açores"){
+        popul = 246772
+        escolha <- loadedData2() %>%
+          filter(Region == "PTCSR03")
+      }else if(tab == "Centro"){
+        popul = sum(714200,391215,168898,429714,196264,470895)
+        escolha <- loadedData2() %>%
+          filter(Region == "PTCSR04")
+      }else if(tab == "Lisboa"){
+        popul = sum(2265832,911794)
+        escolha <- loadedData2() %>%
+          filter(Region == "PTCSR05")
+      }else if(tab == "Madeira"){
+        popul = 258686
+        escolha <- loadedData2() %>%
+          filter(Region == "PTCSR06")
+      }else if(tab == "Norte"){
+        popul = sum(240133,956185,213775,136252,1778146)
+        escolha <- loadedData2() %>%
+          filter(Region == "PTCSR07")
+      }else{
+        escolha <- loadedData2() %>%
+          filter(Region == "PT")
+      }
+      
+      
       
       datas = unique(escolha["YearWeekISO"])
       
@@ -348,7 +444,20 @@ shinyServer(
         Doses
       )
       
+      TotalVacinados = unlist(c(sum(escolha["SecondDose"])))
+      Percentagem_tpv = (TotalVacinados/popul)*100
+      Percentagem_tpNv = ((popul-TotalVacinados)/popul)*100
+      
+      Nomenclatura = c("Vacinados","Nao Vacinados")
+      Percentagens = c(Percentagem_tpv, Percentagem_tpNv)
+      
+      dfPercentagens <-data.frame(
+        Nomenclatura,
+        Percentagens
+      )
+      
     })
+    
     
     ##################################################################################
     #        Algarve          #
@@ -360,8 +469,11 @@ shinyServer(
       res <- myReactiveDat()
       
       if(input$grafico=="Vacinação semanal")
-        (ggplot(res$df2, aes(x=res$Data, y= res$Doses)) + 
+        (
+          
+          ggplot(res$df2, aes(x=res$Data, y= res$Doses)) + 
            geom_bar(stat='identity')+ 
+            
            theme(axis.text.x = element_text(angle = 45, vjust = 0.5),
                  axis.title = element_text(face="bold", size=18),
                  title = element_text(size = 20)) + 
@@ -369,7 +481,8 @@ shinyServer(
            ylab('Doses') +labs(title = "Número de vacinas administradas por semana")
         )
       else if(input$grafico=="Acumulação de vacinas")
-        ( ggplot(res$df2, aes(x=res$Data, y=cumsum(res$Doses),group=1)) 
+        ( 
+          ggplot(res$df2, aes(x=res$Data, y=cumsum(res$Doses),group=1)) 
           + geom_line()  
           + geom_point() 
           + theme(axis.text.x = element_text(angle = 45, vjust = 0.5),
@@ -378,7 +491,17 @@ shinyServer(
           + xlab('Week') 
           + ylab('Doses') +labs(title = "Acumulação de vacinas semana após semana")
         )
-      
+      else if(input$grafico=="Percentagem de pessoas vacinadas")
+      {
+          res <- myReactivePies()
+          ggplot(res$dfPercentagens, aes(x="", y=res$Percentagens, fill=res$Nomenclatura)) +
+            geom_bar( stat="identity", width=1, color="white") +
+            coord_polar("y", start=0)+
+            theme_void()+
+            geom_text(aes(y=res$Percentagens, label = paste(round(res$Percentagens, digits=2),"%")), size = 7, color=c("black","white")) +
+            guides(fill= guide_legend(title = ""))
+          
+      }
     })
     
     ##################################################################################
@@ -408,6 +531,17 @@ shinyServer(
           + xlab('Week') 
           + ylab('Doses')+labs(title = "Acumulação de vacinas semana após semana")
         )
+      else if(input$grafico=="Percentagem de pessoas vacinadas")
+      {
+        res <- myReactivePies()
+        ggplot(res$dfPercentagens, aes(x="", y=res$Percentagens, fill=res$Nomenclatura)) +
+          geom_bar( stat="identity", width=1, color="white") +
+          coord_polar("y", start=0)+
+          theme_void()+
+          geom_text(aes(y=res$Percentagens, label = paste(round(res$Percentagens, digits=2),"%")), size = 7, color=c("black","white")) +
+          guides(fill= guide_legend(title = ""))
+        
+      }
       ##########################################################################
       
     })
@@ -435,6 +569,17 @@ shinyServer(
           + xlab('Week') 
           + ylab('Doses') +labs(title = "Acumulação de vacinas semana após semana")
         )
+      else if(input$grafico=="Percentagem de pessoas vacinadas")
+      {
+        res <- myReactivePies()
+        ggplot(res$dfPercentagens, aes(x="", y=res$Percentagens, fill=res$Nomenclatura)) +
+          geom_bar( stat="identity", width=1, color="white") +
+          coord_polar("y", start=0)+
+          theme_void()+
+          geom_text(aes(y=res$Percentagens, label = paste(round(res$Percentagens, digits=2),"%")), size = 7, color=c("black","white")) +
+          guides(fill= guide_legend(title = ""))
+        
+      }
       ##########################################################################
       
     })
@@ -462,6 +607,17 @@ shinyServer(
           + xlab('Week') 
           + ylab('Doses') +labs(title = "Acumulação de vacinas semana após semana")
         )
+      else if(input$grafico=="Percentagem de pessoas vacinadas")
+      {
+        res <- myReactivePies()
+        ggplot(res$dfPercentagens, aes(x="", y=res$Percentagens, fill=res$Nomenclatura)) +
+          geom_bar( stat="identity", width=1, color="white") +
+          coord_polar("y", start=0)+
+          theme_void()+
+          geom_text(aes(y=res$Percentagens, label = paste(round(res$Percentagens, digits=2),"%")), size = 7, color=c("black","white")) +
+          guides(fill= guide_legend(title = ""))
+        
+      }
       ##########################################################################
       
     })
@@ -489,6 +645,17 @@ shinyServer(
           + xlab('Week') 
           + ylab('Doses') +labs(title = "Acumulação de vacinas semana após semana")
         )
+      else if(input$grafico=="Percentagem de pessoas vacinadas")
+      {
+        res <- myReactivePies()
+        ggplot(res$dfPercentagens, aes(x="", y=res$Percentagens, fill=res$Nomenclatura)) +
+          geom_bar( stat="identity", width=1, color="white") +
+          coord_polar("y", start=0)+
+          theme_void()+
+          geom_text(aes(y=res$Percentagens, label = paste(round(res$Percentagens, digits=2),"%")), size = 7, color=c("black","white")) +
+          guides(fill= guide_legend(title = ""))
+        
+      }
       ##########################################################################
       
     })
@@ -515,6 +682,17 @@ shinyServer(
           + xlab('Week') 
           + ylab('Doses') +labs(title = "Acumulação de vacinas semana após semana")
         )
+      else if(input$grafico=="Percentagem de pessoas vacinadas")
+      {
+        res <- myReactivePies()
+        ggplot(res$dfPercentagens, aes(x="", y=res$Percentagens, fill=res$Nomenclatura)) +
+          geom_bar( stat="identity", width=1, color="white") +
+          coord_polar("y", start=0)+
+          theme_void()+
+          geom_text(aes(y=res$Percentagens, label = paste(round(res$Percentagens, digits=2),"%")), size = 7, color=c("black","white")) +
+          guides(fill= guide_legend(title = ""))
+        
+      }
       ##########################################################################
       
     })
@@ -542,6 +720,17 @@ shinyServer(
           + xlab('Week') 
           + ylab('Doses') +labs(title = "Acumulação de vacinas semana após semana")
         )
+      else if(input$grafico=="Percentagem de pessoas vacinadas")
+      {
+        res <- myReactivePies()
+        ggplot(res$dfPercentagens, aes(x="", y=res$Percentagens, fill=res$Nomenclatura)) +
+          geom_bar( stat="identity", width=1, color="white") +
+          coord_polar("y", start=0)+
+          theme_void()+
+          geom_text(aes(y=res$Percentagens, label = paste(round(res$Percentagens, digits=2),"%")), size = 7, color=c("black","white")) +
+          guides(fill= guide_legend(title = ""))
+        
+      }
       ##########################################################################
       
     })
@@ -864,7 +1053,6 @@ shinyServer(
       df$regiao <- rownames(df)
       df      <- melt(df, id.vars=c("regiao"))
       df$variable <- as.character(df$variable)
-      
       df$variable[df$variable=="V1"] <-"1"
       df$variable[df$variable=="V2"] <-"2"
       df$variable[df$variable=="V3"] <-"3"
@@ -887,6 +1075,14 @@ shinyServer(
       df$variable[df$variable=="V20"] <-"20"
       df$variable <- as.numeric(df$variable)
       
+      df$regiao <- as.character(df$regiao)
+      df$regiao[df$regiao=="dosestotaisAlentejo"] <-"Alentejo"
+      df$regiao[df$regiao=="dosestotaisAlgarve"] <-"Algarve"
+      df$regiao[df$regiao=="dosestotaisMadeira"] <-"Madeira"
+      df$regiao[df$regiao=="dosestotaisAçores"] <-"Açores"
+      df$regiao[df$regiao=="dosestotaisCentro"] <-"Centro"
+      df$regiao[df$regiao=="dosestotaisNorte"] <-"Norte"
+      df$regiao[df$regiao=="dosestotaisLisboa"] <-"Área metropolitana de Lisboa"
       
       ggplot(df, 
              aes(x = regiao,
@@ -906,6 +1102,7 @@ shinyServer(
               plot.subtitle = element_text(size = 20,
                                            face = "bold",
                                            color = 'red'),
+              axis.text.y = element_text( vjust = 0.5,size=10),
               axis.text = element_text(size = 5,
                                        face = "bold"),
               axis.text.x = element_text(angle = 90,size = 12,
@@ -1366,3 +1563,4 @@ shinyServer(
       
     }  )
     
+})
