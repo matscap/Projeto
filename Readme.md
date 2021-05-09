@@ -3,6 +3,11 @@
 ### Descrição/dicas dos updates
 __________________________________________________________________________________________________
 
+#### Update-16 09/05/2021  - Matias e Bruna
+
+Gráfico que vimos com a professora adicionado (Ver com a professora se vale a pena mantê-lo).
+Gráfico feito pela Bruna (Falta dar uns toques mas está praticamente feito).
+
 #### Update-15 09/05/2021  - Matias
 
 Simplesmente fiz um algoritmo para ir buscar os dados de outra forma na parte das regiões e tirei os radios (não me pareceu ser muito útil a forma que estava). Falta melhorar os gráficos.
