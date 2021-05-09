@@ -1306,12 +1306,12 @@ shinyServer(
                     geom_label(aes(y = res1$VacinadosAlgarve, label= res1$VacinadosAlgarve))
                 
                 if(input$optionAçores)
-                  p <- p + geom_point(aes(y = res1$VacinadosAçores, colour="Açores", group =3), size=3) +
-                    geom_line(aes(y = res1$Vacinados50_59, colour="Açores", group = 3))+
+                  p1 <- p1 + geom_point(aes(y = res1$VacinadosAçores, colour="Açores", group =3), size=3) +
+                    geom_line(aes(y = res1$VacinadosAçores, colour="Açores", group = 3))+
                     geom_label(aes(y = res1$VacinadosAçores, label= res1$VacinadosAçores))
                 
                 if(input$optionCentro)
-                  p <- p + geom_point(aes(y = res1$VacinadosCentro, colour="Centro", group =4), size=3) +
+                  p1 <- p1 + geom_point(aes(y = res1$VacinadosCentro, colour="Centro", group =4), size=3) +
                     geom_line(aes(y = res1$VacinadosCentro, colour="Centro", group = 4)) +
                     geom_label(aes(y = res1$VacinadosCentro, label= res1$VacinadosCentro))
                 
@@ -1366,5 +1366,3 @@ shinyServer(
       
     }  )
     
-  }
-)
