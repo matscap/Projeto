@@ -325,23 +325,23 @@ shinyServer(
       escolha$TargetGroup <- NULL
       escolha$Denominator <- NULL
       escolha$Region <- NULL
-      aux=escolha[1,3]+escolha[1,4]
+      aux=escolha[1,2]+escolha[1,3]
       
       dosestotais = c()
       datas = c()
-      datas = c(datas,escolha[1,2])
+      datas = c(datas,escolha[1,1])
       for(i in 2:nrow(escolha)) {
         # for-loop over rows
-        if(escolha[i,2]==escolha[i-1,2]){
-          aux = aux + escolha[i,3]+escolha[i,4]
+        if(escolha[i,1]==escolha[i-1,1]){
+          aux = aux + escolha[i,2]+escolha[i,3]
           
           if(i==nrow(escolha)){
             dosestotais <- c(dosestotais, aux)
           }
         }else{
-          datas = c(datas,escolha[i,2])
+          datas = c(datas,escolha[i,1])
           dosestotais <- c(dosestotais, aux)
-          aux = escolha[i,3]+escolha[i,4]
+          aux = escolha[i,2]+escolha[i,3]
           if(i==nrow(escolha)){
             dosestotais <- c(dosestotais, aux)
           }
