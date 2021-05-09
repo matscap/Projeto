@@ -3,6 +3,12 @@
 ### Descrição/dicas dos updates
 __________________________________________________________________________________________________
 
+
+#### Update-17 09/05/2021  - Matias
+
+Reutilizei o piechart para as regiões e fiz umas alterações no gráfico da professora.
+Era de pensar em fazer um wafflechart.
+
 #### Update-16 09/05/2021  - Matias e Bruna
 
 Gráfico que vimos com a professora adicionado (Ver com a professora se vale a pena mantê-lo).
