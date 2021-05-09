@@ -3,7 +3,15 @@
 ### Descrição/dicas dos updates
 __________________________________________________________________________________________________
 
-#### Update-12 08/05/2021 - Matias
+#### Update-14 09/05/2021 - Rafa
+ESTA NA MINHA BRANCH
+* Alterei o nosso gráfico "de entrada" pois dantes estava a fazer uma especie de "quantas pessoas, por faixa etaria tomaram a primeira dose". Alterei para se ver, por faixa etaria, quantas pessoas foram vacinadas com a vacina X.
+* Também pus o grafico das semanas / faixas etarias / pessoas vacinadas a ser possivel selecionar as linhas que queremos ver e assim
+* Ja atualizei, em Portugal, a parte de por as informações da vacina J&Json e inclusive fiz algumas adições no grafico do matias das vacinas
+* já pus as percentagens a dar no PiePlot. (meio esquisito mas...)
+
+
+#### Update-13 08/05/2021 - Matias
 Só criei mais um loadeddata2 para não estarmos a carregar sempre que mudamos de frame.
 Mudei o funcionamento da visualização dos gráficos para paineis condicionais. Desta forma a pessoa vai escolhendo conforme quer. Também adicionei um modal de ajuda.
 
