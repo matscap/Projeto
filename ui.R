@@ -20,44 +20,75 @@ shinyServer(
                            checkboxInput('grafico22','Quantidade de pessoas totalmente vacinadas por semana, agrupadas por faixa etária',FALSE),
                            checkboxInput('grafico33','Número de doses de cada tipo de vacina administradas',FALSE),
                            checkboxInput('grafico44','Percentagem de pessoas vacinadas/não vacinadas',FALSE),
+                           checkboxInput('grafico55','Evolução do número de vacinas administradas por região',FALSE),
+                           checkboxInput('teste','teste',FALSE),
                            
                          ),
                          
                          mainPanel(
                            tags$div(style="row", id="yo",checked=NA,
+                                    conditionalPanel(condition="input.teste == 1",
+                                                     div(
+                                                       fluidRow(
+                                                         tags$h3(style="col-12", "Quantidade de pessoas totalmente vacinadas por semana, agrupadas por Região"),
+                                                         column(12, "Selecione que Regiões quer visualizar:"),
+                                                         column(2,
+                                                                checkboxInput('optionAlentejo', "Alentejo",TRUE),
+                                                                checkboxInput('optionAlgarve', "Algarve",FALSE)),
+                                                         column(2,
+                                                                checkboxInput('optionAçores', "Açores",FALSE),
+                                                                checkboxInput('optionCentro', "Centro",FALSE)),
+                                                         column(2,
+                                                                checkboxInput('optionLisboa', "Lisboa",FALSE),
+                                                                checkboxInput('optionMadeira', "Madeira",FALSE)),
+                                                         column(2,
+                                                                checkboxInput('optionNorte',"Norte",FALSE)),
+                                                         column(4, "Incluir contagem?",
+                                                                radioButtons("radioOption1", "",
+                                                                             c("Sim" = "yup1",
+                                                                               "Não" = "nop1")))
+                                                         
+                                                       )
+                                                     ),
+                                                     tags$div(style="col-12",checked=NA,plotOutput("plotRegiao")%>% withSpinner(color="#cccccc")),
+                                                     
+                                    ),
+                                    conditionalPanel(condition="input.grafico55 == 1",
+                                                     tags$h3(style="col-12",''),
+                                                     tags$div(style="col-12",checked=NA,plotOutput("myEvolucao")%>% withSpinner(color="#cccccc"))),
                                     conditionalPanel(condition="input.grafico11 == 1",
                                                      tags$h3(style="col-12",'Quantidade de pessoas totalmente vacinadas por marca de vacina, tendo em conta a sua faixa etária'),
                                                      tags$div(style="col-12",checked=NA,plotOutput("myPlotPais")%>% withSpinner(color="#cccccc"))),
                                     conditionalPanel(condition="input.grafico22 == 1",
-                                                        div(
-                                                            fluidRow(
-                                                                tags$h3(style="col-12", "Quantidade de pessoas totalmente vacinadas por semana, agrupadas por faixa etária"),
-                                                                column(12, "Selecione que faixas etárias quer visualizar:"),
-                                                                column(2,
-                                                                    checkboxInput('option18_24', "18 - 24",TRUE),
-                                                                    checkboxInput('option25_49', "25 - 49",FALSE)),
-                                                                column(2,
-                                                                    checkboxInput('option50_59', "50 - 59",FALSE),
-                                                                    checkboxInput('option60_69', "60 - 69",FALSE)),
-                                                                column(2,
-                                                                    checkboxInput('option70_79', "70 - 79",FALSE),
-                                                                    checkboxInput('option80', "80+",FALSE)),
-                                                                column(2,""),
-                                                                column(4, "Incluir contagem?",
-                                                                       radioButtons("radioOption", "",
-                                                                                    c("Sim" = "yup",
-                                                                                      "Não" = "nop")))
-                                                                
-                                                            )
-                                                        ),
+                                                     div(
+                                                       fluidRow(
+                                                         tags$h3(style="col-12", "Quantidade de pessoas totalmente vacinadas por semana, agrupadas por faixa etária"),
+                                                         column(12, "Selecione que faixas etárias quer visualizar:"),
+                                                         column(2,
+                                                                checkboxInput('option18_24', "18 - 24",TRUE),
+                                                                checkboxInput('option25_49', "25 - 49",FALSE)),
+                                                         column(2,
+                                                                checkboxInput('option50_59', "50 - 59",FALSE),
+                                                                checkboxInput('option60_69', "60 - 69",FALSE)),
+                                                         column(2,
+                                                                checkboxInput('option70_79', "70 - 79",FALSE),
+                                                                checkboxInput('option80', "80+",FALSE)),
+                                                         column(2,""),
+                                                         column(4, "Incluir contagem?",
+                                                                radioButtons("radioOption", "",
+                                                                             c("Sim" = "yup",
+                                                                               "Não" = "nop")))
+                                                         
+                                                       )
+                                                     ),
                                                      tags$div(style="col-12",checked=NA,plotOutput("plot1824")%>% withSpinner(color="#cccccc")),
-                                                    actionButton("ajuda", "Ajuda",style="color: #fff; background-color: #337ab7; border-color: #2e6da4;"),
+                                                     actionButton("ajuda", "Ajuda",style="color: #fff; background-color: #337ab7; border-color: #2e6da4;"),
                                     ),
                                     conditionalPanel(condition="input.grafico33 == 1",
                                                      tags$h3(style="col-12",'Quantidades de vacinas administradas, por marcas de vacinas'),
                                                      tags$div(style="col-12",checked=NA,plotOutput("myPlotPais2")%>% withSpinner(color="#cccccc"))),
                                     conditionalPanel(condition="input.grafico44 == 1",
-                                                     tags$div(style="col-12",checked=NA,plotOutput("myPie")%>% withSpinner(color="#cccccc"))))
+                                                     tags$div(style="col-12",checked=NA,plotOutput("myPie")%>% withSpinner(color="#cccccc")))),
                            
                          )
                          #plotOutput("myPlot")
@@ -91,7 +122,7 @@ shinyServer(
                                                        
                                                        sidebarPanel(
                                                          selectInput("grafico1","Selecione o tipo de gráfico:",c("Vacinação semanal","Acumulação de vacinas")),
-                                                        
+                                                         
                                                        ),
                                                        
                                                        mainPanel(
@@ -176,7 +207,7 @@ shinyServer(
                                                        
                                                        sidebarPanel(
                                                          selectInput("grafico6","Selecione o tipo de gráfico:",c("Vacinação semanal","Acumulação de vacinas")),
-                                                        
+                                                         
                                                        ),
                                                        
                                                        mainPanel(
