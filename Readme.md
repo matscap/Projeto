@@ -3,6 +3,11 @@
 ### Descrição/dicas dos updates
 __________________________________________________________________________________________________
 
+#### Update-15 09/05/2021  - Matias
+
+Simplesmente fiz um algoritmo para ir buscar os dados de outra forma na parte das regiões e tirei os radios (não me pareceu ser muito útil a forma que estava). Falta melhorar os gráficos.
+Já está tudo com as cenas da branch do Rafa.
+
 #### Update-14 09/05/2021 - Rafa
 ESTA NA MINHA BRANCH
 * Alterei o nosso gráfico "de entrada" pois dantes estava a fazer uma especie de "quantas pessoas, por faixa etaria tomaram a primeira dose". Alterei para se ver, por faixa etaria, quantas pessoas foram vacinadas com a vacina X.
