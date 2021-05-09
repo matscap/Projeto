@@ -142,7 +142,8 @@ Our SARS-COV-2 application was developed in RStudio, which is free integrated de
 \end{itemize}
  % se tiver a der merd* corrijam 
  
- Ui.R stands for User Interface. In fact, UI.R is the file where the different parts of the application's front-end are defined, that is, what the end users see. Thus, in our application the ui.r goes through the definition of the application structure, that is, the form that our application takes, which in this case will be divided by "Portugal" and "Regiões" and each one with different options: 
+ Ui.R stands for User Interface. In fact, UI.R is the file where the different parts of the application's front-end are defined, that is, what the end users see.So ui.r is where you control the layout and appearance of the app.
+ Thus, in our application the ui.r goes through the definition of the application structure, that is, the form that our application takes, which in this case will be divided by "Portugal" and "Regiões" and each one with different options: 
  \begin{itemize}
     \item "Portugal" 
     In this section we will have the option to see some types of graphs with two options: 
@@ -154,15 +155,29 @@ Our SARS-COV-2 application was developed in RStudio, which is free integrated de
         \end{itemize}
     \item "Regiões"
      In this component we will have available the seven Portuguese regions and for each one we have the option of "Vacinção semanal" of each type of vaccine and we will also have the option of "Acumulação de vacinas" for the same types of vaccine, which is Pfyzer, Astrazeneca e Moderna.
+     
 
     
 \end{itemize}
 
-Server.R, by contrast, is the engine of the application, that is, where the data is processed.... tenho de acabar 
- 
+Server.R, on the other hand, is the engine of the application, that is, where the data is processed, that is, it contains the instructions that the computer needs to build the application. It is in this component that all the functions that we create are. 
 
- 
-\subsection{Data}
+\subsection{Reactivity in shiny}
+   Reactive functions are functions that can read reactive values and call other reactive functions. Whenever a reactive value changes, any reactive functions that depended on it are marked as "invalid" and will be automatically re-executed if necessary. If a reactive function is marked as invalid, all other reactive functions that have called it recently will also be marked as invalid. In this way, invalidations are propagated by functions that depend on each other.
+
+In our application we use reactive functions as it is a way to control which parts of the application are updated, avoiding unnecessary calculations that can make your application slow.
+
+\subsection{Render functions}
+
+The main function for generating documents in R Markdown, from the rmarkdown package, is a render ().
+The render () function is a wrapper that internally calls knitr :: knit () and later converts the document to .html using Pandoc, which is a document and open source converter.Uma função render que usamos na aplicação foi a renderPlot().
+
+To display the graphics in our application we use the renderPlot () tool. RenderPlot is a reactive function that can take input data from the ui.R script and feed it into the server.R script. It then actively updates the information within its role.
+
+
+
+
+
 \section{Implementation}
 \subsection{Depois ver mais cenas}
 \section{Results}
@@ -207,4 +222,5 @@ Server.R, by contrast, is the engine of the application, that is, where the data
 
 
 \end{document}
+
 
