@@ -102,7 +102,7 @@ shinyServer(
                                                        headerPanel(""),
                                                        
                                                        sidebarPanel(
-                                                         selectInput("grafico","Selecione o tipo de gráfico:",c("Vacinação semanal","Acumulação de vacinas")),
+                                                         selectInput("grafico","Selecione o tipo de gráfico:",c("Vacinação semanal","Acumulação de vacinas","Percentagem de pessoas vacinadas")),
                                                          
                                                          
                                                        ),
@@ -121,7 +121,7 @@ shinyServer(
                                                        headerPanel(""),
                                                        
                                                        sidebarPanel(
-                                                         selectInput("grafico1","Selecione o tipo de gráfico:",c("Vacinação semanal","Acumulação de vacinas")),
+                                                         selectInput("grafico1","Selecione o tipo de gráfico:",c("Vacinação semanal","Acumulação de vacinas","Percentagem de pessoas vacinadas")),
                                                          
                                                        ),
                                                        
@@ -138,7 +138,7 @@ shinyServer(
                                                        headerPanel(""),
                                                        
                                                        sidebarPanel(
-                                                         selectInput("grafico2","Selecione o tipo de gráfico:",c("Vacinação semanal","Acumulação de vacinas")),
+                                                         selectInput("grafico2","Selecione o tipo de gráfico:",c("Vacinação semanal","Acumulação de vacinas","Percentagem de pessoas vacinadas")),
                                                          
                                                        ),
                                                        
@@ -155,7 +155,7 @@ shinyServer(
                                                        headerPanel(""),
                                                        
                                                        sidebarPanel(
-                                                         selectInput("grafico3","Selecione o tipo de gráfico:",c("Vacinação semanal","Acumulação de vacinas")),
+                                                         selectInput("grafico3","Selecione o tipo de gráfico:",c("Vacinação semanal","Acumulação de vacinas","Percentagem de pessoas vacinadas")),
                                                          
                                                        ),
                                                        
@@ -172,7 +172,7 @@ shinyServer(
                                                        headerPanel(""),
                                                        
                                                        sidebarPanel(
-                                                         selectInput("grafico4","Selecione o tipo de gráfico:",c("Vacinação semanal","Acumulação de vacinas")),
+                                                         selectInput("grafico4","Selecione o tipo de gráfico:",c("Vacinação semanal","Acumulação de vacinas","Percentagem de pessoas vacinadas")),
                                                          
                                                        ),
                                                        
@@ -189,7 +189,7 @@ shinyServer(
                                                        headerPanel(""),
                                                        
                                                        sidebarPanel(
-                                                         selectInput("grafico5","Selecione o tipo de gráfico:",c("Vacinação semanal","Acumulação de vacinas")),
+                                                         selectInput("grafico5","Selecione o tipo de gráfico:",c("Vacinação semanal","Acumulação de vacinas","Percentagem de pessoas vacinadas")),
                                                          
                                                        ),
                                                        
@@ -206,7 +206,7 @@ shinyServer(
                                                        headerPanel(""),
                                                        
                                                        sidebarPanel(
-                                                         selectInput("grafico6","Selecione o tipo de gráfico:",c("Vacinação semanal","Acumulação de vacinas")),
+                                                         selectInput("grafico6","Selecione o tipo de gráfico:",c("Vacinação semanal","Acumulação de vacinas","Percentagem de pessoas vacinadas")),
                                                          
                                                        ),
                                                        
