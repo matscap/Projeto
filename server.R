@@ -3,6 +3,7 @@ library(ggplot2)
 library(tidyr)
 library(reshape)
 library(gganimate)
+last_update <- Sys.Date()
 
 shinyServer(
   function(input,output,session){
@@ -10,8 +11,14 @@ shinyServer(
     loadedData <- reactiveVal()
     loadedData2 <- reactiveVal()
     
+    if(last_update + 7 >= Sys.Date()) {
+      last_update <- Sys.Date()
+      data <- read.csv("https://opendata.ecdc.europa.eu/covid19/vaccine_tracker/csv/data.csv", na.strings = "", fileEncoding = "UTF-8-BOM")
+      write.csv(data, "Data/data.csv")
+    }
+    
     observe({
-      loadedData(read.csv("https://opendata.ecdc.europa.eu/covid19/vaccine_tracker/csv/data.csv", na.strings = "", fileEncoding = "UTF-8-BOM")) 
+      loadedData(read.csv("Data/data.csv", na.strings = "", fileEncoding = "UTF-8-BOM")) 
       dadosapenasportugal <- loadedData() %>%
         filter(ReportingCountry == "PT")
       loadedData2(dadosapenasportugal)
@@ -324,6 +331,8 @@ shinyServer(
           escolha$TargetGroup <- NULL
           escolha$Denominator <- NULL
           escolha$Region <- NULL
+          escolha$X <- NULL
+          
           aux=escolha[1,2]+escolha[1,3]
           
           dosestotais = c()
@@ -411,6 +420,8 @@ shinyServer(
       escolha$TargetGroup <- NULL
       escolha$Denominator <- NULL
       escolha$Region <- NULL
+      escolha$X <- NULL
+
       aux=escolha[1,2]+escolha[1,3]
       
       dosestotais = c()
@@ -493,6 +504,7 @@ shinyServer(
         )
       else if(input$grafico=="Percentagem de pessoas vacinadas")
       {
+        
           res <- myReactivePies()
           ggplot(res$dfPercentagens, aes(x="", y=res$Percentagens, fill=res$Nomenclatura)) +
             geom_bar( stat="identity", width=1, color="white") +
@@ -749,11 +761,11 @@ shinyServer(
       Alentejo$TargetGroup <- NULL
       Alentejo$Denominator <- NULL
       Alentejo$Region <- NULL
+      Alentejo$X <- NULL
       
       datas = unique(Alentejo["YearWeekISO"])
-      
+
       aux=Alentejo[1,2]+Alentejo[1,3]
-      
       dosestotaisAlentejo = c()
       
       for(i in 2:nrow(Alentejo)) {
@@ -791,7 +803,7 @@ shinyServer(
       Algarve$TargetGroup <- NULL
       Algarve$Denominator <- NULL
       Algarve$Region <- NULL
-      
+      Algarve$X <- NULL
       datas = unique(Algarve["YearWeekISO"])
       
       aux=Algarve[1,2]+Algarve[1,3]
@@ -833,7 +845,7 @@ shinyServer(
       Açores$TargetGroup <- NULL
       Açores$Denominator <- NULL
       Açores$Region <- NULL
-      
+      Açores$X <- NULL
       datasAçores = unique(Açores["YearWeekISO"])
       
       aux=Açores[1,2]+Açores[1,3]
@@ -875,7 +887,7 @@ shinyServer(
       Centro$TargetGroup <- NULL
       Centro$Denominator <- NULL
       Centro$Region <- NULL
-      
+      Centro$X <- NULL
       datasCentro = unique(Centro["YearWeekISO"])
       
       aux=Centro[1,2]+Centro[1,3]
@@ -917,7 +929,7 @@ shinyServer(
       Lisboa$TargetGroup <- NULL
       Lisboa$Denominator <- NULL
       Lisboa$Region <- NULL
-      
+      Lisboa$X <- NULL
       datasLisboa = unique(Lisboa["YearWeekISO"])
       
       aux=Lisboa[1,2]+Lisboa[1,3]
@@ -959,7 +971,7 @@ shinyServer(
       Madeira$TargetGroup <- NULL
       Madeira$Denominator <- NULL
       Madeira$Region <- NULL
-      
+      Madeira$X <- NULL
       datasMadeira = unique(Madeira["YearWeekISO"])
       
       aux=Madeira[1,2]+Madeira[1,3]
@@ -1001,7 +1013,7 @@ shinyServer(
       Norte$TargetGroup <- NULL
       Norte$Denominator <- NULL
       Norte$Region <- NULL
-      
+      Norte$X <- NULL
       datasNorte = unique(Norte["YearWeekISO"])
       
       aux=Norte[1,2]+Norte[1,3]
