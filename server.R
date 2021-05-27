@@ -1437,10 +1437,6 @@ shinyServer(
       names(aux51) <- c("YearWeekISO", "TotalVacinados")
       TVpS_Açores <-rbind(aux51,TVpS_Açores)
       
-      aux53 <- data.frame("2021-W18",0)
-      names(aux53) <- c("YearWeekISO", "TotalVacinados")
-      TVpS_Açores <-rbind(aux53,TVpS_Açores)
-      
       TVpS_Centro <-joinedDS_Centro %>% 
         mutate( TotalVacinados = rowSums(.[2:4])) %>% 
         select(YearWeekISO, TotalVacinados)
@@ -1457,15 +1453,12 @@ shinyServer(
       names(aux54) <- c("YearWeekISO", "TotalVacinados")
       TVpS_Madeira <-rbind(aux54,TVpS_Madeira)
       
-      aux55 <- data.frame("2021-W18",0)
-      names(aux55) <- c("YearWeekISO", "TotalVacinados")
-      TVpS_Madeira <-rbind(aux55,TVpS_Madeira)
+      
       
       TVpS_Norte <-joinedDS_Norte %>% 
         mutate( TotalVacinados = rowSums(.[2:4])) %>% 
         select(YearWeekISO, TotalVacinados) 
-      
-      
+  
       Datas1 = unlist(TVpS_Norte["YearWeekISO"])
       VacinadosAlentejo = unlist(TVpS_Alentejo["TotalVacinados"])
       VacinadosAlgarve = unlist(TVpS_Algarve["TotalVacinados"])
