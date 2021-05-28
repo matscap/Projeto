@@ -1,0 +1,28 @@
+Our SARS-COV-2 application was developed in RStudio, which is free integrated development environment software for R. Our application was developed in Shiny and consists of the following structure:
+
+\begin{itemize}
+    \item server.r
+    \item ui.r
+    
+\end{itemize}
+ % se tiver a der merd* corrijam 
+ 
+ Ui.R stands for User Interface. In fact, UI.R is the file where the different parts of the application's front-end are defined, that is, what the end users see.So ui.r is where you control the layout and appearance of the app.
+ Thus, in our application the ui.r goes through the definition of the application structure, that is, the form that our application takes, which in this case will be divided by "Portugal" and "Regiões" and each one with different options: 
+ \begin{itemize}
+    \item "Portugal" 
+    In this section we will have the option to see some types of graphs with two options: 
+     \begin{itemize}
+        \item By age; 
+        \item By vaccines.
+
+        
+        \end{itemize}
+    \item "Regiões"
+     In this component we will have available the seven Portuguese regions and for each one we have the option of "Vacinção semanal" of each type of vaccine and we will also have the option of "Acumulação de vacinas" for the same types of vaccine, which is Pfyzer, Astrazeneca e Moderna.
+     
+
+    
+\end{itemize}
+
+Server.R, on the other hand, is the engine of the application, that is, where the data is processed, that is, it contains the instructions that the computer needs to build the application. It is in this component that all the functions that we create are. 

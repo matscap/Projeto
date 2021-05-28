@@ -1,0 +1,186 @@
+\documentclass[11pt,a4paper]{report}
+
+\usepackage[english]{babel} 
+\usepackage[utf8]{inputenc} % Unicode
+\usepackage{graphicx} 
+\usepackage{url} 
+\usepackage{amsmath}
+\usepackage{textcomp} 
+\usepackage{multirow} 
+\usepackage[pdftex,hidelinks]{hyperref}
+\usepackage{listings}
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{verbatim}
+\usepackage{textcomp}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{acronym}
+
+\def\R{{\textsl{R }}}
+\def\Shiny{\textsl{Shiny }}
+\def\sar{\textsl{SARS-CoV-2 }}
+
+
+
+\title{Development of a \Shiny application to visualize SARS-CoV-2 vaccination data of Portugal}
+
+\author{
+  Bruna Araújo\\
+  \texttt{A84408}
+  \and
+  Matias Capitão\\
+  \texttt{A82726} \\ 
+  \\ Mentoring:\\
+  Cecília Castro\\
+  \and
+  Rafael Antunes\\
+  \texttt{A77457}
+}
+\date{May or June 2021}
+
+
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+% Apagar daqui
+    ************* Ao fim retornamos aqui.\\ Entretanto encontrei isto para nos ajudar a fazer o Abstract *************\\ \\
+%até aqui
+    Write the abstract at the very end, when you’ve completed the rest of the text. There are four things you need to include:\\ \\
+
+    Your research problem and objectives\\
+    Your methods\\
+    Your key results or arguments\\
+    Your conclusion
+
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+\listoffigures
+\newpage
+
+\listoftables
+\newpage
+
+{\huge\textbf{Acronym List}}\\
+\input{acro_list}
+
+
+\chapter{Introduction}
+\section{\R and \Shiny}
+
+\input{RandShiny}
+
+
+\section{SARS-CoV-2}
+\subsection{Brief description}
+
+\input{Sars-CoV-2}
+
+\subsection{Vaccination}
+\input{Vaccination}
+
+
+\section{Portugal}
+
+\subsection{Brief description}
+\input{Portugal}
+
+\subsection{Regions}
+\input{RegionsPT}
+
+
+
+
+
+\section{SARS-CoV-2 in Portugal}
+
+\subsection{Brief description}
+\input{CovidPT}
+
+\subsection{Vaccination}
+\input{VaccinationPT}
+
+
+
+
+
+\chapter{Application}
+
+\section{Research}
+\input{Research}
+
+
+\section{Development}
+\input{Development}
+
+\subsection{Reactivity in shiny}
+\input{ReactivityInShiny}
+
+\subsection{Render functions}
+
+The main function for generating documents in R Markdown, from the rmarkdown package, is a render ().
+The render () function is a wrapper that internally calls knitr :: knit () and later converts the document to .html using Pandoc, which is a document and open source converter.Uma função render que usamos na aplicação foi a renderPlot().
+
+To display the graphics in our application we use the renderPlot () tool. RenderPlot is a reactive function that can take input data from the ui.R script and feed it into the server.R script. It then actively updates the information within its role.
+
+
+
+
+
+\section{Implementation}
+\subsection{Depois ver mais cenas}
+\section{Results}
+\subsection{Publication}
+\subsection{Versatility}
+
+\chapter{Conclusion}
+
+
+\bibliographystyle{plain}
+\begin{thebibliography}{10}
+
+
+\bibitem{R-project website} \textit{\href{https://www.r-project.org/about.html}{https://www.r-project.org/about.html}} , \textbf{About/R-Project website}
+
+\bibitem{shiny}\textit{\href{https://shiny.rstudio.com/l}{https://shiny.rstudio.com}} , \textbf{Shiny website
+}
+\bibitem{SARS-CoV-2}\textit{\href{https://apps.who.int/iris/bitstream/handle/10665/332197/WHO-2019-nCoV-FAQ-Virus_origin-2020.1-eng.pdf}{https://apps.who.int/.../origin-2020.1-eng.pdf}} ,\textbf{ Origin of SARS-CoV-2 - \ac{WHO}}
+
+\bibitem{EU}\textit{\href{https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/public-health/eu-vaccines-strategy_pt}{https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/public-health/eu-vaccines-strategy_pt}} , \textbf{EU vaccine strategy} 
+
+\bibitem{reuters}\textit{\href{https://graphics.reuters.com/world-coronavirus-tracker-and-maps/vaccination-rollout-and-access/}{https://graphics.reuters.com/world-coronavirus-tracker-and-maps/vaccination-rollout-and-access/}}, \textbf{Covid-19 vaccination tracker, Reuters} 
+
+
+\bibitem{pubINE}\textit{\href{https://www.ine.pt/xurl/pub/71882686}{https://www.ine.pt/xurl/pub/71882686}}, \textbf{Instituto Nacional de Estatística - Estatísticas Demográficas : 2019. Lisboa : INE, 2020.} 
+
+
+\bibitem{trab}\textit{\href{https://ec.europa.eu/eures/main.jsp?acro=lmi&lang=pt&countryId=PT&catId=57&parentId=0}{https://ec.europa.eu/eures/main.jsp?acro=lmi&lang=pt&countryId=PT&catId=57&parentId=0}}, \textbf{Labor Market Information - European Commission} 
+
+
+\bibitem{dataDownload}\textit{\href{https://vaccinetracker.ecdc.europa.eu/public/extensions/COVID-19/vaccine-tracker.html#notes-tab}} , \textbf{General Vaccine information - European Centre for Disease Prevention and Control } 
+
+\end{thebibliography}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+
