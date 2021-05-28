@@ -15,19 +15,21 @@ shinyServer(
                        tabPanel("Portugal", fluid = TRUE,pageWithSidebar(
                          headerPanel(""),
                          
-                         sidebarPanel(
+                         sidebarPanel( 
+                           h3("Vacinação COVID-19 em Portugal"),
+                           ("Clique nas Checkboxes para vizualizar os gráficos que quer analisar."),br(""),
                            checkboxInput('grafico11','Totalidade de pessoas vacinadas,tendo em conta a sua faixa etária e marca da vacina',TRUE),
                            checkboxInput('grafico22','Quantidade de pessoas totalmente vacinadas por semana, agrupadas por faixa etária',FALSE),
                            checkboxInput('grafico33','Número de doses de cada tipo de vacina administradas',FALSE),
                            checkboxInput('grafico44','Percentagem de pessoas vacinadas/não vacinadas',FALSE),
                            checkboxInput('grafico55','Evolução do número de vacinas administradas por região',FALSE),
-                           checkboxInput('teste','Quantidade de pessoas totalmente vacinadas ,por semana, em cada Região',FALSE),
+                           checkboxInput('grafico66','Quantidade de pessoas totalmente vacinadas ,por semana, em cada Região',FALSE),
                            
                          ),
                          
                          mainPanel(
                            tags$div(style="row", id="yo",checked=NA,
-                                    conditionalPanel(condition="input.teste == 1",
+                                    conditionalPanel(condition="input.grafico66 == 1",
                                                      div(
                                                        fluidRow(
                                                          tags$h3(style="col-12", "Quantidade de pessoas totalmente vacinadas por semana, agrupadas por Região"),
@@ -87,7 +89,8 @@ shinyServer(
                                     conditionalPanel(condition="input.grafico33 == 1",
                                                      tags$h3(style="col-12",'Quantidades de vacinas administradas, por marcas de vacinas'),
                                                      tags$div(style="col-12",checked=NA,plotOutput("myPlotPais2")%>% withSpinner(color="#cccccc"))),
-                                    conditionalPanel(condition="input.grafico44 == 1",
+                                    conditionalPanel(condition="input.grafico44 == 1", 
+                                                     tags$h3(style="col-12",'Percentagem de pessoas vacinadas/não vacinadas'),
                                                      tags$div(style="col-12",checked=NA,plotOutput("myPie")%>% withSpinner(color="#cccccc")))),
                            
                          )
