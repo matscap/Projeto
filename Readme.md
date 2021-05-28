@@ -3,6 +3,8 @@
 ### Descrição/dicas dos updates
 __________________________________________________________________________________________________
 
+#### Update-18 28/05/2021  - Rafa
+Atualizei o Relatorio com mais algumas coisas.
 
 #### Update-17 09/05/2021  - Matias
 
