@@ -1,0 +1,11 @@
+
+/* Estilo da nossa box de informação */
+ div.info {
+  background : #ffaa80;
+  border-radius : 3px;
+  padding : 1em;
+  margin : 1em;
+  text-align: center;
+  font-family:verdana;
+  bottom : 1px;
+}
