@@ -202,8 +202,8 @@ shinyServer(
                                             tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
                                                      includeMarkdown("www/info.md")
                                             ),
-                                            tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
-                                                     img(src="pt.png", height=600, width=800)
+                                            tags$div(class="col-md-4 col-sm-6 col-12",style="margin-bottom: auto; margin-top: auto; margin-left: auto; margin-right: auto;",checked=NA,
+                                                     img(src="pt.png", height=400, width=600)
                                             )
                                    )),
                           tabPanel("Autoria",
