@@ -6,9 +6,8 @@ library(gganimate)
 
 last_update <- Sys.Date()
 
-# Vamos usar como data inicial, a data de chegada do primeiro lote de vacinas a Portugal
-date <- "26/12/2021"
-date <- as.Date(date, format = "%d/%m/%y")
+# Vamos usar como data inicial, a quinta-feira da semana de chegada do primeiro lote de vacinas a Portugal
+date <- as.Date("24/12/2021", format = "%d/%m/%y")
 
 
 shinyServer(
@@ -74,6 +73,8 @@ shinyServer(
         Nomes
       )
     })
+    
+    
     myReactiveDataPais3 <- reactive({
       
       #Dados para portugal apenas:
@@ -93,8 +94,10 @@ shinyServer(
         filter(Vaccine == "COM")
       tpv_AZ <- totalGenteVacinada %>%
         filter(Vaccine == "AZ")
+      tpv_JJ <- totalGenteVacinada %>%
+        filter(Vaccine == "JANSS")
       
-      TotalVacinados = unlist(c(sum(tpv_MOD["SecondDose"])) + c(sum(tpv_COM["SecondDose"])) + c(sum(tpv_AZ["SecondDose"])))
+      TotalVacinados = unlist( c(sum(tpv_MOD["SecondDose"])) + c(sum(tpv_COM["SecondDose"])) + c(sum(tpv_AZ["SecondDose"])) + c(sum(tpv_JJ["SecondDose"]))) 
       Percentagem_tpv = (TotalVacinados/totalPopulacao)*100
       Percentagem_tpNv = ((totalPopulacao-TotalVacinados)/totalPopulacao)*100
       
@@ -146,8 +149,10 @@ shinyServer(
         filter(Vaccine == "COM")
       tpv_AZ <- totalGenteVacinada %>%
         filter(Vaccine == "AZ")
+      tpv_JJ <- totalGenteVacinada %>%
+        filter(Vaccine == "JANSS")
       
-      TotalVacinados = unlist(c(sum(tpv_MOD["SecondDose"])) + c(sum(tpv_COM["SecondDose"])) + c(sum(tpv_AZ["SecondDose"])))
+      TotalVacinados = unlist(c(sum(tpv_MOD["SecondDose"])) + c(sum(tpv_COM["SecondDose"])) + c(sum(tpv_AZ["SecondDose"]))+ c(sum(tpv_AZ["SecondDose"])) + c(sum(tpv_JJ["SecondDose"])))
       Percentagem_tpv = (TotalVacinados/totalPopulacao)*100
       Percentagem_tpNv = ((totalPopulacao-TotalVacinados)/totalPopulacao)*100
       
@@ -229,6 +234,9 @@ shinyServer(
       
       
     })
+    
+    
+    
     c5 = c("18-24","25-49","50-59","60-69","70-79", "80+")
     output$myPlotPais <- renderPlot({
       
@@ -276,6 +284,7 @@ shinyServer(
         ylab('Doses') 
     })
     
+    
     output$myPie <- renderPlot({
       
       resPie <- myReactiveDataPais3()
@@ -287,6 +296,9 @@ shinyServer(
         geom_text(aes(y=resPie$Percentagens, label = paste(round(resPie$Percentagens, digits=2),"%")), size = 7, color=c("black","white")) +
         guides(fill= guide_legend(title = ""))
     })
+    
+    
+    
     
     myReactiveDat <- reactive({
       
@@ -1263,6 +1275,13 @@ shinyServer(
       Vacinados70_79 = unlist(TVpS_70_79["TotalVacinados"])
       Vacinados80    = unlist(TVpS_80["TotalVacinados"])
       
+      # Queremos alterar a informação que temos em Datas:
+      d = as.Date(date, format = "%d/%m/%y")
+      for (i in 1:length(Datas)){
+        Datas[i] = toString(d)
+        d = d + 7
+      }
+
       TV <- data.frame(
         Datas,
         Vacinados18_24,
@@ -1275,6 +1294,7 @@ shinyServer(
       
     })
     
+    #Pedir ajuda à professora. Se passar como x = as.Date(res$Datas) não me aparece a data como queremos, mas apenas os meses.
     output$plot1824 <- renderPlot({
       
       res <- myReactiveData()
@@ -1479,6 +1499,12 @@ shinyServer(
       VacinadosLisboa = unlist(TVpS_Lisboa["TotalVacinados"])
       VacinadosMadeira = unlist(TVpS_Madeira["TotalVacinados"])
       VacinadosNorte    = unlist(TVpS_Norte["TotalVacinados"])
+      
+      d = as.Date(date, format = "%d/%m/%y")
+      for (i in 1:length(Datas)){
+        Datas1[i] = toString(d)
+        d = d + 7
+      }
       
       
       TV1 <- data.frame(

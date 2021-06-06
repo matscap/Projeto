@@ -3,7 +3,7 @@ library(bslib)
 library(thematic)
 library(shinycssloaders)
 
-
+library(shinydashboard)
 
 thematic::thematic_shiny()
 
@@ -11,8 +11,11 @@ shinyServer(
   
   fluidPage(theme = bs_theme(version = 4, bootswatch = "united"),
             
+            includeCSS("www/styles.css"),
+            
             navbarPage("",
-                       tabPanel("Portugal", fluid = TRUE,pageWithSidebar(
+                       
+                       tabPanel("Portugal", fluid = TRUE, pageWithSidebar(
                          headerPanel(""),
                          
                          sidebarPanel( 
@@ -28,6 +31,7 @@ shinyServer(
                          ),
                          
                          mainPanel(
+                           
                            tags$div(style="row", id="yo",checked=NA,
                                     conditionalPanel(condition="input.grafico66 == 1",
                                                      div(
@@ -93,8 +97,7 @@ shinyServer(
                                                      tags$h3(style="col-12",'Percentagem de pessoas vacinadas/não vacinadas'),
                                                      tags$div(style="col-12",checked=NA,plotOutput("myPie")%>% withSpinner(color="#cccccc")))),
                            
-                         )
-                         #plotOutput("myPlot")
+                          )
                        )
                        )   
                        ,
@@ -217,12 +220,27 @@ shinyServer(
                                                          tags$div(style="row", id="yo",checked=NA,
                                                                   tags$div(style="col-12",checked=NA,plotOutput("myPlot7")%>% withSpinner(color="#cccccc"))
                                                          )
-                                                         #plotOutput("myPlot")
                                                        )
                                                      )
                                             )
                                 )
+                       ),
+                       navbarMenu("About",
+                          tabPanel("Informação",
+                                   fluidRow(
+                                     column(6,
+                                            includeMarkdown("www/info.md")),
+                                     img(src="pt.png", height=600, width=800),
+                                     "Depois melhorar esta imagem. Andei a lutar com a posição dela."
+                                   )),
+                          tabPanel("Autoria",
+                                   fluidRow(
+                                     column(12,
+                                            includeMarkdown("www/autoria.md"))
+                                   ))
                        )
-            )
+            ),
+            #tags$br(),
+            #tags$div( class="info", "Licenciatura em Ciências da Computação, Universidade do Minho, 2021/21"),
   )
 )
