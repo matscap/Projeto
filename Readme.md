@@ -5,6 +5,7 @@ ________________________________________________________________________________
 
 #### Update-20 06/06/2021  - Matias
 Mudei o visual das regiões e troquei as tabs de regiões para funcionar da forma que o Rafa pôs no About.
+Corrigi também o erro que acontecia num dos gráficos do separador de Portugal.
 
 #### Update-19 06/06/2021  - Rafa
 Tentei fazer com que aparençam as datas direitas nos nossos gráficos (Dispostas de quinta a quinta-feira).
