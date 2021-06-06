@@ -3,6 +3,11 @@
 ### Descrição/dicas dos updates
 __________________________________________________________________________________________________
 
+#### Update-19 06/06/2021  - Rafa
+Tentei fazer com que aparençam as datas direitas nos nossos gráficos (Dispostas de quinta a quinta-feira).
+Adicionei também uma menuTab com aquelas cenas. Peço por favor que vejam e digam se é boa ideia. Caso contrário editamos/tiramo, é na boa. Tentarei fazer outro commit hoje com mais algumas alterações estéticas para ir organizando as cenas. 
+
+
 #### Update-18 28/05/2021  - Rafa
 Atualizei o Relatorio com mais algumas coisas.
 
