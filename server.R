@@ -1491,10 +1491,6 @@ shinyServer(
         mutate( TotalVacinados = rowSums(.[2:4])) %>% 
         select(YearWeekISO, TotalVacinados)
       
-      aux51 <- data.frame("2020-W52",0)
-      names(aux51) <- c("YearWeekISO", "TotalVacinados")
-      TVpS_Açores <-rbind(aux51,TVpS_Açores)
-      
       TVpS_Centro <-joinedDS_Centro %>% 
         mutate( TotalVacinados = rowSums(.[2:4])) %>% 
         select(YearWeekISO, TotalVacinados)
@@ -1507,31 +1503,46 @@ shinyServer(
         mutate( TotalVacinados = rowSums(.[2:4])) %>% 
         select(YearWeekISO, TotalVacinados)
       
-      aux54<- data.frame("2020-W52",0)
-      names(aux54) <- c("YearWeekISO", "TotalVacinados")
-      TVpS_Madeira <-rbind(aux54,TVpS_Madeira)
-      
-      
-      
       TVpS_Norte <-joinedDS_Norte %>% 
         mutate( TotalVacinados = rowSums(.[2:4])) %>% 
         select(YearWeekISO, TotalVacinados) 
       
+      df <- merge(TVpS_Alentejo,TVpS_Algarve,by="YearWeekISO",all=TRUE)
+      colnames(df) <- c("YearWeekISO","Alentejo", "Algarve")
+      df <- merge(df,TVpS_Açores,by="YearWeekISO",all=TRUE)
+      colnames(df) <- c("YearWeekISO","Alentejo", "Algarve","Açores")
+      df <- merge(df,TVpS_Centro,by="YearWeekISO",all=TRUE)
+      colnames(df) <- c("YearWeekISO","Alentejo", "Algarve","Açores","Centro")
+      df <- merge(df,TVpS_Lisboa,by="YearWeekISO",all=TRUE)
+      colnames(df) <- c("YearWeekISO","Alentejo", "Algarve","Açores","Centro","Lisboa")
+      df <- merge(df,TVpS_Madeira,by="YearWeekISO",all=TRUE)
+      colnames(df) <- c("YearWeekISO","Alentejo", "Algarve","Açores","Centro","Lisboa","Madeira")
+      df <- merge(df,TVpS_Norte,by="YearWeekISO",all=TRUE)
+      colnames(df) <- c("YearWeekISO","Alentejo", "Algarve","Açores","Centro","Lisboa","Madeira","Norte")
+      
+      df["Alentejo"][is.na(df["Alentejo"])] <- 0
+      df["Algarve"][is.na(df["Algarve"])] <- 0
+      df["Centro"][is.na(df["Centro"])] <- 0
+      df["Lisboa"][is.na(df["Lisboa"])] <- 0
+      df["Madeira"][is.na(df["Madeira"])] <- 0
+      df["Norte"][is.na(df["Norte"])] <- 0
+      df["Açores"][is.na(df["Açores"])] <- 0
+      
+      
       Datas1 = unlist(TVpS_Norte["YearWeekISO"])
-      VacinadosAlentejo = unlist(TVpS_Alentejo["TotalVacinados"])
-      VacinadosAlgarve = unlist(TVpS_Algarve["TotalVacinados"])
-      VacinadosAçores = unlist(TVpS_Açores["TotalVacinados"])
-      VacinadosCentro = unlist(TVpS_Centro["TotalVacinados"])
-      VacinadosLisboa = unlist(TVpS_Lisboa["TotalVacinados"])
-      VacinadosMadeira = unlist(TVpS_Madeira["TotalVacinados"])
-      VacinadosNorte    = unlist(TVpS_Norte["TotalVacinados"])
+      VacinadosAlentejo = unlist(df["Alentejo"])
+      VacinadosAlgarve = unlist(df["Algarve"])
+      VacinadosAçores = unlist(df["Centro"])
+      VacinadosCentro = unlist(df["Centro"])
+      VacinadosLisboa = unlist(df["Lisboa"])
+      VacinadosMadeira = unlist(df["Madeira"])
+      VacinadosNorte    = unlist(df["Açores"])
       
       d = as.Date(date, format = "%d/%m/%y")
-      for (i in 1:length(Datas)){
+      for (i in 1:length(Datas1)){
         Datas1[i] = toString(d)
         d = d + 7
       }
-      
       
       TV1 <- data.frame(
         Datas1,
@@ -1559,7 +1570,7 @@ shinyServer(
         labs(title = "Quantidade de pessoas vacinadas em cada Região, por semana", 
              x = "Semanas", 
              y = "Pessoas Vacinadas") +
-        scale_x_continuous(breaks = c(as.numeric(1:length(res1$Datas))) ,labels = res1$Datas1) 
+        scale_x_continuous(breaks = c(as.numeric(1:length(res1$Datas1))) ,labels = res1$Datas1) 
       
       switch (input$radioOption1,
               "yup1" = {
