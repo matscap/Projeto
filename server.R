@@ -495,38 +495,8 @@ shinyServer(
     ##################################################################################
     #        Algarve          #
     ##################################################################################
-    
-    
-    output$myPlotB <- renderPlot({
+    output$myPlotB3 <- renderPlot({
       
-      res <- myReactiveDat()
-      
-      if(input$grafico=="Vacinação semanal")
-        (
-          
-          ggplot(res$df2, aes(x=res$Data, y= res$Doses)) + 
-            geom_bar(stat='identity')+ 
-            
-            theme(axis.text.x = element_text(angle = 45, vjust = 0.5),
-                  axis.title = element_text(face="bold", size=18),
-                  title = element_text(size = 20)) + 
-            xlab('Week') +
-            ylab('Doses') +labs(title = "Número de vacinas administradas por semana")
-        )
-      else if(input$grafico=="Acumulação de vacinas")
-        ( 
-          ggplot(res$df2, aes(x=res$Data, y=cumsum(res$Doses),group=1)) 
-          + geom_line()  
-          + geom_point() 
-          + theme(axis.text.x = element_text(angle = 45, vjust = 0.5),
-                  axis.title = element_text(face="bold", size=18),
-                  title = element_text(size = 20))  
-          + xlab('Week') 
-          + ylab('Doses') +labs(title = "Acumulação de vacinas semana após semana")
-        )
-      else if(input$grafico=="Percentagem de pessoas vacinadas")
-      {
-        
         res <- myReactivePies()
         ggplot(res$dfPercentagens, aes(x="", y=res$Percentagens, fill=res$Nomenclatura)) +
           geom_bar( stat="identity", width=1, color="white") +
@@ -535,27 +505,59 @@ shinyServer(
           geom_text(aes(y=res$Percentagens, label = paste(round(res$Percentagens, digits=2),"%")), size = 7, color=c("black","white")) +
           guides(fill= guide_legend(title = ""))
         
-      }
+      
+    })
+    output$myPlotB2 <- renderPlot({
+      
+      res <- myReactiveDat()
+      
+        (ggplot(res$df2, aes(x=res$Data, y=cumsum(res$Doses),group=1)) 
+          + geom_line()  
+          + geom_point() 
+          + theme(axis.text.x = element_text(angle = 45, vjust = 0.5),
+                  axis.title = element_text(face="bold", size=18),
+                  title = element_text(size = 20))  
+          + xlab('Week') 
+          + ylab('Doses') +labs(title = "Acumulação de vacinas semana após semana")
+        
+        )
+    })
+    
+    output$myPlotB1 <- renderPlot({
+      
+      res <- myReactiveDat()
+      
+      
+          ggplot(res$df2, aes(x=res$Data, y= res$Doses)) + 
+            geom_bar(stat='identity')+ 
+            
+            theme(axis.text.x = element_text(angle = 45, vjust = 0.5),
+                  axis.title = element_text(face="bold", size=18),
+                  title = element_text(size = 20)) + 
+            xlab('Week') +
+            ylab('Doses') +labs(title = "Número de vacinas administradas por semana")
+        
     })
     
     ##################################################################################
     #        Alentejo          #
     ##################################################################################
     
-    output$myPlot2 <- renderPlot({
+    output$myPlot23 <- renderPlot({
+      
+      res <- myReactivePies()
+      ggplot(res$dfPercentagens, aes(x="", y=res$Percentagens, fill=res$Nomenclatura)) +
+        geom_bar( stat="identity", width=1, color="white") +
+        coord_polar("y", start=0)+
+        theme_void()+
+        geom_text(aes(y=res$Percentagens, label = paste(round(res$Percentagens, digits=2),"%")), size = 7, color=c("black","white")) +
+        guides(fill= guide_legend(title = ""))
+    })
+    
+    output$myPlot22 <- renderPlot({
       
       res <- myReactiveDat()
       
-      if(input$grafico1=="Vacinação semanal")
-        (ggplot(res$df2, aes(x=res$Data, y= res$Doses)) + 
-           geom_bar(stat='identity')+ 
-           theme(axis.text.x = element_text(angle = 45, vjust = 0.5),
-                 axis.title = element_text(face="bold", size=18),
-                 title = element_text(size = 20)) + 
-           xlab('Week') +
-           ylab('Doses')+labs(title = "Número de vacinas administradas por semana")
-        )
-      else if(input$grafico1=="Acumulação de vacinas")
         ( ggplot(res$df2, aes(x=res$Data, y=cumsum(res$Doses),group=1)) 
           + geom_line()  
           + geom_point() 
@@ -565,8 +567,28 @@ shinyServer(
           + xlab('Week') 
           + ylab('Doses')+labs(title = "Acumulação de vacinas semana após semana")
         )
-      else if(input$grafico=="Percentagem de pessoas vacinadas")
-      {
+      
+      ##########################################################################
+      
+    })
+    
+    output$myPlot21 <- renderPlot({
+      
+      res <- myReactiveDat()
+        (ggplot(res$df2, aes(x=res$Data, y= res$Doses)) + 
+           geom_bar(stat='identity')+ 
+           theme(axis.text.x = element_text(angle = 45, vjust = 0.5),
+                 axis.title = element_text(face="bold", size=18),
+                 title = element_text(size = 20)) + 
+           xlab('Week') +
+           ylab('Doses')+labs(title = "Número de vacinas administradas por semana")
+        )
+    })
+    
+    
+    ##############################################################################################################
+    
+    output$myPlot33 <- renderPlot({
         res <- myReactivePies()
         ggplot(res$dfPercentagens, aes(x="", y=res$Percentagens, fill=res$Nomenclatura)) +
           geom_bar( stat="identity", width=1, color="white") +
@@ -574,26 +596,12 @@ shinyServer(
           theme_void()+
           geom_text(aes(y=res$Percentagens, label = paste(round(res$Percentagens, digits=2),"%")), size = 7, color=c("black","white")) +
           guides(fill= guide_legend(title = ""))
-        
-      }
-      ##########################################################################
-      
     })
     
-    output$myPlot3 <- renderPlot({
+    output$myPlot32 <- renderPlot({
       
       res <- myReactiveDat()
       
-      if(input$grafico2=="Vacinação semanal")
-        (ggplot(res$df2, aes(x=res$Data, y= res$Doses)) + 
-           geom_bar(stat='identity')+ 
-           theme(axis.text.x = element_text(angle = 45, vjust = 0.5),
-                 axis.title = element_text(face="bold", size=18),
-                 title = element_text(size = 20)) + 
-           xlab('Week') +
-           ylab('Doses') +labs(title = "Número de vacinas administradas por semana")
-        )
-      else if(input$grafico2=="Acumulação de vacinas")
         ( ggplot(res$df2, aes(x=res$Data, y=cumsum(res$Doses),group=1)) 
           + geom_line()  
           + geom_point() 
@@ -603,26 +611,12 @@ shinyServer(
           + xlab('Week') 
           + ylab('Doses') +labs(title = "Acumulação de vacinas semana após semana")
         )
-      else if(input$grafico=="Percentagem de pessoas vacinadas")
-      {
-        res <- myReactivePies()
-        ggplot(res$dfPercentagens, aes(x="", y=res$Percentagens, fill=res$Nomenclatura)) +
-          geom_bar( stat="identity", width=1, color="white") +
-          coord_polar("y", start=0)+
-          theme_void()+
-          geom_text(aes(y=res$Percentagens, label = paste(round(res$Percentagens, digits=2),"%")), size = 7, color=c("black","white")) +
-          guides(fill= guide_legend(title = ""))
-        
-      }
-      ##########################################################################
       
     })
     
-    output$myPlot4 <- renderPlot({
+    output$myPlot31 <- renderPlot({
       
       res <- myReactiveDat()
-      
-      if(input$grafico3=="Vacinação semanal")
         (ggplot(res$df2, aes(x=res$Data, y= res$Doses)) + 
            geom_bar(stat='identity')+ 
            theme(axis.text.x = element_text(angle = 45, vjust = 0.5),
@@ -631,7 +625,67 @@ shinyServer(
            xlab('Week') +
            ylab('Doses') +labs(title = "Número de vacinas administradas por semana")
         )
-      else if(input$grafico3=="Acumulação de vacinas")
+    })
+    
+    #################################################################################################################
+    
+    output$myPlot43 <- renderPlot({
+      
+      res <- myReactivePies()
+        ggplot(res$dfPercentagens, aes(x="", y=res$Percentagens, fill=res$Nomenclatura)) +
+          geom_bar( stat="identity", width=1, color="white") +
+          coord_polar("y", start=0)+
+          theme_void()+
+          geom_text(aes(y=res$Percentagens, label = paste(round(res$Percentagens, digits=2),"%")), size = 7, color=c("black","white")) +
+          guides(fill= guide_legend(title = ""))
+       
+    })
+    
+    output$myPlot42 <- renderPlot({
+      
+      res <- myReactiveDat()
+      ( ggplot(res$df2, aes(x=res$Data, y=cumsum(res$Doses),group=1)) 
+          + geom_line()  
+          + geom_point() 
+          + theme(axis.text.x = element_text(angle = 45, vjust = 0.5),
+                  axis.title = element_text(face="bold", size=18),
+                  title = element_text(size = 20))  
+          + xlab('Week') 
+          + ylab('Doses') +labs(title = "Acumulação de vacinas semana após semana")
+        )
+    })
+    
+    output$myPlot41 <- renderPlot({
+      
+      res <- myReactiveDat()
+        (ggplot(res$df2, aes(x=res$Data, y= res$Doses)) + 
+           geom_bar(stat='identity')+ 
+           theme(axis.text.x = element_text(angle = 45, vjust = 0.5),
+                 axis.title = element_text(face="bold", size=18),
+                 title = element_text(size = 20)) + 
+           xlab('Week') +
+           ylab('Doses') +labs(title = "Número de vacinas administradas por semana")
+        )
+
+    })
+    
+    #################################################################################################################
+    
+    output$myPlot53 <- renderPlot({
+      
+        res <- myReactivePies()
+        ggplot(res$dfPercentagens, aes(x="", y=res$Percentagens, fill=res$Nomenclatura)) +
+          geom_bar( stat="identity", width=1, color="white") +
+          coord_polar("y", start=0)+
+          theme_void()+
+          geom_text(aes(y=res$Percentagens, label = paste(round(res$Percentagens, digits=2),"%")), size = 7, color=c("black","white")) +
+          guides(fill= guide_legend(title = ""))
+        
+    })
+    
+    output$myPlot52 <- renderPlot({
+      
+      res <- myReactiveDat()
         ( ggplot(res$df2, aes(x=res$Data, y=cumsum(res$Doses),group=1)) 
           + geom_line()  
           + geom_point() 
@@ -641,26 +695,12 @@ shinyServer(
           + xlab('Week') 
           + ylab('Doses') +labs(title = "Acumulação de vacinas semana após semana")
         )
-      else if(input$grafico=="Percentagem de pessoas vacinadas")
-      {
-        res <- myReactivePies()
-        ggplot(res$dfPercentagens, aes(x="", y=res$Percentagens, fill=res$Nomenclatura)) +
-          geom_bar( stat="identity", width=1, color="white") +
-          coord_polar("y", start=0)+
-          theme_void()+
-          geom_text(aes(y=res$Percentagens, label = paste(round(res$Percentagens, digits=2),"%")), size = 7, color=c("black","white")) +
-          guides(fill= guide_legend(title = ""))
-        
-      }
-      ##########################################################################
-      
     })
     
-    output$myPlot5 <- renderPlot({
+    output$myPlot51 <- renderPlot({
       
       res <- myReactiveDat()
       
-      if(input$grafico4=="Vacinação semanal")
         (ggplot(res$df2, aes(x=res$Data, y= res$Doses)) + 
            geom_bar(stat='identity')+ 
            theme(axis.text.x = element_text(angle = 45, vjust = 0.5),
@@ -669,7 +709,26 @@ shinyServer(
            xlab('Week') +
            ylab('Doses') +labs(title = "Número de vacinas administradas por semana")
         )
-      else if(input$grafico4=="Acumulação de vacinas")
+    })
+    
+    #################################################################################################################
+    
+    output$myPlot63 <- renderPlot({
+      
+        res <- myReactivePies()
+        ggplot(res$dfPercentagens, aes(x="", y=res$Percentagens, fill=res$Nomenclatura)) +
+          geom_bar( stat="identity", width=1, color="white") +
+          coord_polar("y", start=0)+
+          theme_void()+
+          geom_text(aes(y=res$Percentagens, label = paste(round(res$Percentagens, digits=2),"%")), size = 7, color=c("black","white")) +
+          guides(fill= guide_legend(title = ""))
+        
+    })
+    
+    output$myPlot62 <- renderPlot({
+      
+      res <- myReactiveDat()
+      
         ( ggplot(res$df2, aes(x=res$Data, y=cumsum(res$Doses),group=1)) 
           + geom_line()  
           + geom_point() 
@@ -679,25 +738,11 @@ shinyServer(
           + xlab('Week') 
           + ylab('Doses') +labs(title = "Acumulação de vacinas semana após semana")
         )
-      else if(input$grafico=="Percentagem de pessoas vacinadas")
-      {
-        res <- myReactivePies()
-        ggplot(res$dfPercentagens, aes(x="", y=res$Percentagens, fill=res$Nomenclatura)) +
-          geom_bar( stat="identity", width=1, color="white") +
-          coord_polar("y", start=0)+
-          theme_void()+
-          geom_text(aes(y=res$Percentagens, label = paste(round(res$Percentagens, digits=2),"%")), size = 7, color=c("black","white")) +
-          guides(fill= guide_legend(title = ""))
-        
-      }
-      ##########################################################################
-      
     })
     
-    output$myPlot6 <- renderPlot({
+    output$myPlot61 <- renderPlot({
       
       res <- myReactiveDat()
-      if(input$grafico5=="Vacinação semanal")
         (ggplot(res$df2, aes(x=res$Data, y= res$Doses)) + 
            geom_bar(stat='identity')+ 
            theme(axis.text.x = element_text(angle = 45, vjust = 0.5),
@@ -706,7 +751,25 @@ shinyServer(
            xlab('Week') +
            ylab('Doses') +labs(title = "Número de vacinas administradas por semana")
         )
-      else if(input$grafico5=="Acumulação de vacinas")
+    })
+    
+    #################################################################################################################
+    
+    output$myPlot73 <- renderPlot({
+      
+        res <- myReactivePies()
+        ggplot(res$dfPercentagens, aes(x="", y=res$Percentagens, fill=res$Nomenclatura)) +
+          geom_bar( stat="identity", width=1, color="white") +
+          coord_polar("y", start=0)+
+          theme_void()+
+          geom_text(aes(y=res$Percentagens, label = paste(round(res$Percentagens, digits=2),"%")), size = 7, color=c("black","white")) +
+          guides(fill= guide_legend(title = ""))
+        
+    })
+    
+    output$myPlot72 <- renderPlot({
+      
+      res <- myReactiveDat()
         ( ggplot(res$df2, aes(x=res$Data, y=cumsum(res$Doses),group=1)) 
           + geom_line()  
           + geom_point() 
@@ -716,26 +779,12 @@ shinyServer(
           + xlab('Week') 
           + ylab('Doses') +labs(title = "Acumulação de vacinas semana após semana")
         )
-      else if(input$grafico=="Percentagem de pessoas vacinadas")
-      {
-        res <- myReactivePies()
-        ggplot(res$dfPercentagens, aes(x="", y=res$Percentagens, fill=res$Nomenclatura)) +
-          geom_bar( stat="identity", width=1, color="white") +
-          coord_polar("y", start=0)+
-          theme_void()+
-          geom_text(aes(y=res$Percentagens, label = paste(round(res$Percentagens, digits=2),"%")), size = 7, color=c("black","white")) +
-          guides(fill= guide_legend(title = ""))
-        
-      }
-      ##########################################################################
-      
     })
     
-    output$myPlot7 <- renderPlot({
+    output$myPlot71 <- renderPlot({
       
       res <- myReactiveDat()
       
-      if(input$grafico6=="Vacinação semanal")
         (ggplot(res$df2, aes(x=res$Data, y= res$Doses)) + 
            geom_bar(stat='identity')+ 
            theme(axis.text.x = element_text(angle = 45, vjust = 0.5),
@@ -744,29 +793,6 @@ shinyServer(
            xlab('Week') +
            ylab('Doses') +labs(title = "Número de vacinas administradas por semana")
         )
-      else if(input$grafico6=="Acumulação de vacinas")
-        ( ggplot(res$df2, aes(x=res$Data, y=cumsum(res$Doses),group=1)) 
-          + geom_line()  
-          + geom_point() 
-          + theme(axis.text.x = element_text(angle = 45, vjust = 0.5),
-                  axis.title = element_text(face="bold", size=18),
-                  title = element_text(size = 20))  
-          + xlab('Week') 
-          + ylab('Doses') +labs(title = "Acumulação de vacinas semana após semana")
-        )
-      else if(input$grafico=="Percentagem de pessoas vacinadas")
-      {
-        res <- myReactivePies()
-        ggplot(res$dfPercentagens, aes(x="", y=res$Percentagens, fill=res$Nomenclatura)) +
-          geom_bar( stat="identity", width=1, color="white") +
-          coord_polar("y", start=0)+
-          theme_void()+
-          geom_text(aes(y=res$Percentagens, label = paste(round(res$Percentagens, digits=2),"%")), size = 7, color=c("black","white")) +
-          guides(fill= guide_legend(title = ""))
-        
-      }
-      ##########################################################################
-      
     })
     
     
