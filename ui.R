@@ -13,7 +13,7 @@ shinyServer(
             
             includeCSS("www/styles.css"),
             
-            navbarPage("",
+            navbarPage("",id="tabs",
                        
                        tabPanel("Portugal", fluid = TRUE, pageWithSidebar(
                          headerPanel(""),
@@ -101,137 +101,110 @@ shinyServer(
                        )
                        )   
                        ,
-                       tabPanel("Regiões", fluid = TRUE,
-                                tabsetPanel(id="tabs",
+                       navbarMenu("Regiões",
+                                
                                             tabPanel("Alentejo",fluid = TRUE,
-                                                     pageWithSidebar(
-                                                       headerPanel(""),
-                                                       
-                                                       sidebarPanel(
-                                                         selectInput("grafico","Selecione o tipo de gráfico:",c("Vacinação semanal","Acumulação de vacinas","Percentagem de pessoas vacinadas")),
-                                                         
-                                                         
+                                                     tags$div(class="row",checked=NA,
+                                                       tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
+                                                                tags$div(checked=NA,plotOutput("myPlotB1")%>% withSpinner(color="#cccccc"))
                                                        ),
-                                                       
-                                                       mainPanel(
-                                                         tags$div(style="row",checked=NA,
-                                                                  tags$div(style="col-12",checked=NA,plotOutput("myPlotB")%>% withSpinner(color="#cccccc"))
-                                                         )
-                                                         #plotOutput("myPlot")
+                                                       tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
+                                                                tags$div(checked=NA,plotOutput("myPlotB2")%>% withSpinner(color="#cccccc"))
+                                                       ),
+                                                       tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
+                                                                tags$div(checked=NA,plotOutput("myPlotB3")%>% withSpinner(color="#cccccc"))
                                                        )
-                                                     )
-                                                     
+                                                     )    
                                             ),
                                             tabPanel("Algarve", fluid = TRUE,
-                                                     pageWithSidebar(
-                                                       headerPanel(""),
-                                                       
-                                                       sidebarPanel(
-                                                         selectInput("grafico1","Selecione o tipo de gráfico:",c("Vacinação semanal","Acumulação de vacinas","Percentagem de pessoas vacinadas")),
-                                                         
-                                                       ),
-                                                       
-                                                       mainPanel(
-                                                         tags$div(style="row", id="yo",checked=NA,
-                                                                  tags$div(style="col-12",checked=NA,plotOutput("myPlot2")%>% withSpinner(color="#cccccc"))
-                                                         )
-                                                         #plotOutput("myPlot")
-                                                       )
-                                                     )
+                                                     tags$div(class="row",checked=NA,
+                                                              tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
+                                                                       tags$div(checked=NA,plotOutput("myPlot21")%>% withSpinner(color="#cccccc"))
+                                                              ),
+                                                              tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
+                                                                       tags$div(checked=NA,plotOutput("myPlot22")%>% withSpinner(color="#cccccc"))
+                                                              ),
+                                                              tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
+                                                                       tags$div(checked=NA,plotOutput("myPlot23")%>% withSpinner(color="#cccccc"))
+                                                              )
+                                                     )  
                                             ),
                                             tabPanel("Lisboa", fluid = TRUE,
-                                                     pageWithSidebar(
-                                                       headerPanel(""),
-                                                       
-                                                       sidebarPanel(
-                                                         selectInput("grafico2","Selecione o tipo de gráfico:",c("Vacinação semanal","Acumulação de vacinas","Percentagem de pessoas vacinadas")),
-                                                         
-                                                       ),
-                                                       
-                                                       mainPanel(
-                                                         tags$div(style="row", id="yo",checked=NA,
-                                                                  tags$div(style="col-12",checked=NA,plotOutput("myPlot3")%>% withSpinner(color="#cccccc"))
-                                                         )
-                                                         #plotOutput("myPlot")
-                                                       )
-                                                     )
+                                                     tags$div(class="row",checked=NA,
+                                                              tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
+                                                                       tags$div(checked=NA,plotOutput("myPlot31")%>% withSpinner(color="#cccccc"))
+                                                              ),
+                                                              tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
+                                                                       tags$div(checked=NA,plotOutput("myPlot32")%>% withSpinner(color="#cccccc"))
+                                                              ),
+                                                              tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
+                                                                       tags$div(checked=NA,plotOutput("myPlot33")%>% withSpinner(color="#cccccc"))
+                                                              )
+                                                     )  
                                             ),
                                             tabPanel("Centro", fluid = TRUE,
-                                                     pageWithSidebar(
-                                                       headerPanel(""),
-                                                       
-                                                       sidebarPanel(
-                                                         selectInput("grafico3","Selecione o tipo de gráfico:",c("Vacinação semanal","Acumulação de vacinas","Percentagem de pessoas vacinadas")),
-                                                         
-                                                       ),
-                                                       
-                                                       mainPanel(
-                                                         tags$div(style="row", id="yo",checked=NA,
-                                                                  tags$div(style="col-12",checked=NA,plotOutput("myPlot4")%>% withSpinner(color="#cccccc"))
-                                                         )
-                                                         #plotOutput("myPlot")
-                                                       )
+                                                     tags$div(class="row",checked=NA,
+                                                              tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
+                                                                       tags$div(checked=NA,plotOutput("myPlot41")%>% withSpinner(color="#cccccc"))
+                                                              ),
+                                                              tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
+                                                                       tags$div(checked=NA,plotOutput("myPlot42")%>% withSpinner(color="#cccccc"))
+                                                              ),
+                                                              tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
+                                                                       tags$div(checked=NA,plotOutput("myPlot43")%>% withSpinner(color="#cccccc"))
+                                                              )
                                                      )
                                             ),
                                             tabPanel("Açores", fluid = TRUE,
-                                                     pageWithSidebar(
-                                                       headerPanel(""),
-                                                       
-                                                       sidebarPanel(
-                                                         selectInput("grafico4","Selecione o tipo de gráfico:",c("Vacinação semanal","Acumulação de vacinas","Percentagem de pessoas vacinadas")),
-                                                         
-                                                       ),
-                                                       
-                                                       mainPanel(
-                                                         tags$div(style="row", id="yo",checked=NA,
-                                                                  tags$div(style="col-12",checked=NA,plotOutput("myPlot5")%>% withSpinner(color="#cccccc"))
-                                                         )
-                                                         #plotOutput("myPlot")
-                                                       )
+                                                     tags$div(class="row",checked=NA,
+                                                              tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
+                                                                       tags$div(checked=NA,plotOutput("myPlot51")%>% withSpinner(color="#cccccc"))
+                                                              ),
+                                                              tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
+                                                                       tags$div(checked=NA,plotOutput("myPlot52")%>% withSpinner(color="#cccccc"))
+                                                              ),
+                                                              tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
+                                                                       tags$div(checked=NA,plotOutput("myPlot53")%>% withSpinner(color="#cccccc"))
+                                                              )
                                                      )
                                             ),
                                             tabPanel("Madeira", fluid = TRUE,
-                                                     pageWithSidebar(
-                                                       headerPanel(""),
-                                                       
-                                                       sidebarPanel(
-                                                         selectInput("grafico5","Selecione o tipo de gráfico:",c("Vacinação semanal","Acumulação de vacinas","Percentagem de pessoas vacinadas")),
-                                                         
-                                                       ),
-                                                       
-                                                       mainPanel(
-                                                         tags$div(style="row", id="yo",checked=NA,
-                                                                  tags$div(style="col-12",checked=NA,plotOutput("myPlot6")%>% withSpinner(color="#cccccc"))
-                                                         )
-                                                         #plotOutput("myPlot")
-                                                       )
+                                                     tags$div(class="row",checked=NA,
+                                                              tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
+                                                                       tags$div(checked=NA,plotOutput("myPlot61")%>% withSpinner(color="#cccccc"))
+                                                              ),
+                                                              tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
+                                                                       tags$div(checked=NA,plotOutput("myPlot62")%>% withSpinner(color="#cccccc"))
+                                                              ),
+                                                              tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
+                                                                       tags$div(checked=NA,plotOutput("myPlot63")%>% withSpinner(color="#cccccc"))
+                                                              )
                                                      )
                                             ),
                                             tabPanel("Norte", fluid = TRUE,
-                                                     pageWithSidebar(
-                                                       headerPanel(""),
-                                                       
-                                                       sidebarPanel(
-                                                         selectInput("grafico6","Selecione o tipo de gráfico:",c("Vacinação semanal","Acumulação de vacinas","Percentagem de pessoas vacinadas")),
-                                                         
-                                                       ),
-                                                       
-                                                       mainPanel(
-                                                         tags$div(style="row", id="yo",checked=NA,
-                                                                  tags$div(style="col-12",checked=NA,plotOutput("myPlot7")%>% withSpinner(color="#cccccc"))
-                                                         )
-                                                       )
+                                                     tags$div(class="row",checked=NA,
+                                                              tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
+                                                                       tags$div(checked=NA,plotOutput("myPlot71")%>% withSpinner(color="#cccccc"))
+                                                              ),
+                                                              tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
+                                                                       tags$div(checked=NA,plotOutput("myPlot72")%>% withSpinner(color="#cccccc"))
+                                                              ),
+                                                              tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
+                                                                       tags$div(checked=NA,plotOutput("myPlot73")%>% withSpinner(color="#cccccc"))
+                                                              )
                                                      )
-                                            )
+                                            
                                 )
                        ),
                        navbarMenu("About",
                           tabPanel("Informação",
-                                   fluidRow(
-                                     column(6,
-                                            includeMarkdown("www/info.md")),
-                                     img(src="pt.png", height=600, width=800),
-                                     "Depois melhorar esta imagem. Andei a lutar com a posição dela."
+                                   tags$div(class="row",checked=NA,
+                                            tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
+                                                     includeMarkdown("www/info.md")
+                                            ),
+                                            tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
+                                                     img(src="pt.png", height=600, width=800)
+                                            )
                                    )),
                           tabPanel("Autoria",
                                    fluidRow(
