@@ -16,6 +16,7 @@ De modo a resumir mais o código criei mais alguns reactiveVals:
 - loaded_Madeira <- reactiveVal()
 - loaded_Norte <- reactiveVal()
 - loaded_PT <- reactiveVal()
+
 Desta forma não precisamos de filtrar os dados múltiplas vezes no tratamento de dados.
 Se gostarem desta forma de atuar se calhar devemos pensar em faze-lo para as idades também.
 
