@@ -8,14 +8,14 @@ Reorganizei o código e resumi algumas linhas de código que estavam a mais.
 Criei quatro novos ficheiros. Dois na pasta Portugal em que num é feito o tratamento de dados e no outro é são feitos os plots. Os outros dois estão na pasta Regiões e servem para o mesmo prpósito.
 
 De modo a resumir mais o código criei mais alguns reactiveVals:
-    - loaded_Alentejo <- reactiveVal()
-    -  loaded_Algarve <- reactiveVal()
-    - loaded_Acores <- reactiveVal()
-    - loaded_Centro <- reactiveVal()
-    - loaded_Lisboa <- reactiveVal()
-    - loaded_Madeira <- reactiveVal()
-    - loaded_Norte <- reactiveVal()
-    -  loaded_PT <- reactiveVal()
+- loaded_Alentejo <- reactiveVal()
+- loaded_Algarve <- reactiveVal()
+- loaded_Acores <- reactiveVal()
+- loaded_Centro <- reactiveVal()
+- loaded_Lisboa <- reactiveVal()
+- loaded_Madeira <- reactiveVal()
+- loaded_Norte <- reactiveVal()
+- loaded_PT <- reactiveVal()
 Desta forma não precisamos de filtrar os dados múltiplas vezes no tratamento de dados.
 Se gostarem desta forma de atuar se calhar devemos pensar em faze-lo para as idades também.
 
