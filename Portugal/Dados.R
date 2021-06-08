@@ -85,7 +85,7 @@ myReactiveDataPais <- reactive({
   
   #histogram de doses por região:
   Idades = unlist( rep(c("18-24","25-49","50-59","60-69","70-79", "80+"), each=4))
-  Vac = unlist(rep(c("Pfizer","Moderna","AstraZeneca", "Jonhson & Jonhson"),6))
+  Vac = unlist(rep(c("Comirnaty (BioNTech/Pfizer) ","Moderna (Moderna)","AstraZeneca (AstraZeneca/Oxford)", "Janssen (Janssen/Jonhson & Jonhson)"),6))
   Doses=unlist(c(sum(COM_18_24Vacinados['SecondDose']),
                  sum(MOD_18_24Vacinados['SecondDose']),
                  sum(AZ_18_24Vacinados['SecondDose']),
@@ -293,15 +293,27 @@ Vacinas <- reactive({
   totMOD = sum(MOD["FirstDose"])+sum(MOD["SecondDose"])
   totJJ = sum(JJ["FirstDose"])
   
-  Totais = c(totpfizer,totAZ,totMOD, totJJ)
-  Nomes = c("Pfizer","AstraZeneca","Moderna", "Jonhson & Johnson")
+  totalAdministradas = totpfizer + totAZ + totMOD + totJJ
+  percPfizer = (totpfizer * 100)/totalAdministradas
+  percAZ = (totAZ * 100)/totalAdministradas
+  percMOD = (totMOD * 100)/totalAdministradas
+  percJJ = (totJJ * 100)/totalAdministradas
+  
+  
+  Percentagens = c(percPfizer, percMOD, percAZ, percJJ)
+  Doses_Administradas = c(totpfizer,totAZ,totMOD, totJJ)
+  Nomes = c("Comirnaty (BioNTech/Pfizer) ","Moderna (Moderna)","AstraZeneca (AstraZeneca/Oxford)", "Janssen (Janssen/Jonhson & Jonhson)")
   
   
   df <- data.frame(
-    Totais,
-    Nomes
+    Nomes,
+    Doses_Administradas,
+    Percentagens
   )
+  
+  
 })
+
 
 myReactiveDataPais3 <- reactive({
   

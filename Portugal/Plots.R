@@ -7,14 +7,16 @@ output$myPlotPais <- renderPlot({
     geom_text(aes(label = as.factor(res$Doses)), vjust = -0.2,
               position = position_dodge(0.9), size = 3) +
     theme(
-      axis.text.x = element_text(vjust = 1),
+      axis.text.x = element_text(vjust = 1, size = 10,),
       axis.text.y = element_blank(),
       axis.ticks.y = element_blank(),
       axis.title = element_text(face="bold", size=18),
-      title = element_text(size = 20)
+      title = element_text(size = 20),
+      panel.grid = element_blank(),
+      panel.background = element_rect(fill ="#ffffff")
     ) + 
-    guides(fill= guide_legend(title = "")) +
-    xlab('Vacinas') + 
+    guides(fill= guide_legend(title = "Faixas etárias:")) +
+    xlab('') + 
     ylab('') 
   
 })
@@ -104,24 +106,33 @@ c6 = c("AZ","MOD","COM","JJ")
 output$myPlotPais2 <- renderPlot({
   
   res <- Vacinas()
-  ggplot(res$df, aes(x=res$Nomes, y= as.factor(res$Totais), fill = c6)) + 
+  ggplot(res$df, aes(x=res$Nomes, y= as.factor(res$Doses_Administradas), fill = c6)) + 
     geom_bar(stat='identity')+ 
     scale_fill_manual(values = c("AZ"="#D8BFD8",
                                  "MOD"="#B0E0E6",
                                  "COM"="#FFDAB9",
                                  "JJ"="#c6ffb3")) +
-    geom_text(aes(label=as.factor(res$Totais)), vjust = -0.6, size = 4)+
+    geom_text(aes(label = paste(round(res$Percentagens, digits=2),"%")), vjust = -0.6, size = 7)+
     theme(
       legend.position = "none",
-      axis.text.x = element_text(vjust = 0.5, size = 10),
+      axis.text.x = element_text(vjust = 0.5, size = 12),
       axis.title = element_text(face="bold", size=18),
       axis.text.y = element_blank(),
       axis.ticks.y = element_blank(),
-      title = element_text(vjust = 1, size = 20)
+      title = element_text(vjust = 1, size = 20),
+      panel.grid = element_blank(),
+      panel.background = element_rect(fill ="#ffffff")
     ) + 
-    xlab('Vacinas') +
-    ylab('Doses') 
+    xlab('') +
+    ylab('') 
 })
+
+output$tablePerc <- renderDataTable(
+  Vacinas()
+)
+
+
+
 
 output$myPie <- renderPlot({
   

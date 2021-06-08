@@ -1,11 +1,10 @@
 
 /* Estilo da nossa box de informação */
  div.info {
-  background : #ffaa80;
-  border-radius : 3px;
-  padding : 1em;
-  margin : 1em;
-  text-align: center;
+  background : #ffd1b3;
+  border-radius : 5px;
+  padding : 0.5em;
+  margin : 0.5em;
+  text-align: left;
   font-family:verdana;
-  bottom : 1px;
 }
