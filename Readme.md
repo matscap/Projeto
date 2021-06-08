@@ -2,6 +2,9 @@
 
 ### Descrição/dicas dos updates
 __________________________________________________________________________________________________
+#### Update-22 08/06/2021 - Rafa
+Foi mais um update de aparencia que outra coisa. Tentei dar um look clean a alguns graficos e alterei um (o das vacinas administradas). Adicionei também uma cena para voces darem a opinião. Vao ver logo ao abrir. Qualquer coisa removemos aquilo na boa!
+
 
 #### Update-21 07/06/2021  - Matias
 Reorganizei o código e resumi algumas linhas de código que estavam a mais.
