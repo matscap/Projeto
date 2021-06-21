@@ -3,7 +3,7 @@ library(ggplot2)
 library(tidyr)
 library(reshape)
 library(gganimate)
-
+library(waffle)
 last_update <- Sys.Date()
 
 # Vamos usar como data inicial, a quinta-feira da semana de chegada do primeiro lote de vacinas a Portugal
@@ -25,18 +25,16 @@ shinyServer(
     loaded_Norte <- reactiveVal()
     loaded_PT <- reactiveVal()
     
-    if(last_update + 7 >= Sys.Date()) {
-      last_update <- Sys.Date()
-      data <- read.csv("https://opendata.ecdc.europa.eu/covid19/vaccine_tracker/csv/data.csv", na.strings = "", fileEncoding = "UTF-8-BOM")
-      write.csv(data, "Data/data.csv")
-    }
+  
     
     observe({
-      loadedData(read.csv("Data/data.csv", na.strings = "", fileEncoding = "UTF-8-BOM")) 
+      data <- read.csv("https://opendata.ecdc.europa.eu/covid19/vaccine_tracker/csv/data.csv", na.strings = "", fileEncoding = "UTF-8-BOM")
+      
+      loadedData(data) 
       dadosapenasportugal <- loadedData() %>%
         filter(ReportingCountry == "PT")
       loadedData2(dadosapenasportugal)
-      
+
       Alentejo <- loadedData2() %>%
         filter(Region == "PTCSR01")
       loaded_Alentejo(Alentejo)

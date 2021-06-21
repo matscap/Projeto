@@ -293,27 +293,15 @@ Vacinas <- reactive({
   totMOD = sum(MOD["FirstDose"])+sum(MOD["SecondDose"])
   totJJ = sum(JJ["FirstDose"])
   
-  totalAdministradas = totpfizer + totAZ + totMOD + totJJ
-  percPfizer = (totpfizer * 100)/totalAdministradas
-  percAZ = (totAZ * 100)/totalAdministradas
-  percMOD = (totMOD * 100)/totalAdministradas
-  percJJ = (totJJ * 100)/totalAdministradas
-  
-  
-  Percentagens = c(percPfizer, percMOD, percAZ, percJJ)
-  Doses_Administradas = c(totpfizer,totAZ,totMOD, totJJ)
+  Totais = c(totpfizer,totAZ,totMOD, totJJ)
   Nomes = c("Comirnaty (BioNTech/Pfizer) ","Moderna (Moderna)","AstraZeneca (AstraZeneca/Oxford)", "Janssen (Janssen/Jonhson & Jonhson)")
   
   
   df <- data.frame(
-    Nomes,
-    Doses_Administradas,
-    Percentagens
+    Totais,
+    Nomes
   )
-  
-  
 })
-
 
 myReactiveDataPais3 <- reactive({
   
@@ -337,17 +325,16 @@ myReactiveDataPais3 <- reactive({
   tpv_JJ <- totalGenteVacinada %>%
     filter(Vaccine == "JANSS")
   
-  TotalVacinados = unlist( c(sum(tpv_MOD["SecondDose"])) + c(sum(tpv_COM["SecondDose"])) + c(sum(tpv_AZ["SecondDose"])) + c(sum(tpv_JJ["SecondDose"]))) 
-  Percentagem_tpv = (TotalVacinados/totalPopulacao)*100
-  Percentagem_tpNv = ((totalPopulacao-TotalVacinados)/totalPopulacao)*100
+  TotalVacinados1Dose = unlist(c(sum(tpv_MOD["FirstDose"])) + c(sum(tpv_COM["FirstDose"])) + c(sum(tpv_AZ["FirstDose"])) - c(sum(tpv_MOD["SecondDose"])) - c(sum(tpv_COM["SecondDose"])) - c(sum(tpv_AZ["SecondDose"])))
   
-  Nomenclatura = c("Vacinados","Nao Vacinados")
-  Percentagens = c(Percentagem_tpv, Percentagem_tpNv)
+  TotalCompVacinados = unlist(c(sum(tpv_MOD["SecondDose"])) + c(sum(tpv_COM["SecondDose"])) + c(sum(tpv_AZ["SecondDose"])) + c(sum(tpv_JJ["FirstDose"])))
+
+  Percentagem_tpv2 = (TotalVacinados1Dose/totalPopulacao)*100
+  Percentagem_tpv3 = (TotalCompVacinados/totalPopulacao)*100
+  Percentagem_tpv4 = 100 - (Percentagem_tpv2+Percentagem_tpv3)
+  Percentagem_tpNv = ((totalPopulacao-TotalCompVacinados)/totalPopulacao)*100
   
-  dfPercentagens <-data.frame(
-    Nomenclatura,
-    Percentagens
-  )
+  vals <- c(round(Percentagem_tpv4), round(Percentagem_tpv3), round(Percentagem_tpv2))
   
 })
 

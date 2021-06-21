@@ -3,13 +3,12 @@ library(bslib)
 library(thematic)
 library(shinycssloaders)
 library(shinydashboard)
-library(DT)
 
 thematic::thematic_shiny()
 
 shinyServer(
   
-  fluidPage(theme = bs_theme(version = 4, bootswatch = "united"),
+  fluidPage(theme = bs_theme(version = 4, bootswatch = "sandstone"),
             
             includeCSS("www/styles.css"),
             
@@ -19,31 +18,27 @@ shinyServer(
                          headerPanel(""),
                          
                          sidebarPanel( 
-                           h1("Vacinação COVID-19 em Portugal"),br(""),
-                           h4("Clicando nas Checkboxes pode vizualizar os gráficos que quer analisar."),br(""),
-                           checkboxInput('grafico11','Total de pessoas vacinadas, tendo em conta a sua faixa etária e marca da vacina',TRUE),
-                           checkboxInput('grafico22','Total de pessoas vacinadas por semana, agrupadas por faixa etária',FALSE),
-                           checkboxInput('grafico33','Número total de vacina administradas, agrupadas por marca/empresa',FALSE),
+                           h3("Vacinação COVID-19 em Portugal"),
+                           ("Clique nas Checkboxes para vizualizar os gráficos que quer analisar."),br(""),
+                           checkboxInput('grafico11','Totalidade de pessoas vacinadas,tendo em conta a sua faixa etária e marca da vacina',TRUE),
+                           checkboxInput('grafico22','Quantidade de pessoas totalmente vacinadas por semana, agrupadas por faixa etária',FALSE),
+                           checkboxInput('grafico33','Número de doses de cada tipo de vacina administradas',FALSE),
                            checkboxInput('grafico44','Percentagem de pessoas vacinadas/não vacinadas',FALSE),
-                           checkboxInput('grafico55','Evolução do número de vacinas administradas por região',FALSE),
-                           checkboxInput('grafico66','Total de pessoas vacinadas por semana, em cada Região',FALSE)
+                           
+                           checkboxInput('grafico66','Quantidade de pessoas totalmente vacinadas ,por semana, em cada Região',FALSE),
                            
                          ),
                          
                          mainPanel(
                            
                            tags$div(style="row", id="yo",checked=NA,
-
-                                    conditionalPanel(condition="input.grafico55 == 1",
-                                                     tags$h3(style="col-12",''),
-                                                     tags$div(style="col-12",checked=NA,plotOutput("myEvolucao")%>% withSpinner(color="#cccccc"))),
                                     conditionalPanel(condition="input.grafico11 == 1",
-                                                     tags$h3(style="col-12",'Total de pessoas vacinadas, tendo em conta a sua faixa etária e marca da vacina'),
+                                                     tags$h3(style="col-12",'Quantidade de pessoas totalmente vacinadas por marca de vacina, tendo em conta a sua faixa etária'),
                                                      tags$div(style="col-12",checked=NA,plotOutput("myPlotPais")%>% withSpinner(color="#cccccc"))),
                                     conditionalPanel(condition="input.grafico22 == 1",
                                                      div(
                                                        fluidRow(
-                                                         tags$h3(style="col-12", "Total de pessoas vacinadas por semana, agrupadas por faixa etária"),
+                                                         tags$h3(style="col-12", "Quantidade de pessoas totalmente vacinadas por semana, agrupadas por faixa etária"),
                                                          column(12, "Selecione que faixas etárias quer visualizar:"),
                                                          column(2,
                                                                 checkboxInput('option18_24', "18 - 24",TRUE),
@@ -66,160 +61,201 @@ shinyServer(
                                                      actionButton("ajuda", "Ajuda",style="color: #fff; background-color: #337ab7; border-color: #2e6da4;"),
                                     ),
                                     conditionalPanel(condition="input.grafico33 == 1",
-                                                     tags$h3(style="col-12",'Número total de vacina administradas, agrupadas por marca/empresa'),
-                                                     tags$div(style="col-12",checked=NA,plotOutput("myPlotPais2")%>% withSpinner(color="#cccccc")),
-                                                     tags$div(style="col-12",checked=NA,dataTableOutput("tablePerc")%>% withSpinner(color="#cccccc"))),
+                                                     tags$h3(style="col-12",'Quantidades de vacinas administradas, por marcas de vacinas'),
+                                                     tags$div(style="col-12",checked=NA,plotOutput("myPlotPais2")%>% withSpinner(color="#cccccc"))),
                                     conditionalPanel(condition="input.grafico44 == 1", 
                                                      tags$h3(style="col-12",'Percentagem de pessoas vacinadas/não vacinadas'),
-                                                     tags$div(style="col-12",checked=NA,plotOutput("myPie")%>% withSpinner(color="#cccccc")))),
-                                     conditionalPanel(condition="input.grafico66 == 1",
-                                                      div(
-                                                        fluidRow(
-                                                          tags$h3(style="col-12", "Total de pessoas vacinadas por semana, em cada Região"),
-                                                          column(12, "Selecione que Regiões quer visualizar:"),
-                                                          column(2,
-                                                                 checkboxInput('optionAlentejo', "Alentejo",TRUE),
-                                                                 checkboxInput('optionAlgarve', "Algarve",FALSE)),
-                                                          column(2,
-                                                                 checkboxInput('optionAcores', "Açores",FALSE),
-                                                                 checkboxInput('optionCentro', "Centro",FALSE)),
-                                                          column(2,
-                                                                 checkboxInput('optionLisboa', "Lisboa",FALSE),
-                                                                 checkboxInput('optionMadeira', "Madeira",FALSE)),
-                                                          column(2,
-                                                                 checkboxInput('optionNorte',"Norte",FALSE)),
-                                                          column(4, "Incluir contagem?",
-                                                                 radioButtons("radioOption1", "",
-                                                                              c("Sim" = "yup1",
-                                                                                "Não" = "nop1")))
-                                                          
-                                                        )
-                                                      ),
-                                                      tags$div(style="col-12",checked=NA,plotOutput("plotRegiao")%>% withSpinner(color="#cccccc")),
-                                                      
-                                     ),
+                                                     tags$div(style="col-12",checked=NA,plotOutput("myPie")%>% withSpinner(color="#cccccc"))),
+                                    conditionalPanel(condition="input.grafico66 == 1",
+                                                     div(
+                                                       fluidRow(
+                                                         tags$h3(style="col-12", "Quantidade de pessoas totalmente vacinadas por semana, agrupadas por Região"),
+                                                         column(12, "Selecione que Regiões quer visualizar:"),
+                                                         column(2,
+                                                                checkboxInput('optionAlentejo', "Alentejo",TRUE),
+                                                                checkboxInput('optionAlgarve', "Algarve",FALSE)),
+                                                         column(2,
+                                                                checkboxInput('optionAcores', "Açores",FALSE),
+                                                                checkboxInput('optionCentro', "Centro",FALSE)),
+                                                         column(2,
+                                                                checkboxInput('optionLisboa', "Lisboa",FALSE),
+                                                                checkboxInput('optionMadeira', "Madeira",FALSE)),
+                                                         column(2,
+                                                                checkboxInput('optionNorte',"Norte",FALSE)),
+                                                         column(4, "Incluir contagem?",
+                                                                radioButtons("radioOption1", "",
+                                                                             c("Sim" = "yup1",
+                                                                               "Não" = "nop1")))
+                                                         
+                                                       )
+                                                     ),
+                                                     tags$div(style="col-12",checked=NA,plotOutput("plotRegiao")%>% withSpinner(color="#cccccc")),
+                                                     
+                                    )),
                            
-                         )
+                          )
                        )
                        )   
                        ,
                        navbarMenu("Regiões",
-                                  
-                                  tabPanel("Alentejo",fluid = TRUE,
-                                           tags$div(class="row",checked=NA,
-                                                    tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
-                                                             tags$div(checked=NA,plotOutput("myPlotB1")%>% withSpinner(color="#cccccc"))
-                                                    ),
-                                                    tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
-                                                             tags$div(checked=NA,plotOutput("myPlotB2")%>% withSpinner(color="#cccccc"))
-                                                    ),
-                                                    tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
-                                                             tags$div(checked=NA,plotOutput("myPlotB3")%>% withSpinner(color="#cccccc"))
-                                                    )
-                                           )    
-                                  ),
-                                  tabPanel("Algarve", fluid = TRUE,
-                                           tags$div(class="row",checked=NA,
-                                                    tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
-                                                             tags$div(checked=NA,plotOutput("myPlot21")%>% withSpinner(color="#cccccc"))
-                                                    ),
-                                                    tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
-                                                             tags$div(checked=NA,plotOutput("myPlot22")%>% withSpinner(color="#cccccc"))
-                                                    ),
-                                                    tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
-                                                             tags$div(checked=NA,plotOutput("myPlot23")%>% withSpinner(color="#cccccc"))
-                                                    )
-                                           )  
-                                  ),
-                                  tabPanel("Lisboa", fluid = TRUE,
-                                           tags$div(class="row",checked=NA,
-                                                    tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
-                                                             tags$div(checked=NA,plotOutput("myPlot31")%>% withSpinner(color="#cccccc"))
-                                                    ),
-                                                    tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
-                                                             tags$div(checked=NA,plotOutput("myPlot32")%>% withSpinner(color="#cccccc"))
-                                                    ),
-                                                    tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
-                                                             tags$div(checked=NA,plotOutput("myPlot33")%>% withSpinner(color="#cccccc"))
-                                                    )
-                                           )  
-                                  ),
-                                  tabPanel("Centro", fluid = TRUE,
-                                           tags$div(class="row",checked=NA,
-                                                    tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
-                                                             tags$div(checked=NA,plotOutput("myPlot41")%>% withSpinner(color="#cccccc"))
-                                                    ),
-                                                    tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
-                                                             tags$div(checked=NA,plotOutput("myPlot42")%>% withSpinner(color="#cccccc"))
-                                                    ),
-                                                    tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
-                                                             tags$div(checked=NA,plotOutput("myPlot43")%>% withSpinner(color="#cccccc"))
-                                                    )
-                                           )
-                                  ),
-                                  tabPanel("Acores", fluid = TRUE,
-                                           tags$div(class="row",checked=NA,
-                                                    tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
-                                                             tags$div(checked=NA,plotOutput("myPlot51")%>% withSpinner(color="#cccccc"))
-                                                    ),
-                                                    tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
-                                                             tags$div(checked=NA,plotOutput("myPlot52")%>% withSpinner(color="#cccccc"))
-                                                    ),
-                                                    tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
-                                                             tags$div(checked=NA,plotOutput("myPlot53")%>% withSpinner(color="#cccccc"))
-                                                    )
-                                           )
-                                  ),
-                                  tabPanel("Madeira", fluid = TRUE,
-                                           tags$div(class="row",checked=NA,
-                                                    tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
-                                                             tags$div(checked=NA,plotOutput("myPlot61")%>% withSpinner(color="#cccccc"))
-                                                    ),
-                                                    tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
-                                                             tags$div(checked=NA,plotOutput("myPlot62")%>% withSpinner(color="#cccccc"))
-                                                    ),
-                                                    tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
-                                                             tags$div(checked=NA,plotOutput("myPlot63")%>% withSpinner(color="#cccccc"))
-                                                    )
-                                           )
-                                  ),
-                                  tabPanel("Norte", fluid = TRUE,
-                                           tags$div(class="row",checked=NA,
-                                                    tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
-                                                             tags$div(checked=NA,plotOutput("myPlot71")%>% withSpinner(color="#cccccc"))
-                                                    ),
-                                                    tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
-                                                             tags$div(checked=NA,plotOutput("myPlot72")%>% withSpinner(color="#cccccc"))
-                                                    ),
-                                                    tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
-                                                             tags$div(checked=NA,plotOutput("myPlot73")%>% withSpinner(color="#cccccc"))
-                                                    )
-                                           )
-                                           
-                                  )
+                                
+                                            tabPanel("Alentejo",fluid = TRUE,
+                                                     tags$div(class="row",checked=NA,
+                                                        tags$div(class="col",checked=NA,      
+                                                          tags$div(class="row",checked=NA,
+                                                               tags$div(class="col",style="text-align:center; margin-bottom:30px",checked=NA,
+                                                             tags$h2('Alentejo'))),
+                                                          tags$div(class="row",checked=NA,
+                                                             tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,tags$h3('Número de vacinas administradas semana após semana'),
+                                                                      tags$div(checked=NA,plotOutput("myPlotB1")%>% withSpinner(color="#cccccc"))
+                                                             ),
+                                                             tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,tags$h3('Acumulação de vacinas semana após semana'),
+                                                                      tags$div(checked=NA,plotOutput("myPlotB2")%>% withSpinner(color="#cccccc"))
+                                                             ),
+                                                             tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,tags$h3('Percentagem de vacinas administradas'),
+                                                                      tags$div(checked=NA,plotOutput("myPlotB3")%>% withSpinner(color="#cccccc"))
+                                                             ))
+                                                     )  )  
+                                            ),
+                                            tabPanel("Algarve", fluid = TRUE,
+                                                     tags$div(class="row",checked=NA,
+                                                              tags$div(class="col",checked=NA,      
+                                                                       tags$div(class="row",checked=NA,
+                                                                                tags$div(class="col",style="text-align:center; margin-bottom:30px",checked=NA,
+                                                                                         tags$h2('Algarve'))),
+                                                                       tags$div(class="row",checked=NA,
+                                                              tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,tags$h3('Número de vacinas administradas semana após semana'),
+                                                                       tags$div(checked=NA,plotOutput("myPlot21")%>% withSpinner(color="#cccccc"))
+                                                              ),
+                                                              tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,tags$h3('Acumulação de vacinas semana após semana'),
+                                                                       tags$div(checked=NA,plotOutput("myPlot22")%>% withSpinner(color="#cccccc"))
+                                                              ),
+                                                              tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,tags$h3('Percentagem de vacinas administradas'),
+                                                                       tags$div(checked=NA,plotOutput("myPlot23")%>% withSpinner(color="#cccccc"))
+                                                              ))
+                                                     ))  
+                                            ),
+                                            tabPanel("Lisboa", fluid = TRUE,
+                                                     tags$div(class="row",checked=NA,
+                                                              tags$div(class="col",checked=NA,      
+                                                                       tags$div(class="row",checked=NA,
+                                                                                tags$div(class="col",style="text-align:center; margin-bottom:30px",checked=NA,
+                                                                                         tags$h2('Lisboa'))),
+                                                                       tags$div(class="row",checked=NA,
+                                                              tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,tags$h3('Número de vacinas administradas semana após semana'),
+                                                                       tags$div(checked=NA,plotOutput("myPlot31")%>% withSpinner(color="#cccccc"))
+                                                              ),
+                                                              tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,tags$h3('Acumulação de vacinas semana após semana'),
+                                                                       tags$div(checked=NA,plotOutput("myPlot32")%>% withSpinner(color="#cccccc"))
+                                                              ),
+                                                              tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,tags$h3('Percentagem de vacinas administradas'),
+                                                                       tags$div(checked=NA,plotOutput("myPlot33")%>% withSpinner(color="#cccccc"))
+                                                              )))
+                                                     )  
+                                            ),
+                                            tabPanel("Centro", fluid = TRUE,
+                                                     tags$div(class="row",checked=NA,
+                                                              tags$div(class="col",checked=NA,      
+                                                                       tags$div(class="row",checked=NA,
+                                                                                tags$div(class="col",style="text-align:center; margin-bottom:30px",checked=NA,
+                                                                                         tags$h2('Centro'))),
+                                                                       tags$div(class="row",checked=NA,
+                                                              tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,tags$h3('Número de vacinas administradas semana após semana'),
+                                                                       tags$div(checked=NA,plotOutput("myPlot41")%>% withSpinner(color="#cccccc"))
+                                                              ),
+                                                              tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,tags$h3('Acumulação de vacinas semana após semana'),
+                                                                       tags$div(checked=NA,plotOutput("myPlot42")%>% withSpinner(color="#cccccc"))
+                                                              ),
+                                                              tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,tags$h3('Percentagem de vacinas administradas'),
+                                                                       tags$div(checked=NA,plotOutput("myPlot43")%>% withSpinner(color="#cccccc"))
+                                                              )))
+                                                     )
+                                            ),
+                                            tabPanel("Acores", fluid = TRUE,
+                                                     tags$div(class="row",checked=NA,
+                                                              tags$div(class="col",checked=NA,      
+                                                                       tags$div(class="row",checked=NA,
+                                                                                tags$div(class="col",style="text-align:center; margin-bottom:30px",checked=NA,
+                                                                                         tags$h2('Acores'))),
+                                                                       tags$div(class="row",checked=NA,
+                                                              tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,tags$h3('Número de vacinas administradas semana após semana'),
+                                                                       tags$div(checked=NA,plotOutput("myPlot51")%>% withSpinner(color="#cccccc"))
+                                                              ),
+                                                              tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,tags$h3('Acumulação de vacinas semana após semana'),
+                                                                       tags$div(checked=NA,plotOutput("myPlot52")%>% withSpinner(color="#cccccc"))
+                                                              ),
+                                                              tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,tags$h3('Percentagem de vacinas administradas'),
+                                                                       tags$div(checked=NA,plotOutput("myPlot53")%>% withSpinner(color="#cccccc"))
+                                                              )))
+                                                     )
+                                            ),
+                                            tabPanel("Madeira", fluid = TRUE,
+                                                     tags$div(class="row",checked=NA,
+                                                              tags$div(class="col",checked=NA,      
+                                                                       tags$div(class="row",checked=NA,
+                                                                                tags$div(class="col",style="text-align:center; margin-bottom:30px",checked=NA,
+                                                                                         tags$h2('Madeira'))),
+                                                                       tags$div(class="row",checked=NA,
+                                                              tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,tags$h3('Número de vacinas administradas semana após semana'),
+                                                                       tags$div(checked=NA,plotOutput("myPlot61")%>% withSpinner(color="#cccccc"))
+                                                              ),
+                                                              tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,tags$h3('Acumulação de vacinas semana após semana'),
+                                                                       tags$div(checked=NA,plotOutput("myPlot62")%>% withSpinner(color="#cccccc"))
+                                                              ),
+                                                              tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,tags$h3('Percentagem de vacinas administradas'),
+                                                                       tags$div(checked=NA,plotOutput("myPlot63")%>% withSpinner(color="#cccccc"))
+                                                              )))
+                                                     )
+                                            ),
+                                            tabPanel("Norte", fluid = TRUE,
+                                                     tags$div(class="row",checked=NA,
+                                                              tags$div(class="col",checked=NA,      
+                                                                       tags$div(class="row",checked=NA,
+                                                                                tags$div(class="col",style="text-align:center; margin-bottom:30px",checked=NA,
+                                                                                         tags$h2('Norte'))),
+                                                                       tags$div(class="row",checked=NA,
+                                                              tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,tags$h3('Número de vacinas administradas semana após semana'),
+                                                                       tags$div(checked=NA,plotOutput("myPlot71")%>% withSpinner(color="#cccccc"))
+                                                              ),
+                                                              tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,tags$h3('Acumulação de vacinas semana após semana'),
+                                                                       tags$div(checked=NA,plotOutput("myPlot72")%>% withSpinner(color="#cccccc"))
+                                                              ),
+                                                              tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,tags$h3('Percentagem de vacinas administradas'),
+                                                                       tags$div(checked=NA,plotOutput("myPlot73")%>% withSpinner(color="#cccccc"))
+                                                              )))
+                                                     )
+                                            
+                                )
                        ),
                        navbarMenu("About",
-                                  tabPanel("Informação",
-                                           tags$div(class="row",checked=NA,
-                                                    tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
-                                                             includeMarkdown("www/info.md")
-                                                    ),
-                                                    tags$div(class="col-md-4 col-sm-6 col-12",style="margin-bottom: auto; margin-top: auto; margin-left: auto; margin-right: auto;",checked=NA,
-                                                             img(src="pt.png", height=400, width=600)
-                                                    )
-                                           )),
-                                  tabPanel("Autoria",
-                                           fluidRow(
-                                             column(12,
-                                                    includeMarkdown("www/autoria.md"))
-                                           ))
+                          tabPanel("Informação",
+                                   tags$div(class="row",checked=NA,
+                                            tags$div(class="col-md-4 col-sm-6 col-12",checked=NA,
+                                                     includeMarkdown("www/info.md")
+                                            ),
+                                            tags$div(class="col-md-4 col-sm-6 col-12",style="margin-bottom: auto; margin-top: auto; margin-left: auto; margin-right: auto;",checked=NA,
+                                                     img(src="pt.png", height=400, width=600)
+                                            )
+                                   )),
+                          tabPanel("Autoria",
+                                   fluidRow(
+                                     column(12,
+                                            includeMarkdown("www/autoria.md"))
+                                   ))
                        )
             ),
             tags$br(),
-            tags$div(style="col-6", class="info", h4(" 'Notas' ou 'Considerações ou Outra cena': (??? Not sure,depois digam o que preferem)"),
-                     tags$b("Pessoa Vacinada: "), p("Individuo a quem lhe foram administrdas todas as doses necessárias, tendo em conta a marca da vacina."), 
-                     tags$b("Vacina Administrada:"), p("Dose de vacina que já foi administrada a uma pessoa. O relevante aqui é que esta poderá ser referente a uma primeira ou segunda dose, dependendo da marca da vacina."),
-                     p("- Possivelmente outras cenas que achemos relevantes "),
+            tags$div(style="col-6", class="info", h4("Notas:"),
+                     tags$b("Pessoa Vacinada: "), p("Individuo a quem lhe foram administradas todas as doses necessárias para que tenha uma defesa imunitária eficaz contra a Covid-19."), 
+                     tags$b("Doses necessárias por vacina: "), 
+                     tags$ul(
+                       tags$li("Comirnaty (BioNTech/Pfizer)- 2 doses"), 
+                       tags$li("Moderna (Moderna)- 2 doses"),
+                       tags$li("AstraZeneca (AstraZeneca/Oxford)- 2 doses"),
+                       tags$li("Janssen (Janssen/Jonhson & Jonhson) - 1 dose"),
+                     ),
+                     tags$b("Dose Administrada:"), p("Dose de vacina que já foi administrada a uma pessoa, independentemente de ser a 1ª ou 2ª dose de uma certa vacina."),
+                     
             ),
   )
 )

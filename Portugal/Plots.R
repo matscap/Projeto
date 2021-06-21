@@ -106,13 +106,13 @@ c6 = c("AZ","MOD","COM","JJ")
 output$myPlotPais2 <- renderPlot({
   
   res <- Vacinas()
-  ggplot(res$df, aes(x=res$Nomes, y= as.factor(res$Doses_Administradas), fill = c6)) + 
+  ggplot(res$df, aes(x=res$Nomes, y= as.factor(res$Totais), fill = c6)) + 
     geom_bar(stat='identity')+ 
     scale_fill_manual(values = c("AZ"="#D8BFD8",
                                  "MOD"="#B0E0E6",
                                  "COM"="#FFDAB9",
                                  "JJ"="#c6ffb3")) +
-    geom_text(aes(label = paste(round(res$Percentagens, digits=2),"%")), vjust = -0.6, size = 7)+
+    geom_text(aes(label=as.factor(res$Totais)), vjust = -0.6, size = 4)+
     theme(
       legend.position = "none",
       axis.text.x = element_text(vjust = 0.5, size = 12),
@@ -127,23 +127,24 @@ output$myPlotPais2 <- renderPlot({
     ylab('') 
 })
 
-output$tablePerc <- renderDataTable(
-  Vacinas()
-)
-
-
-
-
 output$myPie <- renderPlot({
   
   resPie <- myReactiveDataPais3()
+  ##parts <- c(One=resPie['Percentagem_tpv4'], Two=resPie['Percentagem_tpv2'], Three=resPie['Percentagem_tpv3'])
+  ##waffle(parts, rows=8)
+  ##waffle(resPie, rows=5,keep=TRUE)
+  ##waffle(resPie, rows = 5)
   
-  ggplot(resPie$dfPercentagens, aes(x="", y=resPie$Percentagens, fill=resPie$Nomenclatura)) +
-    geom_bar( stat="identity", width=1, color="white") +
-    coord_polar("y", start=0)+
-    theme_void()+
-    geom_text(aes(y=resPie$Percentagens, label = paste(round(resPie$Percentagens, digits=2),"%")), size = 7, color=c("black","white")) +
-    guides(fill= guide_legend(title = ""))
+  val_names <- sprintf("%s (%s)", c("Por vacinar: ", "Completamente Vacinados: ", "Primeira dose apenas: "), resPie)
+  names(resPie) <- val_names
+  
+  waffle::waffle(resPie)
+##  ggplot(resPie$dfPercentagens, aes(x="", y=resPie$Percentagens, fill=resPie$Nomenclatura)) +
+##    geom_bar( stat="identity", width=1, color="white") +
+  ##  coord_polar("y", start=0)+
+    ##theme_void()+
+    ##geom_text(aes(y=resPie$Percentagens, label = paste(round(resPie$Percentagens, digits=2),"%")), size = 7, color=c("black","white")) +
+    ##guides(fill= guide_legend(title = ""))
 })
 
 output$plotRegiao <- renderPlot({
@@ -157,7 +158,7 @@ output$plotRegiao <- renderPlot({
           axis.text.y = element_blank(),
           axis.ticks.y = element_blank(),
           legend.title = element_blank()) + 
-    labs(title = "Quantidade de pessoas vacinadas em cada Região, por semana", 
+    labs(
          x = "Semanas", 
          y = "Pessoas Vacinadas") +
     scale_x_continuous(breaks = c(as.numeric(1:length(res1$Datas1))) ,labels = res1$Datas1) 
