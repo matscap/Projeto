@@ -13,10 +13,8 @@
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{verbatim}
-\usepackage{textcomp}
-\usepackage{caption}
-\usepackage{subcaption}
 \usepackage{acronym}
+\usepackage{ textcomp }
 
 \def\R{{\textsl{R }}}
 \def\Shiny{\textsl{Shiny }}
@@ -33,7 +31,7 @@
   Matias Capitão\\
   \texttt{A82726} \\ 
   \\ Mentoring:\\
-  Cecília Castro\\
+  Stora Cecília \\
   \and
   Rafael Antunes\\
   \texttt{A77457}
@@ -77,6 +75,12 @@
 
 \input{RandShiny}
 
+% Apagar aqui
+\\
+\\
+\textbf{NÃO GOSTO DESTA ULTIMA FRASE. DESPOIS VER ESTA CENA.}
+
+%Até aqui
 
 \section{SARS-CoV-2}
 \subsection{Brief description}
@@ -95,42 +99,118 @@
 \subsection{Regions}
 \input{RegionsPT}
 
-
-
-
-
 \section{SARS-CoV-2 in Portugal}
-
 \subsection{Brief description}
-\input{CovidPT}
+
+SARS-CoV-2 (Severe Acute Respiratory Syndrome coronavirus) is a new type of coronavirus that causes a respiratory disease called coronavirus disease 19, know as COVID-19. It was first detected in December 2019 has quickly spread globally.
+
+Portugal recorded the first confirmed case of COVID-19 on March 2 and the first death occurred
+on March 16. Since then we have added more than 800 thousand registered cases and more than 16 thousand deaths.
+
+Portugal was severely affected by COVID-19, being considered, in the middle of January 2021, as the worst country in the world in terms of infection and mortality rates per million inhabitants and the worst country in Europe with the highest average of cases COVID-19 daily reports, with Portugal reaching a maximum of 16432 cases and 303 deaths on 28 January 2020.
+
+
+
+
+
+
+
+
+
+
+
 
 \subsection{Vaccination}
-\input{VaccinationPT}
 
+   To end this pandemic, a large part of the world needed to be immune to the virus. The safest way to achieve this was through a vaccine, so with the help of investments by companies, governments, international health organizations and university research groups it was possible to develop a series of vaccines including Phyzer, Moderna, Astrazeneca, Johnson & Johnson, among others.
 
-
+   The first vaccine administered in Portugal was on December 27, 2020. The first vaccine was António Sarmento, 65, director of the Infectious Diseases Service, at Hospital de São João, in Porto and since then more than 2 million doses of vaccine have been administered. Despite the fact that the entire Portuguese population has access to a vaccine, depending on their clear clinical condition, Portugal opted for a vaccination plan divided into 3 phases, that is, priority groups were defined, as they are more vulnerable to COVID-19, as an example health professionals, professionals and residents of residential structures for the elderly and similar institutions, who were part of the first vaccination phase.
 
 
 \chapter{Application}
 
-\section{Research}
-\input{Research}
 
 
-\section{Development}
-\input{Development}
+
+\section{Introduction to RStudio}
+R is a statistical programming language and a free, open-access program that has gained considerable popularity in several areas of science. R was developed by statisticians George Ross Ihaka and Robert Clifford Gentleman, as a derivation of the statistical programming language S.
+For the development of our application we use the RStudio program.
+
+RStudio is a program that allows a more user-friendly working interface to run R. Instead of using the R desktop, which would actually be a simple notepad where we would type the code and then trigger R to read and running this code (or our script), it's more convenient to use a development interface that has a series of facilities that not only improve code visualization, but facilitate package installation, code error monitoring, data visualization and graphics , among other facilities.
+
+
+RStudio provides most of the necessary and desirable features for a user-friendly graphical interface making it much easier and more productive to use R. Unlike some of the other platforms mentioned above, RStudio is available for other operating systems (Linux and IOS -Mac ) in addition to Windows, being easier and more intuitive to learn, with extensive free documentation on the internet.
+
+
+
+\section{Shiny}
+
+The R Shiny framework is an RStudio package that makes it incredibly easy to build interactive web applications with R. A Shiny has the benefit of allowing us to create highly effective reports and data visualizations where the user can explore a set of data.
+
+Shiny apps are divided into two parts: 
+
+\begin{itemize}
+    \item server.r
+    \item ui.r (UI)
+    
+\end{itemize}
+ % se tiver a der merd* corrijam 
+ 
+ Ui.R stands for User Interface. The UI controls what is displayed on the application page and how components are laid out. This can include text and other markup elements, graphics, widgets that accept user input, or plots.
+
+ The server controls what data will be through the UI. The server will be where you upload and collate the data and then set your options (ie graphics) using input from the UI.
+
+ 
+Even though we created two separate files for our application, namely server.r and ui.r , shiny supports single file applications. A single file configuration puts both the server and user interface code in a single app.R file, whereas the multiple file configuration puts them in their own separate files. Functionally, these configurations will produce the same app. The multiple file configuration is generally preferred, especially for larger applications, as it usually makes code easier to manage. For smaller apps, the single file configuration is likely a more efficient way to go.
+ 
+\subsection{Connection between user interface and server}
+\begin{figure}[h]
+\centering % para centralizarmos a figura
+\includegraphics[width=10cm]{images/post-logo.PNG} 
+
+\caption{connection between server and ui}
+\label{figura:qualquernome}
+\end{figure}
+ 
+In practice, inputs are widgets that enable user interaction with the app. They receive a value chosen by the user and send it to the server side.
+
+
+ACABAR 
+
+
+
+
+
+
+
 
 \subsection{Reactivity in shiny}
-\input{ReactivityInShiny}
+  In Shiny, you express server logic using reactive programming.
+  
+  
+  The main idea of reactive programming is to specify a dependency graph so that when an input is changed, all related outputs are updated too, for example, we don't need to tell an output to update because due to reactivity the information is always automatically updated, making the flow of an application considerably simpler.
+  
+
+   Then reactive functions as it is a way to control which parts of the application are updated, avoiding unnecessary calculations that can make your application slow.
 
 \subsection{Render functions}
 
 The main function for generating documents in R Markdown, from the rmarkdown package, is a render ().
-The render () function is a wrapper that internally calls knitr :: knit () and later converts the document to .html using Pandoc, which is a document and open source converter.Uma função render que usamos na aplicação foi a renderPlot().
-
-To display the graphics in our application we use the renderPlot () tool. RenderPlot is a reactive function that can take input data from the ui.R script and feed it into the server.R script. It then actively updates the information within its role.
+The render () function is a wrapper that internally calls knitr :: knit () and later converts the document to .html using Pandoc, which is a document and open source converter.
 
 
+A render function that we used in the application was renderPlot (), for example, to display the graphics in our application we use the renderPlot () tool. RenderPlot is a reactive function that can take input data from the ui.R script and feed it into the server.R script.We must use a render* function in the server to tell Shiny how to build your objects. It then actively updates the information within its role.
+
+
+Thus, the outputs must be built with render() functions, with a render() function for each type of object.
+
+
+
+
+\subsection{Application Format}
+  
+    
+\end{itemize}
 
 
 
@@ -145,7 +225,6 @@ To display the graphics in our application we use the renderPlot () tool. Render
 
 \bibliographystyle{plain}
 \begin{thebibliography}{10}
-
 
 \bibitem{R-project website} \textit{\href{https://www.r-project.org/about.html}{https://www.r-project.org/about.html}} , \textbf{About/R-Project website}
 
@@ -164,12 +243,12 @@ To display the graphics in our application we use the renderPlot () tool. Render
 \bibitem{trab}\textit{\href{https://ec.europa.eu/eures/main.jsp?acro=lmi&lang=pt&countryId=PT&catId=57&parentId=0}{https://ec.europa.eu/eures/main.jsp?acro=lmi&lang=pt&countryId=PT&catId=57&parentId=0}}, \textbf{Labor Market Information - European Commission} 
 
 
-\bibitem{dataDownload}\textit{\href{https://vaccinetracker.ecdc.europa.eu/public/extensions/COVID-19/vaccine-tracker.html#notes-tab}} , \textbf{General Vaccine information - European Centre for Disease Prevention and Control } 
 
 \end{thebibliography}
 
-
-
+https://rpubs.com/cassiorampinelli/488999
+https://laderast.github.io/gradual_shiny/app-1-connecting-ui-and-server.html#more-about-inputs-and-outputs
+https://mastering-shiny.org/basic-reactivity.html
 
 
 
@@ -182,5 +261,4 @@ To display the graphics in our application we use the renderPlot () tool. Render
 
 
 \end{document}
-
 
