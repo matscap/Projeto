@@ -1,28 +1,28 @@
-Our SARS-COV-2 application was developed in RStudio, which is free integrated development environment software for R. Our application was developed in Shiny and consists of the following structure:
+The R Shiny framework is an RStudio package that makes it incredibly easy to build interactive web applications with R. A Shiny has the benefit of allowing us to create highly effective reports and data visualizations where the user can explore a set of data.
+
+Shiny apps are divided into two parts: 
 
 \begin{itemize}
     \item server.r
-    \item ui.r
+    \item ui.r (UI)
     
 \end{itemize}
  % se tiver a der merd* corrijam 
  
- Ui.R stands for User Interface. In fact, UI.R is the file where the different parts of the application's front-end are defined, that is, what the end users see.So ui.r is where you control the layout and appearance of the app.
- Thus, in our application the ui.r goes through the definition of the application structure, that is, the form that our application takes, which in this case will be divided by "Portugal" and "Regiões" and each one with different options: 
- \begin{itemize}
-    \item "Portugal" 
-    In this section we will have the option to see some types of graphs with two options: 
-     \begin{itemize}
-        \item By age; 
-        \item By vaccines.
+The ui specification defines:
+\begin{itemize}
+    \item  Layout functions to configure the visual structure of the html page that will be generated when the application is executed. The fluidPage() function embeds and configures all the necessary and sufficient HTML, CSS and JavaScript code for the application. To create more complex layouts, you need to call layout functions inside fluidPage().
+    \item Input control functions that will allow the user to interact with the application. Functions such as sliderInput(), selectInput(), textInput(), numericInput() can be used. All these functions have inputID as their first argument, simple string, with the same restrictions as the object names of R, and unique. This identifier is used to bind the ui to the server.
+    If in the ui the inputID = “name”, the server will access it using input?name. The second argument, label, is also important as it contains the text that appears in the application's layout.
+    \item Output controls that indicate where to place output with reactive behavior. Examples of output control functions are textOutput(), tableOutput(), among others. As with input control functions, the first argument must be the unique ID. If, for example, in the ui an ID with the name “plot” is defined, on the server the access is output$plot.
 
-        
-        \end{itemize}
-    \item "Regiões"
-     In this component we will have available the seven Portuguese regions and for each one we have the option of "Vacinção semanal" of each type of vaccine and we will also have the option of "Acumulação de vacinas" for the same types of vaccine, which is Pfyzer, Astrazeneca e Moderna.
-     
 
-    
-\end{itemize}
 
-Server.R, on the other hand, is the engine of the application, that is, where the data is processed, that is, it contains the instructions that the computer needs to build the application. It is in this component that all the functions that we create are. 
+ In the server specification, functions that allow calculations to be performed and updated (using reactivity) are implemented. The server controls what data will be through the UI. The server will be where you upload and collate the data and then set your options (ie graphics) using input from the UI.
+ 
+ 
+ For this purpose, specific rendering functions (render functions) are used. Each render{Type} function produces a specific type of output (for example, renderTable() produces tables, renderText() produces text). Usually these functions are paired with {Type}Output functions (for example renderTable() because it is paired with tableOutput()).
+
+
+ 
+ Even though we created two separate files for our application, namely server.r and ui.r , shiny supports single file applications. A single file configuration puts both the server and user interface code in a single app.R file, whereas the multiple file configuration puts them in their own separate files. Functionally, these configurations will produce the same app. The multiple file configuration is generally preferred, especially for larger applications, as it usually makes code easier to manage. For smaller apps, the single file configuration is likely a more efficient way to go.
