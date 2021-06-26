@@ -6,10 +6,12 @@
 \usepackage{url} 
 \usepackage{amsmath}
 \usepackage{textcomp} 
+\usepackage{lipsum}
 \usepackage{multirow} 
 \usepackage[pdftex,hidelinks]{hyperref}
 \usepackage{listings}
 \usepackage{natbib}
+\usepackage{float}% If comment this, figure moves to Page 2
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{verbatim}
@@ -17,6 +19,7 @@
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{acronym}
+
 
 \def\R{{\textsl{R }}}
 \def\Shiny{\textsl{Shiny }}
@@ -141,20 +144,31 @@ R has libraries that allow you to play high-quality graphics. In this work, the 
 
 Levels, or layers, consist of data (data.frame format), aesthetic attributes (data mapping definition), geometric objects (visual elements), facets (facets()) functions that allow the execution of multiple graphics related to segments of data defined by factors), statistical transformations, coordinates (space where data is represented) and theme (theme(), functions allow changing individual components of a theme).
 
-\subsection{Application format}
-
 
 
 
 
 \section{Implementation}
-\subsection{Depois ver mais cenas}
-\section{Results}
-\subsection{Publication}
-\subsection{Versatility}
+\subsection{Challenges}
+
+During the development of the App there were a few bumpy moments whether due to the fact that we thought that we were handling the data poorly or when there was a small error that was preventing us from seeing the final result.
+Data related, one of the major problems that we encountered was that we could not find a reliable source of population. Every single one we came across did not match up with most of the already existing info on this topic. But after a few weeks we finally came across a document from ECDC, not very well identified, but definitely reliable.
+Code related, there were several situations, that we solved quite rapidly, however there was one that stood out the most, namely, when the reports were incomplete. When this happened we always tried to replicate the data with empty values manually, however this solution would not solve our problem completely. The solution we came across was using the merge function so that the weeks that came empty were automatically fulfilled with 'NA' and after that we converted those NA's to 0's. This way we never had a similar problem anymore.
+
+\subsection{User Interface}
+\input{userInterface}
+
+\subsection{Portugal}
+\input{Rafa}
+
+\input{Matias}
+
+\section{Publication}
+Amanhã preencho esta cena depois de publicar
 
 \chapter{Conclusion}
 
+This project made us realize the versatility of the Shiny package from RStudio. We were baffled by how easy it was to build a very useful app with such little tools. Even though we added a bit of HTML and CSS ourselves it was clear that someone with very little knowledge of front-end development and some R language knowledge could very well develop an interesting app.
 
 \bibliographystyle{plain}
 \begin{thebibliography}{10}
@@ -181,6 +195,6 @@ Levels, or layers, consist of data (data.frame format), aesthetic attributes (da
 
 \end{thebibliography}
 
-
+\end{document}
 
 

@@ -20,7 +20,19 @@ The dataset that we downloaded, in format CSV, has the following columns:
     \item \textbf{SecondDose} - Number of second dose vaccine administered to individuals during the reporting week;
     \item \textbf{UnknownDose} - Number of doses administered during the reporting week where the type of dose was not specified;
     \item \textbf{NumberDosesReceived} - Number of vaccine doses distributed by the manufacturers to the country during the reporting week;
-    \item \textbf{Region} - Certain Region of the Reporting Country;
+    \item \textbf{Region} - Certain Region of the Reporting Country.
+   
+    In order to know the region to which these codes relate to, it was necessary another excel document. This document also brought another important component, namely, the population of each region. Having said this:
+    \begin{itemize}
+        \item PTCSR01 - Alentejo; População - 466 690
+        \item PTCSR02 - Algarve; População - 438 406
+        \item PTCSR03 - Regiao Autonoma dos Acores; População - 242 796
+        \item PTCSR04 - Centro; População - 1 650 394
+        \item PTCSR05 - Area Metropolitana de Lisboa; População - 3 674 534
+        \item PTCSR06 - Regiao Autonoma da Madeira; População - 254 254
+        \item PTCSR07 - Norte; População - 3 568 835
+
+    \end{itemize}
     \item \textbf{Population} - Age-specific population for the country (unfortunately, in Portugal, this hasn't been exactly right, it only has the total population of Portugal);
     \item \textbf{ReportingCountry} - The country that is providing the information;
     \item \textbf{TargetGroup} - Target group for vaccination;
@@ -39,12 +51,4 @@ We will show next, a little example of the dataset already filtered for Portugal
 \label{figura:qualquernome}
 \end{figure}
 
-\subsubsection{Notes about Portugal's data}
 
-There are some aspects about the Portugal's data that we notice throughout the development of this application. We will listed them next:
-\begin{itemize}
-    \item Continuar aqui!! Ha algumas cenas interessantes que deveremos por aqui tipo:
-    o que significam as siglas de Region.
-    \item Siglas das vacinas
-    \item e mais cenas que encontramos durante a realização desta cena
-\end{itemize}

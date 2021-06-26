@@ -1,0 +1,21 @@
+In terms of 'User Interface', it's pretty simple to implement an application with a good and intuitive layout. In our application, we have two main structures that were chosen, not only because, in our opinion, it's prettier, but also to show some different ways to see information. Our two structures are the followed: \\
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=300pt,trim=10 0 0 -10mm]{images/coiso.png}
+\caption{Structures overview}
+\label{fig:overview}
+\end{figure}
+
+We named the structures as \textit{'X'} and \textit{'Y'}, merely to be easier to see and explain the differences between them.\\
+As we can see, both layouts have something in common: \\
+\begin{itemize}
+    \item \textbf{A} it's our navigation bar, commonly used in a lot of websites and web applications;
+    \item \textbf{B} it's an area made by us with a few of CSS that will show some relevant information of the data;
+    \item \textbf{D} it's the area where all the data and information will appear.  
+\end{itemize}
+
+In the structure \textit{'X'}, the area \textbf{C} represents an area where the user can select the plot/s that want to see. It's possible to see more than one plot at the same time. \\ 
+In the structure \textit{'Y'}, coming from \textbf{A}, there are plenty of options (\textbf{Op 1, Op 2, ..., Op \textit{n}}). After selecting one of these options, it will appear both areas \textbf{D} and \textbf{B}. It's relevant to point that, in this case, in \textbf{D}  will appear several plots in a dashboard style.\\
+\\
+We would like to make reference to the \texttt{thematic\_shiny} function from \textbf{thematic} library. This function updates the graphics themes according to the theme chosen in the \texttt{shinyServer} function. It's really useful to prevent the developer to change the theme of every plot, every single time that he want to change something.
