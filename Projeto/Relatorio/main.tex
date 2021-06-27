@@ -1,0 +1,227 @@
+\documentclass[11pt,a4paper]{report}
+
+\usepackage[english]{babel} 
+\usepackage[utf8]{inputenc} % Unicode
+\usepackage{graphicx} 
+\usepackage{url} 
+\usepackage{amsmath}
+\usepackage{textcomp} 
+\usepackage{lipsum}
+\usepackage{multirow} 
+\usepackage[pdftex,hidelinks]{hyperref}
+\usepackage{listings}
+\usepackage{natbib}
+\usepackage{float}% If comment this, figure moves to Page 2
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{verbatim}
+\usepackage{textcomp}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{acronym}
+\usepackage{blindtext}
+
+
+\def\R{{\textsl{R }}}
+\def\Shiny{\textsl{Shiny }}
+\def\sar{\textsl{SARS-CoV-2 }}
+
+
+\title{A \Shiny application for visualising SARS-CoV-2 vaccination coverage in Portugal}
+
+\author{
+  Bruna Araújo\\
+  \texttt{A84408}
+  \and
+  Matias Capitão\\
+  \texttt{A82726} \\ 
+  \\ Supervisor:\\
+  Cecília Castro\\
+  \and
+  Rafael Antunes\\
+  \texttt{A77457}
+}
+\date{}
+
+\linespread{1.5}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+    For this project, was proposed to us the development of an application with the theme: “Development of a Shiny application to visualize data on the SARS-CoV-2 epidemic”.
+    
+    
+    The main objective was to develop a Shiny application for visualization
+    of data and analysis of various indicators that allow, in an interactive way, the monitoring of the
+    SARS-CoV-2 epidemic in Portugal. \\
+    This project had two phases: the first one was a phase to study the data and workflow of an R Shiny application, and the second phase was the phase of implementation.\\
+    We end up to publish our application in \textit{Shinyapps.io} that is an online service for hosting Shiny apps in the cloud.
+    
+    
+     
+    
+
+
+
+
+
+
+    
+
+    
+    
+    
+
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+\listoffigures
+\newpage
+
+\newpage
+
+{\huge\textbf{Acronym List}}\\
+\input{acro_list}
+
+
+\chapter{Introduction}
+\section{The \R Program and \Shiny package}
+
+\input{RandShiny}
+
+
+\section{COVID-19 pandemic}
+%\subsection{Brief description}
+
+\input{Sars-CoV-2}
+
+\subsection{Vaccination}
+\input{Vaccination}
+
+
+\section{Portugal}
+
+\subsection{Brief description}
+\input{Portugal}
+
+\subsection{Regions}
+\input{RegionsPT}
+
+
+
+
+
+\section{COVID-19 and Vaccination in Portugal}
+
+%\subsection{Brief description}
+\input{CovidPT}
+
+\subsection{Vaccination}
+\input{VaccinationPT}
+
+
+
+
+
+\chapter{The Shiny App}
+
+\section{Data :: Structure and Features}
+\input{Research}
+
+
+\section{Development}
+\input{Development}
+
+\subsection{Reactivity in shiny}
+\input{ReactivityInShiny}
+
+%\subsection{Render functions}
+
+%The main function for generating documents in R Markdown, from the rmarkdown package, is a render ().
+%The render () function is a wrapper that internally calls knitr :: knit () and later converts the document to .html using Pandoc, which is a document and open source converter.Uma função render que usamos na aplicação foi a renderPlot().
+
+%To display the graphics in our application we use the renderPlot () tool. RenderPlot is a reactive function that can take input data from the ui.R script and feed it into the server.R script. It then actively updates the information within its role.
+
+
+
+\subsection{Data visualization}
+Data visualization through maps, tables or graphs allows contextualizing and understanding information in a natural and efficient way.
+
+
+R has libraries that allow us to get high quality graphics. In this report we mainly use \verb!ggplot2!, based on its own graphics grammar,  where the graphical representations are obtained by superimposing several stacking levels, allowing great flexibility in the construction of the graphics (Hadley Wickham, 2005).  \cite{ggplot2}
+\\
+Layers consist on the data (data.frame format), aesthetic attributes (data mapping definition), geometric objects (visual elements), facets (\verb!facets()!) functions that allow the execution of multiple graphics related to segments of data defined by factors), statistical transformations, coordinates (space where data is represented) and theme (\verb!theme()!, functions allow changing individual components of a theme).
+
+\section{Implementation}
+
+\subsection{User Interface}
+\input{userInterface}
+
+\subsection{Portugal}
+\input{Rafa}
+
+\input{Matias}
+
+\section{Publication}
+It's possible to public the application for free, on the internet using \url{https://www.shinyapps.io}. \cite{io} This is an online service for hosting Shiny apps in the cloud. RStudio takes care of all the details of hosting the app and maintaining the server.
+We found out pretty simple to publish the application. It's just creating an account and follow the well described steps. It tokes us a bit of time because we had to correct some errors that prevented publication correctly, but an experiment developer should do this steps quicker. Our application is located in the following link:\\
+\\
+\href{https://rafaelantunes.shinyapps.io/VacinacaoPortugal/}{https://rafaelantunes.shinyapps.io/VacinacaoPortugal/}
+
+\chapter{Conclusion}
+
+This project made us realize the versatility of the Shiny package from RStudio. We were baffled by how easy it was to build a very useful app with such little tools. Even though we added a bit of HTML and CSS ourselves it was clear that someone with very little knowledge of front-end development and some R language knowledge could very well develop an interesting app.
+
+\bibliographystyle{plain}
+\begin{thebibliography}{10}
+
+
+\bibitem{R-project website} \textit{\href{https://www.r-project.org/about.html}{https://www.r-project.org/about.html}} , \textbf{About/R-Project website}
+
+\bibitem{shiny}\textit{\href{https://shiny.rstudio.com/l}{https://shiny.rstudio.com}} , \textbf{Shiny website
+}
+\bibitem{SARS-CoV-2}\textit{\href{https://apps.who.int/iris/bitstream/handle/10665/332197/WHO-2019-nCoV-FAQ-Virus_origin-2020.1-eng.pdf}{https://apps.who.int/.../origin-2020.1-eng.pdf}} ,\textbf{ Origin of SARS-CoV-2 - \ac{WHO}}
+
+\bibitem{EU}\textit{\href{https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/public-health/eu-vaccines-strategy_pt}{https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/public-health/eu-vaccines-strategy_pt}} , \textbf{EU vaccine strategy} 
+
+
+\bibitem{pubINE}\textit{\href{https://www.ine.pt/xurl/pub/71882686}{https://www.ine.pt/xurl/pub/71882686}}, \textbf{Instituto Nacional de Estatística - Estatísticas Demográficas : 2019. Lisboa : INE, 2020.} 
+
+
+
+\bibitem{trab}\textit{\href{https://ec.europa.eu/eures/main.jsp?acro=lmi&lang=pt&countryId=PT&catId=57&parentId=0}{https://ec.europa.eu/eures/main.jsp?acro=lmi&lang=pt&countryId=PT&catId=57&parentId=0}}, \textbf{Labor Market Information - European Commission} 
+
+
+\bibitem{dataDownload}\textit{\href{https://vaccinetracker.ecdc.europa.eu/public/extensions/COVID-19/vaccine-tracker.html#notes-tab}{https://vaccinetracker.ecdc.europa.eu/public/extensions/COVID-19/vaccine-tracker.html#notes-tab}} , \textbf{General Vaccine information - European Centre for Disease Prevention and Control } 
+
+\bibitem{rstudio}\textit{\href{https://www.rstudio.com/}{https://www.rstudio.com/}} , \textbf{RStudio website
+}
+
+
+\bibitem{covwiki}\textit{\href{https://en.wikipedia.org/wiki/COVID-19_pandemic}{https://en.wikipedia.org/wiki/COVID-19_pandemic}} , \textbf{Covid-19 information
+
+}
+
+
+\bibitem{ggplot2}\textit{\href{https://en.wikipedia.org/wiki/Ggplot2}{https://en.wikipedia.org/wiki/Ggplot2}} , \textbf{ Ggplot2 information
+
+}
+
+
+
+\bibitem{INEE}\textit{\href{https://ra09.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_faqs&FAQSfaq_boui=242509855&FAQSmodo=1&xlang=pt}{https://ra09.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_faqs&FAQSfaq_boui=242509855&FAQSmodo=1&xlang=pt}} , 
+\textbf{Instituto Nacional de Estatística- Estruturação do território português
+}
+
+
+\bibitem{io} \textit{\href{https://shiny.rstudio.com/articles/shinyapps.html}{https://shiny.rstudio.com/articles/shinyapps.html}}
+
+\end{thebibliography}
+
+\end{document}
+
+

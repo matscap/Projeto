@@ -1,0 +1,55 @@
+The data that we used to develop this application was downloaded from the \ac{ECDC} which is an \ac{EU} agency aimed at strengthening Europe's defenses against infectious diseases.
+\\
+As we can read in the \ac{ECDC} website \cite{dataDownload}, they are providing an overview of the progress in the rollout of COVID-19 vaccines in adults across \ac{EU} countries.
+\begin{figure}[h]
+\centering % para centralizarmos a figura
+\includegraphics[width=3cm]{images/ecdc.png} 
+
+\caption{ECDC logo}
+\label{figura:qualquernome}
+\end{figure}
+
+The data is collected through The European Surveillance System (TESSy) and they publish the updated data, every week on Thursdays. In Portugal, the entity responsible to send the data is the Ministry of Health.
+
+\subsection{Structure of the data}
+The dataset  downloaded in each interaction with the app in format \verb!csv!, has the following columns:
+
+\begin{itemize}
+    \item \textbf{YearWeekISO} - Date information in weeks:  week number and year;
+    \item \textbf{FirstDose} - Number of first dose vaccine administered to individuals during the reporting week;
+    \item \textbf{FirstDoseRefused} - Number of individuals refusing the first vaccine dose;
+    \item \textbf{SecondDose} - Number of second dose vaccine administered to individuals during the reporting week;
+    \item \textbf{UnknownDose} - Number of doses administered during the reporting week where the type of dose was not specified;
+    \item \textbf{NumberDosesReceived} - Number of vaccine doses distributed by the manufacturers to the country during the reporting week;
+    \item \textbf{Region} -  Region of the Reporting Country.
+   
+    In order to know the region to which these codes relate to, it was necessary another excel document. This document also brought another important component, namely, the population of each region. Having said this:
+    \begin{itemize}
+        \item PTCSR01 - Alentejo; Population - 466 690
+        \item PTCSR02 - Algarve; Population - 438 406
+        \item PTCSR03 - Autonomous Region of Azores ; Population - 242 796
+        \item PTCSR04 - Centre; Population - 1 650 394
+        \item PTCSR05 - Metropolitan Area of Lisbon; Population - 3 674 534
+        \item PTCSR06 - Autonomous Region of Madeira; Population - 254 254
+        \item PTCSR07 - North; Population - 3 568 835
+
+    \end{itemize}
+    \item \textbf{Population} - Age-specific population for the country (unfortunately, in Portugal, this hasn't been exactly right, it only has the total population of Portugal);
+    \item \textbf{ReportingCountry} - The country that is providing the information;
+    \item \textbf{TargetGroup} - Target group for vaccination;
+    \item \textbf{Vaccine} - Name of vaccine;
+    \item \textbf{Denominator} - Population denominators for target groups.
+
+We will show next, a little example of the dataset already filtered for Portugal.
+
+\end{itemize}
+
+\begin{figure}[h]
+\centering % para centralizarmos a figura
+\includegraphics[width=15cm]{images/dataset.png} 
+
+\caption{Excerpt from the dataset }
+\label{figura:qualquernome}
+\end{figure}
+
+

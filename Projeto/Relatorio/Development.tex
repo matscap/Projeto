@@ -1,0 +1,56 @@
+
+The Shiny R framework is an R / RStudio package that makes it incredibly easy to build interactive web applications using R {\emph {only}} code.
+\\
+Furthermore, it has the advantage of allowing us to create efficient and very attractive reports and data visualizations, on which the user can interact, exploring, for example, a dataset.
+\begin{description}
+\item[Basic Structure of the App]
+\end{description}
+Shiny apps are divided into two main parts: 
+
+\begin{itemize}
+    \item \verb!server.r!
+    \item \verb!ui.r (UI)!
+    
+\end{itemize}
+ % se tiver a der merd* corrijam 
+ \begin{description}
+\item[UI specification]
+\end{description}
+The \verb!ui! specification defines:
+\begin{itemize}
+    \item  \textbf{Layout functions} to configure the visual structure of the html page that will be generated when the application is executed. 
+    \\
+    The \verb!fluidPage()! function embeds and configures all the necessary and sufficient HTML, CSS and JavaScript code for the application. 
+    \\
+    To create more complex layouts, you need to call layout functions inside \verb!fluidPage()!.
+    \item \textbf{Input control functions} that will allow the user to interact with the application. Functions such as \verb!sliderInput()!, \verb!selectInput()!,
+    \\
+    \verb!textInput()!, \verb!numericInput()! can be used. 
+    \\
+    All these functions have \verb!inputID! as their first argument --  a simple and unique string with the same restrictions as the object names of R.
+    \\
+    This identifier is used to bind the \verb!ui! to the server. For example, if in  \verb!ui! the \verb!inputID = “name”!, the server will access it by using \verb!input$name!. 
+    \\
+    The second argument, \verb!label!, is also important as it contains the text that appears in the application's layout.
+    \item \textbf{Output controls} that indicate where to place output with {\sf{reactive behavior}}. 
+    Examples of output control functions are \verb!textOutput()!, \verb!tableOutput()!, among others. 
+    \\
+    As in input control functions, the first argument must be the unique ID.
+    If, for example, in \verb!ui! an ID with the name “plot” is defined, on the server the access is \verb!output$plot!.
+
+\end{itemize}
+ \begin{description}
+\item[Server specification]
+\end{description}
+ In the server specification, functions that allow calculations to be performed and updated (using reactivity) are implemented. The server controls what data will be through the UI. The server will be where you upload and collate the data and then set your options (ie graphics) using input from the UI.
+ 
+ 
+ For this purpose, specific rendering functions ({\sf{render functions}}) are used. Each \verb!render{Type}! function produces a specific type of output (for example, \verb!renderTable()! produces tables, \verb!renderText()! produces text). Usually these functions are paired with \verb!{Type}Output! functions (for example \verb!renderTable()!  is paired with \verb!tableOutput()!).
+
+
+ 
+ Even though we created two separate files for our application, namely \verb!server.r! and \verb!ui.r!, shiny supports single file applications. 
+ \\
+ A single file configuration puts both the server and user interface code in a single \verb!app.R! file, whereas the multiple file configuration puts them in their own separate files. 
+ \\
+ Functionally, these configurations will produce the same app. The multiple file configuration is generally preferred, especially for larger applications, as it usually makes code easier to manage. For smaller apps, the single file configuration is likely a more efficient way to go.

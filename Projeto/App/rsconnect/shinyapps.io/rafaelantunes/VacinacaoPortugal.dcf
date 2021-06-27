@@ -1,0 +1,14 @@
+name: VacinacaoPortugal
+title: VacinacaoPortugal
+username:
+account: rafaelantunes
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 4323723
+bundleId: 4761156
+url: https://rafaelantunes.shinyapps.io/VacinacaoPortugal/
+when: 1624793709.18704
+lastSyncTime: 1624793709.18705
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: .RData|Data/.DS_Store|Data/data.csv|Indicators_for_maps_week_45_1.xlsx
