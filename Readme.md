@@ -8,3 +8,5 @@ Realização de:
 * Bruna Araújo
 * Matias Capitão
 * Rafael Antunes
+
+Aplicação disponível em: <https://rafaelantunes.shinyapps.io/VacinacaoPortugal/>
