@@ -110,7 +110,7 @@ output$yourPlotID <- renderPlot({
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=300pt,trim=10 0 0 -10mm]{images/graficomapa2.png}
+\includegraphics[width=160px,trim=10 0 0 -10mm]{images/graficomapa2.png}
 \caption{Percentage: Vaccinated/Incomplete Vaccination}
 \label{fig:diagrama2}
 \end{figure}
@@ -147,7 +147,7 @@ output$yourPlotID <- renderPlot({
 })
 \end{verbatim}
 
-As we can see, the res variable will consist of a data frame with both the names of the vaccines as well as the totals. Knowing this, the process to draw the graphic is more or less the same as most of the others. We pass these values onto the ggplot function and after that we add the geom\_bar in order to draw an bar plot (\ref{fig:diagrama3}). 
+As we can see, the \verb!res! variable will consist of a data frame with both the names of the vaccines as well as the totals. Knowing this, the process to draw the graphic is more or less the same as most of the others. We pass these values onto the \verb!ggplot! function and after that we add the geom\_bar in order to draw an bar plot (\ref{fig:diagrama3}). 
 
 \begin{figure}[H]
 \centering

@@ -20,7 +20,18 @@
 \usepackage{subcaption}
 \usepackage{acronym}
 \usepackage{blindtext}
-
+%%%%%%%%%%%%%% Referências
+\makeatletter
+\def\thebibliography#1{\chapter*{REFERENCES\@mkboth
+{REFERENCES}{REFERENCES}}\list
+{[\arabic{enumi}]}{\settowidth\labelwidth{[#1]}\leftmargin\labelwidth
+\advance\leftmargin\labelsep
+\usecounter{enumi}}
+\def\newblock{\hskip .11em plus .33em minus .07em}
+\sloppy\clubpenalty4000\widowpenalty4000
+\sfcode`\.=1000\relax}
+\makeatother
+%%%%%%%%%%%%%
 
 \def\R{{\textsl{R }}}
 \def\Shiny{\textsl{Shiny }}
@@ -89,6 +100,10 @@
 
 
 \chapter{Introduction}
+In the context of the UC “Project” of the Degree in Computer Science, it was proposed to us the development of a Shiny application that would allow the visualization of variables associated with the COVID-19 pandemic in Portugal, as well as in its different regions. Once the vaccination process is ongoing and is in the order of the day, the application focuses on this process. 
+This report is organized essentially in two main  parts. Firstly is presented an introduction with a briefly reference to R, RStudio and the Shiny package. Also we  contextualize the theme, namely in what concerns to the disease and the vaccination process in Portugal.
+In the second part of this report, Chapter 2, we began by presenting the data,  its structure and features. Next is made a detailed description of the functionalities of the app, referring to the main attributes and properties of the Shiny apps that allow the development and application of the app developed in this work, presenting several examples of  implemented functions.
+
 \section{The \R Program and \Shiny package}
 
 \input{RandShiny}
@@ -179,47 +194,24 @@ This project made us realize the versatility of the Shiny package from RStudio. 
 \bibliographystyle{plain}
 \begin{thebibliography}{10}
 
-
-\bibitem{R-project website} \textit{\href{https://www.r-project.org/about.html}{https://www.r-project.org/about.html}} , \textbf{About/R-Project website}
-
-\bibitem{shiny}\textit{\href{https://shiny.rstudio.com/l}{https://shiny.rstudio.com}} , \textbf{Shiny website
-}
-\bibitem{SARS-CoV-2}\textit{\href{https://apps.who.int/iris/bitstream/handle/10665/332197/WHO-2019-nCoV-FAQ-Virus_origin-2020.1-eng.pdf}{https://apps.who.int/.../origin-2020.1-eng.pdf}} ,\textbf{ Origin of SARS-CoV-2 - \ac{WHO}}
-
-\bibitem{EU}\textit{\href{https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/public-health/eu-vaccines-strategy_pt}{https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/public-health/eu-vaccines-strategy_pt}} , \textbf{EU vaccine strategy} 
-
-
-\bibitem{pubINE}\textit{\href{https://www.ine.pt/xurl/pub/71882686}{https://www.ine.pt/xurl/pub/71882686}}, \textbf{Instituto Nacional de Estatística - Estatísticas Demográficas : 2019. Lisboa : INE, 2020.} 
+\bibitem{R-project website} \url{https://www.r-project.org/about.html}, \textbf{About R-Project website}
+\bibitem{RStudio}, \textbf{ RStudio website} \url{https://www.rstudio.com}
+\bibitem{shiny}\url{https://shiny.rstudio.com/l}{https://shiny.rstudio.com}, \textbf{Shiny website}
+\bibitem{SARS-CoV-2}\url{https://apps.who.int/iris/bitstream/handle/10665/332197/WHO-2019-nCoV-FAQ-Virus_origin-2020.1-eng.pdf},\textbf{ Origin of SARS-CoV-2 - \ac{WHO}}
+\bibitem{wiki} \url{https://en.wikipedia.org/wiki/COVID-19_pandemic} \textbf{About COVID-19 pandemic -- wikipedia}
+\bibitem{EU}\url{https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/public-health/eu-vaccines-strategy_pt}, \textbf{EU vaccine strategy} 
+\bibitem{owd}\url{https://ourworldindata.org}
+\bibitem{reuters}\url{https://graphics.reuters.com/world-coronavirus-tracker-and-maps/vaccination-rollout-and-access/}, \textbf{Covid-19 vaccination tracker, Reuters} 
 
 
-
-\bibitem{trab}\textit{\href{https://ec.europa.eu/eures/main.jsp?acro=lmi&lang=pt&countryId=PT&catId=57&parentId=0}{https://ec.europa.eu/eures/main.jsp?acro=lmi&lang=pt&countryId=PT&catId=57&parentId=0}}, \textbf{Labor Market Information - European Commission} 
-
-
-\bibitem{dataDownload}\textit{\href{https://vaccinetracker.ecdc.europa.eu/public/extensions/COVID-19/vaccine-tracker.html#notes-tab}{https://vaccinetracker.ecdc.europa.eu/public/extensions/COVID-19/vaccine-tracker.html#notes-tab}} , \textbf{General Vaccine information - European Centre for Disease Prevention and Control } 
-
-\bibitem{rstudio}\textit{\href{https://www.rstudio.com/}{https://www.rstudio.com/}} , \textbf{RStudio website
-}
+\bibitem{pubINE}\url{https://www.ine.pt/xurl/pub/71882686}, \textbf{Instituto Nacional de Estatística - Estatísticas Demográficas : 2019. Lisboa : INE, 2020.} 
 
 
-\bibitem{covwiki}\textit{\href{https://en.wikipedia.org/wiki/COVID-19_pandemic}{https://en.wikipedia.org/wiki/COVID-19_pandemic}} , \textbf{Covid-19 information
+\bibitem{trab}\url{https://ec.europa.eu/eures/main.jsp?acro=lmi&lang=pt&countryId=PT&catId=57&parentId=0}, \textbf{Labor Market Information - European Commission} 
 
-}
+\bibitem{dataDownload}\url{https://vaccinetracker.ecdc.europa.eu/public/extensions/COVID-19/vaccine-tracker.html#uptake-tab}, \textbf{General Vaccine information - European Centre for Disease Prevention and Control } 
 
-
-\bibitem{ggplot2}\textit{\href{https://en.wikipedia.org/wiki/Ggplot2}{https://en.wikipedia.org/wiki/Ggplot2}} , \textbf{ Ggplot2 information
-
-}
-
-
-
-\bibitem{INEE}\textit{\href{https://ra09.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_faqs&FAQSfaq_boui=242509855&FAQSmodo=1&xlang=pt}{https://ra09.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_faqs&FAQSfaq_boui=242509855&FAQSmodo=1&xlang=pt}} , 
-\textbf{Instituto Nacional de Estatística- Estruturação do território português
-}
-
-
-\bibitem{io} \textit{\href{https://shiny.rstudio.com/articles/shinyapps.html}{https://shiny.rstudio.com/articles/shinyapps.html}}
-
+\bibitem{tidy}\url{https://vita.had.co.nz/papers/tidy-data.pdf}  \textbf{Tidy Data} 
 \end{thebibliography}
 
 \end{document}
